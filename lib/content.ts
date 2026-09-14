@@ -21,13 +21,15 @@ export const content = {
       tags: ["ChatGPT", "Claude", "Gemini", "No coding"],
       gloss: "Prompta aut perire is Latin for \"prompt, or perish\". A prompt is simply the text you write to explain what you need.",
       app: {
-        heading: "Your progress",
-        week: "Week 2 of 4",
-        rows: [
-          { state: "done", title: "Weekly report: 10 minutes, not a morning", meta: "Done", time: "18 min" },
-          { state: "now", title: "A helper that knows your clients", meta: "In progress", time: "24 min" },
-          { state: "next", title: "Meeting into a task list", meta: "Next", time: "31 min" },
+        heading: "setup 09",
+        week: "lesson 02",
+        outLabel: "the answer",
+        result: [
+          "Margin up 4% — two large deals behind it",
+          "Risk: one client is 40% of revenue (p. 12)",
+          "Decision: renew the contractor or not",
         ],
+        stack: ["setup 07", "setup 08"],
       },
     },
     pain: {
@@ -330,13 +332,15 @@ export const content = {
       tags: ["ChatGPT", "Claude", "Gemini", "Sin programar"],
       gloss: "Prompta aut perire es latín: «promptea o perece». Un prompt es simplemente el texto con el que explicas lo que necesitas.",
       app: {
-        heading: "Tu progreso",
-        week: "Semana 2 de 4",
-        rows: [
-          { state: "done", title: "Informe: 10 minutos, no una mañana", meta: "Hecho", time: "18 min" },
-          { state: "now", title: "Un ayudante que conoce a tus clientes", meta: "En curso", time: "24 min" },
-          { state: "next", title: "De la reunión a la lista de tareas", meta: "Siguiente", time: "31 min" },
+        heading: "plantilla 09",
+        week: "lección 02",
+        outLabel: "la respuesta",
+        result: [
+          "El margen sube un 4% — por dos grandes ventas",
+          "Riesgo: un cliente es el 40% de los ingresos (p. 12)",
+          "Decisión: renovar al proveedor o no",
         ],
+        stack: ["plantilla 07", "plantilla 08"],
       },
     },
     pain: {
@@ -639,13 +643,15 @@ export const content = {
       tags: ["ChatGPT", "Claude", "Gemini", "Без программирования"],
       gloss: "Prompta aut perire — с латыни «промпти или погибни». Промпт — это текст, которым вы объясняете нейросети, что вам нужно.",
       app: {
-        heading: "Ваш прогресс",
-        week: "Неделя 2 из 4",
-        rows: [
-          { state: "done", title: "Отчёт: 10 минут вместо утра", meta: "Готово", time: "18 мин" },
-          { state: "now", title: "Помощник знает ваших клиентов", meta: "В работе", time: "24 мин" },
-          { state: "next", title: "Из встречи — список задач", meta: "Дальше", time: "31 мин" },
+        heading: "заготовка 09",
+        week: "урок 02",
+        outLabel: "готовый ответ",
+        result: [
+          "Маржа выросла на 4% — за счёт двух крупных сделок",
+          "Риск: один клиент даёт 40% выручки (с. 12)",
+          "Решение: продлевать ли договор с подрядчиком",
         ],
+        stack: ["заготовка 07", "заготовка 08"],
       },
     },
     pain: {

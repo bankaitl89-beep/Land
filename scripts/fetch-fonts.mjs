@@ -7,6 +7,7 @@ import { join } from "node:path";
 const FAMILIES = [
   "Onest:wght@400;600;700;800",
   "Manrope:wght@400;500;600;700",
+  "JetBrains+Mono:wght@400;700",
 ];
 
 // Latin for the English and Spanish pages, Cyrillic for the Russian one.
