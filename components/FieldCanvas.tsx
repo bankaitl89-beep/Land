@@ -110,7 +110,7 @@ export default function FieldCanvas() {
     const onMove = (e: PointerEvent) => {
       const rect = canvas!.getBoundingClientRect();
       pointer.x = e.clientX - rect.left;
-      pointer.y = e.clientY - rect.top + window.scrollY;
+      pointer.y = e.clientY - rect.top;
       pointer.active = true;
     };
     const onLeave = () => {

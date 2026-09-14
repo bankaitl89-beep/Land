@@ -80,9 +80,12 @@ export function useDepthEffects(lang: string) {
     // --- scroll progress --------------------------------------------------
     const bar = document.getElementById("progress");
     const onScroll = () => {
-      if (!bar) return;
       const max = document.body.scrollHeight - window.innerHeight;
-      bar.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+      const p = max > 0 ? window.scrollY / max : 0;
+      if (bar) bar.style.transform = `scaleX(${p})`;
+      // moves the ambient light down the page, so each section arrives
+      // into its own pool of light rather than the same flat ground
+      document.documentElement.style.setProperty("--scene", String(p));
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
@@ -111,6 +114,32 @@ export function useDepthEffects(lang: string) {
     };
     window.addEventListener("pointermove", onMove, { passive: true });
     cleanups.push(() => window.removeEventListener("pointermove", onMove));
+
+    // --- magnetic buttons -------------------------------------------------
+    if (!reduce) {
+      const magnets = Array.from(document.querySelectorAll<HTMLElement>(".btn"));
+      const onMagnet = (e: PointerEvent) => {
+        for (const el of magnets) {
+          const r = el.getBoundingClientRect();
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
+          const dx = e.clientX - cx;
+          const dy = e.clientY - cy;
+          const reach = Math.max(r.width, 140);
+          const dist = Math.hypot(dx, dy);
+          if (dist < reach) {
+            const pull = (1 - dist / reach) * 0.32;
+            el.style.setProperty("--tx", `${dx * pull}px`);
+            el.style.setProperty("--ty", `${dy * pull}px`);
+          } else if (el.style.getPropertyValue("--tx") !== "0px") {
+            el.style.setProperty("--tx", "0px");
+            el.style.setProperty("--ty", "0px");
+          }
+        }
+      };
+      window.addEventListener("pointermove", onMagnet, { passive: true });
+      cleanups.push(() => window.removeEventListener("pointermove", onMagnet));
+    }
 
     // --- tilting card stack -----------------------------------------------
     if (!reduce) {

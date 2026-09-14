@@ -1454,15 +1454,15 @@ body:not(.anim) .setup-lines div {
 /* ---------- the live field behind everything ---------- */
 
 #field {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   z-index: 0;
   pointer-events: none;
   opacity: 0;
   transition: opacity 1.2s ease;
-  mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 96%);
+  mask-image: radial-gradient(120% 90% at 50% 30%, #000 45%, transparent 92%);
 }
 
 body.anim #field {
@@ -1491,4 +1491,305 @@ body.anim #field {
 
 .card {
   transition: box-shadow 0.4s ease;
+}
+
+/* ---------- magnetic buttons ---------- */
+
+.btn {
+  transform: translate(var(--tx, 0px), var(--ty, 0px));
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.7, 0.3, 1),
+    box-shadow 0.25s ease,
+    background 0.2s ease;
+}
+
+.btn--acc:hover,
+.btn--ghost:hover {
+  transform: translate(var(--tx, 0px), calc(var(--ty, 0px) - 2px));
+}
+
+/* ---------- animated tab panel ---------- */
+
+.compare {
+  animation: panel 0.42s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+@keyframes panel {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* ---------- animated FAQ ---------- */
+
+.faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.34s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.faq-item[data-open="true"] .faq-body {
+  grid-template-rows: 1fr;
+}
+
+.faq-body > div {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.faq-a {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.3s ease 0.06s, transform 0.3s ease 0.06s;
+}
+
+.faq-item[data-open="true"] .faq-a {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- form acknowledgement ---------- */
+
+.sent {
+  animation: sent 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.sent-mark {
+  animation: pop 0.5s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+@keyframes sent {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transform: none !important;
+  }
+  .faq-body {
+    transition: none;
+  }
+}
+
+/* ============================================================
+   the headline typing itself
+   ============================================================ */
+
+.typed {
+  min-height: 3.2em;
+}
+
+.type-cur {
+  display: inline-block;
+  width: 3px;
+  height: 0.82em;
+  background: var(--acc);
+  vertical-align: -1px;
+  margin-left: 4px;
+  animation: blink 1.05s steps(1) infinite;
+}
+
+/* ============================================================
+   pinned assembly scene
+   ============================================================ */
+
+.scene {
+  position: relative;
+  height: 320vh;
+  z-index: 1;
+}
+
+.scene-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.scene-in {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  gap: 54px;
+  align-items: center;
+  width: 100%;
+}
+
+.scene-copy .lede {
+  max-width: 44ch;
+}
+
+.scene-count {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 30px 0 0;
+}
+
+.scene-count span {
+  font-family: var(--d);
+  font-weight: 800;
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(92deg, #fff, var(--acc-soft));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.scene-count i {
+  font-style: normal;
+  font-family: var(--d);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--mute2);
+}
+
+.scene-count em {
+  font-style: normal;
+  font-family: var(--m);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin-left: 6px;
+}
+
+.scene-stage {
+  position: relative;
+  height: 430px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sc-card {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 13px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, #181c26, #0b0d13);
+  padding: 16px 18px;
+  box-shadow: 0 26px 50px -30px rgba(0, 0, 0, 1);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.sc-card.is-top {
+  border-color: rgba(91, 103, 245, 0.65);
+  box-shadow:
+    0 26px 50px -30px rgba(0, 0, 0, 1),
+    0 0 0 1px rgba(91, 103, 245, 0.28),
+    0 0 40px -12px rgba(91, 103, 245, 0.75);
+}
+
+.sc-n {
+  font-family: var(--m);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--acc);
+  flex: none;
+}
+
+.sc-t {
+  font-family: var(--d);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+@media (max-width: 900px) {
+  .scene {
+    height: 280vh;
+  }
+  .scene-in {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .scene-stage {
+    height: 320px;
+  }
+  .scene-count span {
+    font-size: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene {
+    height: auto;
+  }
+  .scene-pin {
+    position: static;
+    height: auto;
+    padding-block: 80px;
+  }
+  .scene-stage {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sc-card {
+    position: static;
+    opacity: 1;
+  }
+  .type-cur {
+    display: none;
+  }
+}
+
+/* ============================================================
+   scene change between sections
+   ============================================================ */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      90% 60% at 50% calc(100% * var(--scene, 0)),
+      rgba(91, 103, 245, 0.1),
+      transparent 70%
+    );
+  transition: background 0.8s linear;
+}
+
+/* nothing may hide behind the JS layer */
+body:not(.anim) .setup-lines div,
+body:not(.anim) .faq-a,
+body:not(.anim) .compare,
+body:not(.anim) .out {
+  opacity: 1;
+  transform: none;
+}
+
+body:not(.anim) .faq-body {
+  grid-template-rows: 1fr;
+}
+
+body:not(.anim) .compare {
+  animation: none;
 }

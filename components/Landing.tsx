@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { content, type Lang } from "@/lib/content";
 import { LANGS, LANG_COOKIE, LANG_COOKIE_MAX_AGE, LANG_LABEL } from "@/lib/i18n";
+import AssemblyScene from "./AssemblyScene";
 import FieldCanvas from "./FieldCanvas";
+import TypedHeading from "./TypedHeading";
 import { useDepthEffects, useTypewriter } from "./useDepthEffects";
 import LeadForm from "./LeadForm";
 
@@ -107,13 +109,7 @@ export default function Landing({
                 {c.hero.pill}
               </span>
 
-              <h1 className="rv">
-                {c.hero.title[0]}
-                <br />
-                {c.hero.title[1]}
-                <span className="grad">{c.hero.title[2]}</span>
-                {c.hero.title[3]}
-              </h1>
+              <TypedHeading parts={c.hero.title} />
 
               <p className="lede rv">{c.hero.sub}</p>
 
@@ -214,6 +210,15 @@ export default function Landing({
           </div>
         </section>
 
+        {/* ---------------- pinned assembly scene ---------------- */}
+        <AssemblyScene
+          eyebrow={c.scene.eyebrow}
+          title={c.scene.title}
+          note={c.scene.note}
+          counterLabel={c.scene.counter}
+          items={c.outcomes.skills.map((s) => s.title)}
+        />
+
         {/* ---------------- demo ---------------- */}
         <section className="section">
           <div className="shell">
@@ -240,6 +245,7 @@ export default function Landing({
 
             <div
               className="compare rv"
+              key={example.id}
               id={`panel-${example.id}`}
               role="tabpanel"
               aria-labelledby={`tab-${example.id}`}
@@ -396,15 +402,18 @@ export default function Landing({
                         {f.q}
                       </button>
                     </h3>
-                    <p
-                      className="faq-a"
-                      id={`faq-a-${i}`}
-                      role="region"
-                      aria-labelledby={`faq-q-${i}`}
-                      hidden={!open}
-                    >
-                      {f.a}
-                    </p>
+                    <div className="faq-body">
+                      <div>
+                        <p
+                          className="faq-a"
+                          id={`faq-a-${i}`}
+                          role="region"
+                          aria-labelledby={`faq-q-${i}`}
+                        >
+                          {f.a}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 );
               })}

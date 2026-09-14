@@ -88,6 +88,12 @@ export const content = {
       },
       close: "That's why graduates are still using theirs six months later.",
     },
+    scene: {
+      eyebrow: "Four weeks, watched from above",
+      title: "One setup per lesson. Nine by the end.",
+      note: "Keep scrolling and watch them land. Each one is a job you used to do by hand, described once and kept for good.",
+      counter: "setups built",
+    },
     demo: {
       eyebrow: "See it",
       title: "The difference is in how you ask",
@@ -399,6 +405,12 @@ export const content = {
       },
       close: "Por eso nuestros graduados siguen usándolas seis meses después.",
     },
+    scene: {
+      eyebrow: "Cuatro semanas, vistas desde arriba",
+      title: "Una plantilla por lección. Nueve al terminar.",
+      note: "Sigue bajando y míralas caer. Cada una es un trabajo que hacías a mano, descrito una vez y guardado para siempre.",
+      counter: "plantillas montadas",
+    },
     demo: {
       eyebrow: "Míralo",
       title: "La diferencia está en cómo lo pides",
@@ -709,6 +721,12 @@ export const content = {
         note: "Это всё. Обычный текст, написанный словами и сохранённый один раз. Каждый понедельник вы открываете его, вставляете свежие цифры и получаете готовый отчёт. К концу курса таких заготовок у вас девять — под ваши повторяющиеся задачи.",
       },
       close: "Поэтому нашими заготовками пользуются и через полгода после курса.",
+    },
+    scene: {
+      eyebrow: "Четыре недели сверху",
+      title: "Одна заготовка за урок. Девять к концу.",
+      note: "Листайте дальше и смотрите, как они ложатся в стопку. Каждая — работа, которую вы делали руками, описанная один раз и оставшаяся у вас навсегда.",
+      counter: "заготовок собрано",
     },
     demo: {
       eyebrow: "Посмотрите",
