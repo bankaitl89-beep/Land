@@ -1,30 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { content, type Lang } from "@/lib/content";
+import { LANGS, LANG_COOKIE, LANG_COOKIE_MAX_AGE, LANG_LABEL } from "@/lib/i18n";
 import LeadForm from "./LeadForm";
-
-// English is the default; Spanish and Russian speakers land on their own
-// version. Runs after mount because the page is prerendered on the server,
-// where there is no browser language to read.
-function preferredLang(): Lang {
-  const tags = navigator.languages?.length
-    ? navigator.languages
-    : [navigator.language];
-
-  for (const tag of tags) {
-    const base = tag.toLowerCase().split("-")[0];
-    if (base === "es" || base === "ru") return base;
-    if (base === "en") return "en";
-  }
-  return "en";
-}
-
-const LANGS: [Lang, string][] = [
-  ["en", "EN"],
-  ["es", "ES"],
-  ["ru", "RU"],
-];
 
 const ICO: Record<string, string> = {
   done: "ico--done",
@@ -38,18 +17,14 @@ const MARK: Record<string, string> = {
   next: "3",
 };
 
-export default function Landing() {
-  const [lang, setLang] = useState<Lang>("en");
+export default function Landing({ lang }: { lang: Lang }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const c = content[lang];
 
-  useEffect(() => {
-    setLang(preferredLang());
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.lang = lang;
-  }, [lang]);
+  // Remember the choice so "/" sends this visitor straight here next time.
+  function remember(next: Lang) {
+    document.cookie = `${LANG_COOKIE}=${next};path=/;max-age=${LANG_COOKIE_MAX_AGE};samesite=lax`;
+  }
 
   return (
     <>
@@ -67,19 +42,21 @@ export default function Landing() {
           </nav>
 
           <div className="hdr-right">
-            <div className="lang" role="group" aria-label="Language">
-              {LANGS.map(([code, short]) => (
-                <button
+            <nav className="lang" aria-label="Language">
+              {LANGS.map((code) => (
+                <a
                   key={code}
-                  type="button"
-                  onClick={() => setLang(code)}
-                  aria-pressed={lang === code}
-                  aria-label={content[code].label}
+                  href={`/${code}`}
+                  hrefLang={code}
+                  lang={code}
+                  onClick={() => remember(code)}
+                  aria-current={lang === code ? "true" : undefined}
+                  title={content[code].label}
                 >
-                  {short}
-                </button>
+                  {LANG_LABEL[code]}
+                </a>
               ))}
-            </div>
+            </nav>
             <a className="btn btn--primary" href="#pricing">
               {c.nav.cta}
             </a>

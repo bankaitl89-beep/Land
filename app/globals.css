@@ -284,11 +284,8 @@ h4 {
   background: var(--glass);
 }
 
-.lang button {
-  border: 0;
-  background: transparent;
+.lang a {
   color: var(--dim);
-  font-family: var(--body);
   font-weight: 700;
   font-size: 12px;
   letter-spacing: 0.06em;
@@ -298,7 +295,11 @@ h4 {
   transition: color 0.16s ease, background 0.16s ease;
 }
 
-.lang button[aria-pressed="true"] {
+.lang a:hover {
+  color: var(--ink);
+}
+
+.lang a[aria-current="true"] {
   background: var(--glass-2);
   color: var(--ink);
 }
