@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { content, type Lang } from "@/lib/content";
 import { LANGS, LANG_COOKIE, LANG_COOKIE_MAX_AGE, LANG_LABEL } from "@/lib/i18n";
+import FieldCanvas from "./FieldCanvas";
 import { useDepthEffects, useTypewriter } from "./useDepthEffects";
 import LeadForm from "./LeadForm";
 
@@ -42,7 +43,9 @@ export default function Landing({
 
   return (
     <>
+      <FieldCanvas />
       <div id="glow" aria-hidden="true" />
+      <div id="progress" aria-hidden="true" />
 
       <header className="hdr">
         <div className="shell hdr-in">

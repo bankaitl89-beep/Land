@@ -77,6 +77,17 @@ export function useDepthEffects(lang: string) {
     });
     cleanups.push(() => counted.disconnect());
 
+    // --- scroll progress --------------------------------------------------
+    const bar = document.getElementById("progress");
+    const onScroll = () => {
+      if (!bar) return;
+      const max = document.body.scrollHeight - window.innerHeight;
+      bar.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    cleanups.push(() => window.removeEventListener("scroll", onScroll));
+
     // --- pointer light + local glows --------------------------------------
     let targetX = 0.5;
     let targetY = 0.2;
@@ -111,13 +122,16 @@ export function useDepthEffects(lang: string) {
         const loop = () => {
           x += (targetX - x) * 0.06;
           y += (targetY - y) * 0.06;
-          const ry = (x - 0.5) * 14;
-          const rx = (0.5 - y) * 9;
+          const ry = (x - 0.5) * 22;
+          const rx = (0.5 - y) * 15;
+          const spread = Math.min(1, window.scrollY / 520);
           cards.forEach((card, i) => {
-            const depth = (i + 1) * 0.45;
-            card.style.transform = `rotateX(${rx * depth * 0.5}deg) rotateY(${
-              ry * depth * 0.5
-            }deg) translateZ(${i * 12}px)`;
+            const depth = 0.6 + i * 0.3;
+            const fan = (cards.length - 1 - i) * spread;
+            card.style.transform =
+              `rotateX(${rx * depth}deg) rotateY(${ry * depth}deg) ` +
+              `translateZ(${i * 26}px) translateY(${fan * -26}px) ` +
+              `translateX(${fan * 16}px) rotate(${fan * -2.2}deg)`;
           });
           frame = requestAnimationFrame(loop);
         };
