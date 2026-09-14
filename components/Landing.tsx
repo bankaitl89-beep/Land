@@ -49,7 +49,7 @@ export default function Landing({
           <nav className="mainnav" aria-label="Sections">
             <a href="#method">{c.nav.method}</a>
             <a href="#curriculum">{c.nav.curriculum}</a>
-            <a href="#platform">{c.nav.platform}</a>
+            <a href="#skills">{c.nav.skills}</a>
             <a href="#pricing">{c.nav.pricing}</a>
           </nav>
 
@@ -259,43 +259,8 @@ export default function Landing({
               ))}
             </div>
 
-            <p className="method-note">{c.method.note}</p>
-          </div>
-        </section>
-
-        {/* ---------------- platform ---------------- */}
-        <section className="section" id="platform">
-          <div className="shell plat-in">
-            <div>
-              <p className="eyebrow">{c.platform.eyebrow}</p>
-              <h2 className="h2">{c.platform.title}</h2>
-              <p className="lede">{c.platform.sub}</p>
-
-              <ul className="plat-list">
-                {c.platform.bullets.map((b) => (
-                  <li key={b}>
-                    <span className="tick" aria-hidden="true">
-                      ✓
-                    </span>
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="plat-shot">
-              <div className="shot-head">
-                <span className="shot-dot" />
-                <span className="shot-dot" />
-                <span className="shot-dot" />
-                <span style={{ marginLeft: 6 }}>learn.prompta</span>
-              </div>
-              <div className="shot-body">
-                Platform screenshot goes here
-                <br />
-                (replace with a real capture)
-              </div>
-            </div>
+            <p className="method-note">{c.method.platform}</p>
+            <p className="method-note method-note--warn">{c.method.note}</p>
           </div>
         </section>
 
@@ -322,26 +287,8 @@ export default function Landing({
           </div>
         </section>
 
-        {/* ---------------- audience ---------------- */}
-        <section className="section section--tight">
-          <div className="shell">
-            <p className="eyebrow">{c.audience.eyebrow}</p>
-            <h2 className="h2">{c.audience.title}</h2>
-            <p className="lede">{c.audience.sub}</p>
-
-            <div className="aud">
-              {c.audience.cards.map((a) => (
-                <article className="aud-card" key={a.title}>
-                  <h3>{a.title}</h3>
-                  <p>{a.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ---------------- outcomes ---------------- */}
-        <section className="section">
+        {/* ---------------- skills ---------------- */}
+        <section className="section" id="skills">
           <div className="shell">
             <p className="eyebrow">{c.outcomes.eyebrow}</p>
             <h2 className="h2">{c.outcomes.title}</h2>

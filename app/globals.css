@@ -1615,3 +1615,10 @@ section[id] {
     grid-template-columns: 1fr;
   }
 }
+
+.method-note--warn {
+  border-left-color: var(--cyan);
+  background: transparent;
+  color: var(--dim);
+  margin-top: 14px;
+}
