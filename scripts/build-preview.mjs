@@ -73,10 +73,13 @@ for (const lang of LANGS) {
   const head = html.match(/<head[^>]*>([\s\S]*?)<\/head>/)?.[1] ?? "";
   const body = html.match(/<body[^>]*>([\s\S]*?)<\/body>/)?.[1] ?? "";
 
-  const fragment = `${head}\n${body}`
+  // The title has to lead: only the first 8KB of the file is scanned for it,
+  // and the inlined stylesheet alone is bigger than that.
+  const fragment = `<title>Prompta Aut Perire</title>\n${head}\n${body}`
     .replace(/<meta charSet="[^"]*"\/?>/gi, "")
     .replace(/<meta name="viewport"[^>]*\/?>/gi, "")
     .replace(/<title>[\s\S]*?<\/title>/i, "<title>Prompta Aut Perire</title>")
+    .replace(/(<title>Prompta Aut Perire<\/title>[\s\S]*?)<title>[\s\S]*?<\/title>/i, "$1")
     // Next's minified URI decoder carries literal U+FFFD inside JS string
     // literals; write them as escapes so the file stays clean UTF-8.
     .replace(/�/g, "\\uFFFD");
