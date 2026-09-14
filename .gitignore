@@ -1,8 +1,31 @@
-# uipro CLI installs these bundled skills alongside ui-ux-pro-max;
-# not tracked (the "design" one shadows the built-in Claude Design skill)
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+
+# env — never commit secrets
+.env
+.env*.local
+
+# misc
+.DS_Store
+*.pem
+/.vercel
+
+# uipro CLI drops these bundled skills next to ui-ux-pro-max
 .claude/skills/banner-design/
 .claude/skills/brand/
 .claude/skills/design/
 .claude/skills/design-system/
 .claude/skills/slides/
 .claude/skills/ui-styling/
+
+# generated static preview build
+/preview/
+tsconfig.tsbuildinfo
