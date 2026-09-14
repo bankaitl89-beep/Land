@@ -19,7 +19,9 @@ const MARK: Record<string, string> = {
 
 export default function Landing({ lang }: { lang: Lang }) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [tab, setTab] = useState(0);
   const c = content[lang];
+  const example = c.demo.tabs[tab];
 
   // Remember the choice so "/" sends this visitor straight here next time.
   function remember(next: Lang) {
@@ -34,7 +36,7 @@ export default function Landing({ lang }: { lang: Lang }) {
             Prompta <i>aut perire</i>
           </a>
 
-          <nav aria-label="Sections">
+          <nav className="mainnav" aria-label="Sections">
             <a href="#method">{c.nav.method}</a>
             <a href="#curriculum">{c.nav.curriculum}</a>
             <a href="#platform">{c.nav.platform}</a>
@@ -175,19 +177,41 @@ export default function Landing({ lang }: { lang: Lang }) {
             <h2 className="h2">{c.demo.title}</h2>
             <p className="lede">{c.demo.lede}</p>
 
-            <div className="compare">
+            <div className="tabs" role="tablist" aria-label={c.demo.title}>
+              {c.demo.tabs.map((t, i) => (
+                <button
+                  key={t.id}
+                  id={`tab-${t.id}`}
+                  role="tab"
+                  type="button"
+                  className="tab"
+                  aria-selected={i === tab}
+                  aria-controls={`panel-${t.id}`}
+                  onClick={() => setTab(i)}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+
+            <div
+              className="compare"
+              id={`panel-${example.id}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${example.id}`}
+            >
               <article className="cmp cmp--bad">
-                <h3 className="cmp-label">{c.demo.bad.label}</h3>
-                <pre className="cmp-prompt">{c.demo.bad.prompt}</pre>
-                <p className="cmp-res-label">{c.demo.bad.resultLabel}</p>
-                <p className="cmp-res">{c.demo.bad.result}</p>
+                <h3 className="cmp-label">{c.demo.badLabel}</h3>
+                <pre className="cmp-prompt">{example.bad.prompt}</pre>
+                <p className="cmp-res-label">{c.demo.resultLabel}</p>
+                <p className="cmp-res">{example.bad.result}</p>
               </article>
 
               <article className="cmp cmp--good">
-                <h3 className="cmp-label">{c.demo.good.label}</h3>
-                <pre className="cmp-prompt">{c.demo.good.prompt.join("\n")}</pre>
-                <p className="cmp-res-label">{c.demo.good.resultLabel}</p>
-                <p className="cmp-res">{c.demo.good.result}</p>
+                <h3 className="cmp-label">{c.demo.goodLabel}</h3>
+                <pre className="cmp-prompt">{example.good.prompt.join("\n")}</pre>
+                <p className="cmp-res-label">{c.demo.resultLabel}</p>
+                <p className="cmp-res">{example.good.result}</p>
               </article>
             </div>
 

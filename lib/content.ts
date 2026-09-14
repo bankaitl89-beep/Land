@@ -77,26 +77,73 @@ export const content = {
     demo: {
       eyebrow: "See it",
       title: "The whole difference, in one example",
-      lede: "Same model, same task, forty seconds of extra instruction. This is what the program teaches you to do by reflex — and then extends into processes that run on their own.",
-      bad: {
-        label: "What most people type",
-        prompt: "Summarise this quarterly report for my director.",
-        resultLabel: "What comes back",
-        result: "Eight tidy paragraphs restating what the report already says. No opinion, no numbers pulled forward, nothing your director asked about last quarter. You rewrite it yourself and wonder why you bothered.",
-      },
-      good: {
-        label: "What you'll type by day three",
-        prompt: [
-          "You're briefing my director, who reads for 90 seconds and asks about margin first.",
-          "From the attached report, produce: three numbers that moved and why,",
-          "two risks with the page they're evidenced on, one decision waiting on her.",
-          "Anything you can't evidence from the document, list separately as an open question.",
-          "One page. No adjectives.",
-        ],
-        resultLabel: "What comes back",
-        result: "A one-page brief opening with margin, each claim tied to a page number, risks separated from speculation, and the decision she needs to make sitting at the bottom. Sent as-is.",
-      },
-      note: "Nothing here is a secret word or a hack. It's structure — who's reading, what they care about, what counts as evidence, what shape the answer takes. Structure is a skill, and it's the first thing you get.",
+      lede: "Same model, same task, forty seconds of extra instruction. Pick whichever is closest to your week — the skill underneath is identical, and it's the first thing you get.",
+      badLabel: "What most people type",
+      goodLabel: "What you'll type by day three",
+      resultLabel: "What comes back",
+      note: "No secret words, no hacks. Just structure: who's reading, what they care about, what counts as evidence, what shape the answer takes. Structure is a skill — and once you have it, the same move works on any task you bring.",
+      tabs: [
+        {
+          id: "report",
+          label: "A report for your boss",
+          bad: {
+            prompt: "Summarise this quarterly report for my director.",
+            result:
+              "Eight tidy paragraphs restating what the report already says. No opinion, no numbers pulled forward, nothing your director asked about last time. You rewrite it yourself and wonder why you bothered.",
+          },
+          good: {
+            prompt: [
+              "You're briefing my director, who reads for 90 seconds and asks about margin first.",
+              "From the attached report give me: three numbers that moved and why,",
+              "two risks with the page they're evidenced on, one decision waiting on her.",
+              "Anything you can't evidence from the document, list separately as an open question.",
+              "One page. No adjectives.",
+            ],
+            result:
+              "A one-page brief opening with margin, every claim tied to a page number, risks kept separate from speculation, and the decision she has to make sitting at the bottom. Sent as-is.",
+          },
+        },
+        {
+          id: "client",
+          label: "Bad news to a client",
+          bad: {
+            prompt: "Write an email telling the client the deadline is slipping by two weeks.",
+            result:
+              "A polite apology with no plan. The client reads it and takes away one thing: you're late and you don't know what to do about it. Then they call your manager.",
+          },
+          good: {
+            prompt: [
+              "Client expected delivery on the 14th; it'll be the 28th. Cause: our supplier missed a shipment.",
+              "Write the email: first line is the new date and what they get this week regardless.",
+              "Then the cause in one sentence, no excuses. Then what we're changing so it doesn't repeat.",
+              "End with the one thing I need from them and by when.",
+              "Calm and professional. Apologise once, not three times. Eight lines maximum.",
+            ],
+            result:
+              "An email that opens with the fix instead of the apology: new date, what lands this week anyway, the cause in one line, and a single clear question back. They reply with an answer, not a complaint.",
+          },
+        },
+        {
+          id: "contract",
+          label: "A contract you have to check",
+          bad: {
+            prompt: "Read this contract and tell me what's wrong with it.",
+            result:
+              "A general walk-through of the clauses ending in \"consult a lawyer\". Nothing anyone would actually argue over, no clause numbers, no numbers at all. You end up reading it yourself anyway.",
+          },
+          good: {
+            prompt: [
+              "Review this contract from my side — I'm the supplier, $12,000, three months.",
+              "Find: anything that could make me work or pay beyond what's agreed;",
+              "anything letting them terminate without compensation; deadlines that don't depend on me.",
+              "For each one: the quote, the clause number, and wording I could propose instead.",
+              "If a clause is fine, don't mention it.",
+            ],
+            result:
+              "Six clauses with quotes and numbers: unlimited revisions at no extra cost, same-day termination, acceptance with no deadline. Each with replacement wording you can send. Twenty minutes instead of an evening.",
+          },
+        },
+      ],
     },
     method: {
       eyebrow: "How a lesson runs",
@@ -368,26 +415,73 @@ export const content = {
     demo: {
       eyebrow: "Míralo",
       title: "Toda la diferencia, en un ejemplo",
-      lede: "El mismo modelo, la misma tarea, cuarenta segundos más de instrucción. Esto es lo que el programa convierte en reflejo, y luego extiende a procesos que funcionan solos.",
-      bad: {
-        label: "Lo que escribe casi todo el mundo",
-        prompt: "Resume este informe trimestral para mi directora.",
-        resultLabel: "Lo que vuelve",
-        result: "Ocho párrafos ordenados que repiten lo que el informe ya dice. Sin criterio, sin cifras puestas por delante, sin nada de lo que tu directora preguntó el trimestre pasado. Lo reescribes tú y te preguntas para qué empezaste.",
-      },
-      good: {
-        label: "Lo que escribirás al tercer día",
-        prompt: [
-          "Preparas una nota para mi directora: lee 90 segundos y pregunta primero por el margen.",
-          "Del informe adjunto, dame: tres cifras que se movieron y por qué;",
-          "dos riesgos con la página que los acredita; una decisión que depende de ella.",
-          "Todo lo que no puedas acreditar con el documento, apártalo como pregunta abierta.",
-          "Una página. Sin adjetivos.",
-        ],
-        resultLabel: "Lo que vuelve",
-        result: "Una nota de una página que abre con el margen, cada afirmación atada a un número de página, los riesgos separados de las suposiciones y, abajo, la decisión que ella tiene que tomar. Se envía tal cual.",
-      },
-      note: "Aquí no hay palabras mágicas ni trucos. Hay estructura: quién lee, qué le importa, qué cuenta como prueba, qué forma tiene la respuesta. La estructura es una habilidad, y es lo primero que te llevas.",
+      lede: "El mismo modelo, la misma tarea, cuarenta segundos más de instrucción. Elige lo que más se parezca a tu semana: la habilidad de debajo es la misma, y es lo primero que te llevas.",
+      badLabel: "Lo que escribe casi todo el mundo",
+      goodLabel: "Lo que escribirás al tercer día",
+      resultLabel: "Lo que vuelve",
+      note: "Sin palabras mágicas ni trucos. Solo estructura: quién lee, qué le importa, qué cuenta como prueba, qué forma tiene la respuesta. La estructura es una habilidad, y una vez que la tienes funciona con cualquier tarea que traigas.",
+      tabs: [
+        {
+          id: "report",
+          label: "Un informe para tu jefa",
+          bad: {
+            prompt: "Resume este informe trimestral para mi directora.",
+            result:
+              "Ocho párrafos ordenados que repiten lo que el informe ya dice. Sin criterio, sin cifras por delante, sin nada de lo que tu directora preguntó la última vez. Lo reescribes tú y te preguntas para qué empezaste.",
+          },
+          good: {
+            prompt: [
+              "Preparas una nota para mi directora: lee 90 segundos y pregunta primero por el margen.",
+              "Del informe adjunto dame: tres cifras que se movieron y por qué;",
+              "dos riesgos con la página que los acredita; una decisión que depende de ella.",
+              "Todo lo que no puedas acreditar con el documento, apártalo como pregunta abierta.",
+              "Una página. Sin adjetivos.",
+            ],
+            result:
+              "Una nota de una página que abre con el margen, cada afirmación atada a un número de página, los riesgos separados de las suposiciones y, abajo, la decisión que ella tiene que tomar. Se envía tal cual.",
+          },
+        },
+        {
+          id: "client",
+          label: "Malas noticias a un cliente",
+          bad: {
+            prompt: "Escribe un correo diciendo al cliente que la entrega se retrasa dos semanas.",
+            result:
+              "Una disculpa educada y ningún plan. El cliente se queda con una sola idea: vas tarde y no sabes qué hacer. Acto seguido llama a tu responsable.",
+          },
+          good: {
+            prompt: [
+              "El cliente esperaba la entrega el 14; será el 28. Causa: el proveedor falló un envío.",
+              "Escribe el correo: la primera línea es la nueva fecha y lo que recibe esta semana igualmente.",
+              "Después la causa en una frase, sin excusas. Luego qué cambiamos para que no se repita.",
+              "Termina con lo único que necesito de él y para cuándo.",
+              "Tono sereno y profesional. Pedir perdón una vez, no tres. Ocho líneas como máximo.",
+            ],
+            result:
+              "Un correo que abre con la solución en vez de con la disculpa: nueva fecha, lo que llega igualmente esta semana, la causa en una línea y una pregunta concreta de vuelta. Responde con una respuesta, no con una queja.",
+          },
+        },
+        {
+          id: "contract",
+          label: "Un contrato que hay que revisar",
+          bad: {
+            prompt: "Lee este contrato y dime qué está mal.",
+            result:
+              "Un repaso general de las cláusulas que acaba en «consulta con un abogado». Nada por lo que alguien discutiría de verdad, ningún número de cláusula, ninguna cifra. Acabas leyéndolo tú igualmente.",
+          },
+          good: {
+            prompt: [
+              "Revisa este contrato desde mi lado: soy el proveedor, 12.000 $, tres meses.",
+              "Busca: todo lo que pueda hacerme trabajar o pagar por encima de lo acordado;",
+              "todo lo que les permita rescindir sin compensación; plazos que no dependen de mí.",
+              "De cada uno: la cita, el número de cláusula y una redacción que yo pueda proponer a cambio.",
+              "Si una cláusula está bien, no la menciones.",
+            ],
+            result:
+              "Seis cláusulas con citas y números: revisiones ilimitadas sin coste extra, rescisión en el día, aceptación sin plazo. Cada una con la redacción alternativa lista para enviar. Veinte minutos en vez de una tarde.",
+          },
+        },
+      ],
     },
     method: {
       eyebrow: "Cómo es una lección",
@@ -659,26 +753,73 @@ export const content = {
     demo: {
       eyebrow: "Посмотрите сами",
       title: "Вся разница — на одном примере",
-      lede: "Та же модель, та же задача, сорок секунд дополнительной постановки. Именно это на курсе доводится до рефлекса, а потом разворачивается в процессы, которые работают сами.",
-      bad: {
-        label: "Что пишет большинство",
-        prompt: "Сделай краткое содержание этого квартального отчёта для директора.",
-        resultLabel: "Что приходит в ответ",
-        result: "Восемь аккуратных абзацев, пересказывающих то, что и так написано в отчёте. Ни оценки, ни вынесенных вперёд цифр, ничего из того, о чём директор спрашивал в прошлый раз. Вы переписываете всё сами и не понимаете, зачем начинали.",
-      },
-      good: {
-        label: "Что вы напишете на третий день",
-        prompt: [
-          "Ты готовишь справку директору. Она читает 90 секунд и первым делом спрашивает про маржу.",
-          "Из приложенного отчёта дай: три цифры, которые изменились, и почему;",
-          "два риска со ссылкой на страницу, где они подтверждены; одно решение, которое ждёт её.",
-          "Всё, что не подтверждается документом, вынеси отдельно как открытый вопрос.",
-          "Одна страница. Без прилагательных.",
-        ],
-        resultLabel: "Что приходит в ответ",
-        result: "Справка на одну страницу, начинается с маржи, каждое утверждение привязано к номеру страницы, риски отделены от догадок, а внизу — решение, которое ей нужно принять. Отправляется как есть.",
-      },
-      note: "Здесь нет секретных слов и хитростей. Здесь структура: кто читает, что для него важно, что считается доказательством, какой формы должен быть ответ. Структура — это навык, и вы получаете его первым.",
+      lede: "Та же модель, та же задача, сорок секунд дополнительной постановки. Выберите то, что ближе к вашей неделе, — навык под этим один и тот же, и его вы получаете первым.",
+      badLabel: "Что пишет большинство",
+      goodLabel: "Что вы напишете на третий день",
+      resultLabel: "Что приходит в ответ",
+      note: "Никаких секретных слов и хитростей. Только структура: кто читает, что для него важно, что считается доказательством, какой формы должен быть ответ. Структура — это навык, и однажды освоенный, он работает на любой задаче, которую вы принесёте.",
+      tabs: [
+        {
+          id: "report",
+          label: "Отчёт руководителю",
+          bad: {
+            prompt: "Сделай краткое содержание этого квартального отчёта для директора.",
+            result:
+              "Восемь аккуратных абзацев, пересказывающих то, что и так написано в отчёте. Ни оценки, ни вынесенных вперёд цифр, ничего из того, о чём директор спрашивал в прошлый раз. Вы переписываете всё сами и не понимаете, зачем начинали.",
+          },
+          good: {
+            prompt: [
+              "Ты готовишь справку директору. Она читает 90 секунд и первым делом спрашивает про маржу.",
+              "Из приложенного отчёта дай: три цифры, которые изменились, и почему;",
+              "два риска со ссылкой на страницу, где они подтверждены; одно решение, которое ждёт её.",
+              "Всё, что не подтверждается документом, вынеси отдельно как открытый вопрос.",
+              "Одна страница. Без прилагательных.",
+            ],
+            result:
+              "Справка на одну страницу: начинается с маржи, каждое утверждение привязано к номеру страницы, риски отделены от догадок, внизу — решение, которое ей нужно принять. Отправляется как есть.",
+          },
+        },
+        {
+          id: "client",
+          label: "Плохая новость клиенту",
+          bad: {
+            prompt: "Напиши письмо клиенту, что сроки сдвигаются на две недели.",
+            result:
+              "Вежливые извинения без плана. Клиент читает и выносит одно: вы опаздываете и не знаете, что с этим делать. После чего звонит вашему руководителю.",
+          },
+          good: {
+            prompt: [
+              "Клиент ждал сдачу 14-го, будет 28-го. Причина: подрядчик сорвал поставку.",
+              "Напиши письмо: первая строка — новая дата и что клиент получает уже на этой неделе.",
+              "Дальше причина одним предложением, без оправданий. Потом — что мы меняем, чтобы это не повторилось.",
+              "В конце: что нужно от клиента и до какого числа.",
+              "Тон спокойный и деловой. Извиниться один раз, а не трижды. Максимум восемь строк.",
+            ],
+            result:
+              "Письмо, которое начинается с решения, а не с извинений: новая дата, что приходит уже на этой неделе, причина одной строкой и один конкретный вопрос. В ответ приходит ответ по делу, а не претензия.",
+          },
+        },
+        {
+          id: "contract",
+          label: "Договор, который надо проверить",
+          bad: {
+            prompt: "Прочитай этот договор и скажи, что в нём не так.",
+            result:
+              "Общий пересказ пунктов с выводом «проконсультируйтесь с юристом». Ни одного пункта, за который реально зацепятся, ни одного номера, ни одной цифры. Вы всё равно читаете сами.",
+          },
+          good: {
+            prompt: [
+              "Проверь договор с моей стороны — я исполнитель, 12 000 $, три месяца.",
+              "Найди: пункты, из-за которых я могу работать или платить сверх оговорённого;",
+              "всё, что позволяет заказчику расторгнуть без компенсации; сроки, которые зависят не от меня.",
+              "По каждому: цитата, номер пункта и формулировка, которую можно предложить взамен.",
+              "Если пункт нормальный — не упоминай его.",
+            ],
+            result:
+              "Шесть пунктов с цитатами и номерами: бесконечные правки без доплаты, расторжение день в день, приёмка без срока. К каждому — готовая формулировка для заказчика. Двадцать минут вместо вечера.",
+          },
+        },
+      ],
     },
     method: {
       eyebrow: "Как проходит урок",
