@@ -126,6 +126,8 @@ export default function Landing({
                   <span key={t}>{t}</span>
                 ))}
               </div>
+
+              <p className="gloss">{c.hero.gloss}</p>
             </div>
 
             <div className="mock" aria-hidden="true">
@@ -188,6 +190,17 @@ export default function Landing({
                 </article>
               ))}
             </div>
+
+            <figure className="setup">
+              <figcaption className="setup-head">
+                <span className="setup-label">{c.mechanism.example.label}</span>
+                <b>{c.mechanism.example.name}</b>
+              </figcaption>
+              <pre className="setup-body">
+                {c.mechanism.example.lines.join("\n")}
+              </pre>
+              <p className="setup-note">{c.mechanism.example.note}</p>
+            </figure>
 
             <p className="mech-close">{c.mechanism.close}</p>
           </div>

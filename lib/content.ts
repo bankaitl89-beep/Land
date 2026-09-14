@@ -12,18 +12,19 @@ export const content = {
     },
     hero: {
       pill: "500+ graduates · 2–4 weeks",
-      title: ["Four weeks from now,", "you'll stop doing by hand ", "what AI can do", "."],
+      title: ["Four weeks from now,", "you'll hand AI the work ", "you do by hand today", "."],
       sub: "Not a video course. A lesson, homework on your own real work, and a real teacher who checks it. You finish with ready-made setups that write your reports and emails for you.",
       cta: "Get access",
       ghost: "How it works",
       was: "$299",
       now: "$150",
       tags: ["ChatGPT", "Claude", "Gemini", "No coding"],
+      gloss: "Prompta aut perire is Latin for \"prompt, or perish\". A prompt is simply the text you write to explain what you need.",
       app: {
         heading: "Your progress",
         week: "Week 2 of 4",
         rows: [
-          { state: "done", title: "Weekly report writes itself", meta: "Checked", time: "18 min" },
+          { state: "done", title: "Weekly report: 10 minutes, not a morning", meta: "Done", time: "18 min" },
           { state: "now", title: "A helper that knows your clients", meta: "In progress", time: "24 min" },
           { state: "next", title: "Meeting into a task list", meta: "Next", time: "31 min" },
         ],
@@ -72,12 +73,23 @@ export const content = {
           text: "A month in you have a whole set. They work even after you've forgotten how you made them.",
         },
       ],
+      example: {
+        label: "Here's what one looks like",
+        name: "Weekly report for my director",
+        lines: [
+          "You're writing a report for my director. She reads for 90 seconds.",
+          "I'll paste this week's figures. Give me: what changed and why,",
+          "one risk, and one decision waiting on her.",
+          "One page, no adjectives.",
+        ],
+        note: "That's it. Ordinary text, written in plain words and saved once. Every Monday you open it, paste in the week's figures, and get a finished report. By the end of the course you have nine of these, built around the work you repeat.",
+      },
       close: "That's why graduates are still using theirs six months later.",
     },
     demo: {
       eyebrow: "See it",
       title: "The difference is in how you ask",
-      lede: "Same AI, same task. Pick whichever is closest to your week.",
+      lede: "Same AI, same task. Both sides are ordinary text, typed into the chat in plain words. Pick whichever is closest to your week.",
       badLabel: "What most people write",
       goodLabel: "What you'll write",
       resultLabel: "The answer",
@@ -233,6 +245,10 @@ export const content = {
       title: "What people ask most",
       items: [
         {
+          q: "What if I can't do it?",
+          a: "A person checks your homework — if it isn't working, they show you exactly where and you redo it. And the course is short: if a week in you decide it isn't for you, you've lost a week, not half a year.",
+        },
+        {
           q: "This is all free on YouTube.",
           a: "It is — in pieces, in no order, with nobody to tell you what you got wrong. You're paying for the order, for homework on your own work, and for the review. If you have 200 spare hours, YouTube genuinely works.",
         },
@@ -305,18 +321,19 @@ export const content = {
     },
     hero: {
       pill: "Más de 500 graduados · 2–4 semanas",
-      title: ["Dentro de cuatro semanas", "dejarás de hacer a mano ", "lo que hace la IA", "."],
+      title: ["Dentro de cuatro semanas", "le pasarás a la IA ", "lo que hoy haces a mano", "."],
       sub: "No es un curso en vídeo. Una lección, una tarea sobre tu trabajo real y un profesor de verdad que la corrige. Terminas con montajes listos que escriben tus informes y tus correos.",
       cta: "Obtener acceso",
       ghost: "Cómo funciona",
       was: "$299",
       now: "$150",
       tags: ["ChatGPT", "Claude", "Gemini", "Sin programar"],
+      gloss: "Prompta aut perire es latín: «promptea o perece». Un prompt es simplemente el texto con el que explicas lo que necesitas.",
       app: {
         heading: "Tu progreso",
         week: "Semana 2 de 4",
         rows: [
-          { state: "done", title: "El informe se hace solo", meta: "Corregido", time: "18 min" },
+          { state: "done", title: "Informe: 10 minutos, no una mañana", meta: "Hecho", time: "18 min" },
           { state: "now", title: "Un ayudante que conoce a tus clientes", meta: "En curso", time: "24 min" },
           { state: "next", title: "De la reunión a la lista de tareas", meta: "Siguiente", time: "31 min" },
         ],
@@ -365,12 +382,23 @@ export const content = {
           text: "Al mes tienes un conjunto. Funcionan aunque hayas olvidado cómo las hiciste.",
         },
       ],
+      example: {
+        label: "Así es una de ellas",
+        name: "Informe semanal para mi directora",
+        lines: [
+          "Preparas un informe para mi directora. Lee 90 segundos.",
+          "Te paso las cifras de la semana. Dame: qué cambió y por qué,",
+          "un riesgo y una decisión que depende de ella.",
+          "Una página, sin adjetivos.",
+        ],
+        note: "Eso es todo. Texto normal, escrito con palabras y guardado una vez. Cada lunes lo abres, pegas las cifras de la semana y recibes el informe terminado. Al acabar el curso tienes nueve, hechas a la medida de lo que repites.",
+      },
       close: "Por eso nuestros graduados siguen usándolas seis meses después.",
     },
     demo: {
       eyebrow: "Míralo",
       title: "La diferencia está en cómo lo pides",
-      lede: "La misma IA, la misma tarea. Elige lo que más se parezca a tu semana.",
+      lede: "La misma IA, la misma tarea. A los dos lados hay texto normal, escrito con palabras en el chat. Elige lo que más se parezca a tu semana.",
       badLabel: "Lo que escribe casi todo el mundo",
       goodLabel: "Lo que escribirás tú",
       resultLabel: "La respuesta",
@@ -526,6 +554,10 @@ export const content = {
       title: "Lo que más se pregunta",
       items: [
         {
+          q: "¿Y si no me sale?",
+          a: "Una persona corrige tus tareas: si algo no funciona, te enseña dónde exactamente y lo rehaces. Y el curso es corto: si a la semana ves que no es lo tuyo, habrás perdido una semana, no medio año.",
+        },
+        {
           q: "Esto está gratis en YouTube.",
           a: "Lo está, a trozos, sin orden y sin nadie que te diga en qué te equivocaste. Pagas por el orden, por hacer las tareas sobre tu trabajo y por la corrección. Si tienes 200 horas libres, YouTube funciona de verdad.",
         },
@@ -598,18 +630,19 @@ export const content = {
     },
     hero: {
       pill: "500+ выпускников · 2–4 недели",
-      title: ["Через четыре недели", "вы перестанете делать руками ", "то, что сделает ИИ", "."],
+      title: ["Через четыре недели", "вы будете поручать ИИ ", "то, что делаете руками", "."],
       sub: "Не видеокурс. Урок, задание на вашей настоящей работе, проверка живым преподавателем. На выходе — готовые заготовки, которые делают отчёты и письма за вас.",
       cta: "Получить доступ",
       ghost: "Как это работает",
       was: "$299",
       now: "$150",
       tags: ["ChatGPT", "Claude", "Gemini", "Без программирования"],
+      gloss: "Prompta aut perire — с латыни «промпти или погибни». Промпт — это текст, которым вы объясняете нейросети, что вам нужно.",
       app: {
         heading: "Ваш прогресс",
         week: "Неделя 2 из 4",
         rows: [
-          { state: "done", title: "Отчёт делается сам", meta: "Проверено", time: "18 мин" },
+          { state: "done", title: "Отчёт: 10 минут вместо утра", meta: "Готово", time: "18 мин" },
           { state: "now", title: "Помощник знает ваших клиентов", meta: "В работе", time: "24 мин" },
           { state: "next", title: "Из встречи — список задач", meta: "Дальше", time: "31 мин" },
         ],
@@ -658,12 +691,23 @@ export const content = {
           text: "Через месяц у вас их набор. Работают, даже когда вы забыли, как их делали.",
         },
       ],
+      example: {
+        label: "Вот как она выглядит",
+        name: "Еженедельный отчёт для директора",
+        lines: [
+          "Ты готовишь отчёт для директора. Она читает 90 секунд.",
+          "Я пришлю цифры за неделю. Дай: что изменилось и почему,",
+          "один риск и одно решение, которое ждёт её.",
+          "Одна страница, без прилагательных.",
+        ],
+        note: "Это всё. Обычный текст, написанный словами и сохранённый один раз. Каждый понедельник вы открываете его, вставляете свежие цифры и получаете готовый отчёт. К концу курса таких заготовок у вас девять — под ваши повторяющиеся задачи.",
+      },
       close: "Поэтому нашими заготовками пользуются и через полгода после курса.",
     },
     demo: {
       eyebrow: "Посмотрите",
       title: "Вся разница — в том, как попросили",
-      lede: "Та же нейросеть, та же задача. Выберите, что ближе вам.",
+      lede: "Та же нейросеть, та же задача. Слева и справа — обычный текст, который пишут словами прямо в чат. Выберите, что ближе вам.",
       badLabel: "Как пишет большинство",
       goodLabel: "Как напишете вы",
       resultLabel: "Ответ",
@@ -818,6 +862,10 @@ export const content = {
       eyebrow: "Вопросы",
       title: "О чём спрашивают чаще всего",
       items: [
+        {
+          q: "А если у меня не получится?",
+          a: "Задания проверяет человек — если не выходит, вам покажут, где именно, и дадут переделать. И курс короткий: если через неделю поймёте, что это не ваше, вы потеряете неделю, а не полгода.",
+        },
         {
           q: "Это же есть бесплатно на YouTube.",
           a: "Есть — кусками, без порядка, и без человека, который скажет, что вы сделали не так. Вы платите за порядок, задания на своей работе и проверку. Если у вас есть 200 свободных часов — YouTube честно работает.",
