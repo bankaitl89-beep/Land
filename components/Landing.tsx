@@ -4,6 +4,7 @@ import { useState } from "react";
 import { content, type Lang } from "@/lib/content";
 import { LANGS, LANG_COOKIE, LANG_COOKIE_MAX_AGE, LANG_LABEL } from "@/lib/i18n";
 import AssemblyScene from "./AssemblyScene";
+import Cursor from "./Cursor";
 import FieldCanvas from "./FieldCanvas";
 import TypedHeading from "./TypedHeading";
 import { useDepthEffects, useTypewriter } from "./useDepthEffects";
@@ -46,6 +47,7 @@ export default function Landing({
   return (
     <>
       <FieldCanvas />
+      <Cursor />
       <div id="glow" aria-hidden="true" />
       <div id="progress" aria-hidden="true" />
 
@@ -244,7 +246,7 @@ export default function Landing({
             </div>
 
             <div
-              className="compare rv"
+              className="compare"
               key={example.id}
               id={`panel-${example.id}`}
               role="tabpanel"

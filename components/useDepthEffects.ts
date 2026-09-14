@@ -38,6 +38,34 @@ export function useDepthEffects(lang: string) {
       window.clearTimeout(failsafe);
     });
 
+    // --- headings arrive word by word --------------------------------------
+    const worded = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("in");
+          worded.unobserve(entry.target);
+        }
+      },
+      { rootMargin: "-60px 0px -12% 0px" },
+    );
+    document.querySelectorAll<HTMLElement>(".h2").forEach((el) => {
+      if (el.dataset.split) return;
+      el.dataset.split = "1";
+      const words = (el.textContent ?? "").split(" ");
+      el.textContent = "";
+      words.forEach((word, i) => {
+        const span = document.createElement("span");
+        span.className = "word";
+        span.textContent = word;
+        span.style.transitionDelay = `${i * 45}ms`;
+        el.append(span, document.createTextNode(" "));
+      });
+      el.classList.add("split");
+      worded.observe(el);
+    });
+    cleanups.push(() => worded.disconnect());
+
     // --- counters ---------------------------------------------------------
     const counted = new IntersectionObserver(
       (entries) => {
@@ -59,10 +87,23 @@ export function useDepthEffects(lang: string) {
             continue;
           }
           const started = performance.now();
+          const width = String(target).length;
           const step = (now: number) => {
-            const p = Math.min(1, (now - started) / 1100);
-            el.textContent = Math.round(target * (1 - (1 - p) ** 3)) + suffix;
+            const p = Math.min(1, (now - started) / 1200);
+            if (p < 0.55) {
+              // scramble first, so the number feels calculated, not counted
+              let noise = "";
+              for (let d = 0; d < width; d++) {
+                noise += String(Math.floor(Math.random() * 10));
+              }
+              el.textContent = noise + suffix;
+            } else {
+              const t = (p - 0.55) / 0.45;
+              el.textContent =
+                Math.round(target * (1 - (1 - t) ** 3)) + suffix;
+            }
             if (p < 1) requestAnimationFrame(step);
+            else el.textContent = target + suffix;
           };
           requestAnimationFrame(step);
         }
