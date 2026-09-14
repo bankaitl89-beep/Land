@@ -1547,3 +1547,71 @@ section[id] {
     padding-inline: 14px;
   }
 }
+
+/* ---------- skills grid ---------- */
+
+.skills {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 46px;
+  background: var(--line-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+
+.skill {
+  background: var(--bg);
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: background 0.2s ease;
+}
+
+.skill:hover {
+  background: var(--bg-2);
+}
+
+.skill-n {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--cyan);
+  font-variant-numeric: tabular-nums;
+}
+
+.skill h3 {
+  font-size: 18.5px;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.skill p {
+  margin: 0;
+  color: var(--dim);
+  font-size: 14.6px;
+  line-height: 1.62;
+}
+
+.stats--row {
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 22px;
+}
+
+@media (max-width: 1040px) {
+  .skills {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stats--row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .skills {
+    grid-template-columns: 1fr;
+  }
+}

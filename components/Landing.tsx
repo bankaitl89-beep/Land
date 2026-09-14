@@ -342,22 +342,22 @@ export default function Landing({
 
         {/* ---------------- outcomes ---------------- */}
         <section className="section">
-          <div className="shell out-in">
-            <div>
-              <p className="eyebrow">{c.outcomes.eyebrow}</p>
-              <h2 className="h2">{c.outcomes.title}</h2>
+          <div className="shell">
+            <p className="eyebrow">{c.outcomes.eyebrow}</p>
+            <h2 className="h2">{c.outcomes.title}</h2>
+            <p className="lede">{c.outcomes.sub}</p>
 
-              <ul className="out-list">
-                {c.outcomes.items.map((o, i) => (
-                  <li key={o}>
-                    <span className="n">{String(i + 1).padStart(2, "0")}</span>
-                    <span>{o}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="skills">
+              {c.outcomes.skills.map((s, i) => (
+                <article className="skill" key={s.title}>
+                  <span className="skill-n">{String(i + 1).padStart(2, "0")}</span>
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </article>
+              ))}
             </div>
 
-            <div className="stats">
+            <div className="stats stats--row">
               {c.outcomes.stats.map((s) => (
                 <div className="stat" key={s.l}>
                   <b>{s.v}</b>
