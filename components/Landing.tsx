@@ -4,6 +4,12 @@ import { useState } from "react";
 import { content, type Lang } from "@/lib/content";
 import LeadForm from "./LeadForm";
 
+const LANGS: [Lang, string][] = [
+  ["en", "EN"],
+  ["es", "ES"],
+  ["ru", "RU"],
+];
+
 const ICO: Record<string, string> = {
   done: "ico--done",
   now: "ico--now",
@@ -38,20 +44,17 @@ export default function Landing() {
 
           <div className="hdr-right">
             <div className="lang" role="group" aria-label="Language">
-              <button
-                type="button"
-                onClick={() => setLang("en")}
-                aria-pressed={lang === "en"}
-              >
-                EN
-              </button>
-              <button
-                type="button"
-                onClick={() => setLang("es")}
-                aria-pressed={lang === "es"}
-              >
-                ES
-              </button>
+              {LANGS.map(([code, short]) => (
+                <button
+                  key={code}
+                  type="button"
+                  onClick={() => setLang(code)}
+                  aria-pressed={lang === code}
+                  aria-label={content[code].label}
+                >
+                  {short}
+                </button>
+              ))}
             </div>
             <a className="btn btn--primary" href="#pricing">
               {c.nav.cta}
