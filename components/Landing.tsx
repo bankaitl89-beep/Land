@@ -1,8 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { content, type Lang } from "@/lib/content";
 import LeadForm from "./LeadForm";
+
+// English is the default; Spanish and Russian speakers land on their own
+// version. Runs after mount because the page is prerendered on the server,
+// where there is no browser language to read.
+function preferredLang(): Lang {
+  const tags = navigator.languages?.length
+    ? navigator.languages
+    : [navigator.language];
+
+  for (const tag of tags) {
+    const base = tag.toLowerCase().split("-")[0];
+    if (base === "es" || base === "ru") return base;
+    if (base === "en") return "en";
+  }
+  return "en";
+}
 
 const LANGS: [Lang, string][] = [
   ["en", "EN"],
@@ -26,6 +42,14 @@ export default function Landing() {
   const [lang, setLang] = useState<Lang>("en");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const c = content[lang];
+
+  useEffect(() => {
+    setLang(preferredLang());
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   return (
     <>
