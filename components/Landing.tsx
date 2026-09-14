@@ -142,6 +142,59 @@ export default function Landing({ lang }: { lang: Lang }) {
           </div>
         </section>
 
+        {/* ---------------- mechanism ---------------- */}
+        <section className="section mech">
+          <div className="shell">
+            <p className="eyebrow">{c.mechanism.eyebrow}</p>
+            <h2 className="h2">{c.mechanism.title}</h2>
+            <p className="lede">{c.mechanism.lede}</p>
+
+            <div className="pillars">
+              {c.mechanism.pillars.map((p, i) => (
+                <article className="pillar" key={p.n}>
+                  <span className="pillar-n">{p.n}</span>
+                  <h3>{p.title}</h3>
+                  <p>{p.text}</p>
+                  {i < c.mechanism.pillars.length - 1 && (
+                    <span className="pillar-arrow" aria-hidden="true">
+                      →
+                    </span>
+                  )}
+                </article>
+              ))}
+            </div>
+
+            <p className="mech-close">{c.mechanism.close}</p>
+          </div>
+        </section>
+
+        {/* ---------------- demo ---------------- */}
+        <section className="section demo">
+          <div className="shell">
+            <p className="eyebrow">{c.demo.eyebrow}</p>
+            <h2 className="h2">{c.demo.title}</h2>
+            <p className="lede">{c.demo.lede}</p>
+
+            <div className="compare">
+              <article className="cmp cmp--bad">
+                <h3 className="cmp-label">{c.demo.bad.label}</h3>
+                <pre className="cmp-prompt">{c.demo.bad.prompt}</pre>
+                <p className="cmp-res-label">{c.demo.bad.resultLabel}</p>
+                <p className="cmp-res">{c.demo.bad.result}</p>
+              </article>
+
+              <article className="cmp cmp--good">
+                <h3 className="cmp-label">{c.demo.good.label}</h3>
+                <pre className="cmp-prompt">{c.demo.good.prompt.join("\n")}</pre>
+                <p className="cmp-res-label">{c.demo.good.resultLabel}</p>
+                <p className="cmp-res">{c.demo.good.result}</p>
+              </article>
+            </div>
+
+            <p className="method-note">{c.demo.note}</p>
+          </div>
+        </section>
+
         {/* ---------------- method ---------------- */}
         <section className="section method" id="method">
           <div className="shell">
@@ -264,6 +317,20 @@ export default function Landing({ lang }: { lang: Lang }) {
                   <span>{s.l}</span>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ---------------- cost of waiting ---------------- */}
+        <section className="section section--tight">
+          <div className="shell">
+            <div className="costbox">
+              <p className="eyebrow">{c.cost.eyebrow}</p>
+              <h2 className="h2">{c.cost.title}</h2>
+              <p className="cost-text">{c.cost.text}</p>
+              <a className="btn btn--primary" href="#pricing">
+                {c.cost.cta} — {c.pricing.now}
+              </a>
             </div>
           </div>
         </section>
