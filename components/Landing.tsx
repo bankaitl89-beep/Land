@@ -5,6 +5,8 @@ import { content, type Lang } from "@/lib/content";
 import { LANGS, LANG_COOKIE, LANG_COOKIE_MAX_AGE, LANG_LABEL } from "@/lib/i18n";
 import AssemblyScene from "./AssemblyScene";
 import Cursor from "./Cursor";
+import ModuleIcon from "./ModuleIcon";
+import PlatformMock from "./PlatformMock";
 import FieldCanvas from "./FieldCanvas";
 import TypedHeading from "./TypedHeading";
 import { useDepthEffects, useTypewriter } from "./useDepthEffects";
@@ -288,7 +290,11 @@ export default function Landing({
               ))}
             </div>
 
-            <p className="note rv">{c.method.platform}</p>
+            <div className="plat rv">
+              <PlatformMock ui={c.method.ui} />
+              <p className="plat-note">{c.method.platform}</p>
+            </div>
+
             <p className="note note--warn rv">{c.method.note}</p>
           </div>
         </section>
@@ -302,7 +308,10 @@ export default function Landing({
             <div className="mods">
               {c.curriculum.modules.map((m) => (
                 <article className="mod rv" key={m.n}>
-                  <span className="mod-n">{m.n}</span>
+                  <span className="mod-head">
+                    <ModuleIcon n={m.n} />
+                    <span className="mod-n">{m.n}</span>
+                  </span>
                   <h3>{m.title}</h3>
                   <p>{m.text}</p>
                   <div className="mod-res">
