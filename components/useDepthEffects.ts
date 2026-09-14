@@ -4,13 +4,11 @@ import { useEffect } from "react";
 
 /**
  * The motion layer: reveal on scroll, the pointer light, the tilting card
- * stack, counters and the hover glow. All of it is additive — the page is
- * fully readable before this runs, and it stands down for anyone who asked
- * their system for reduced motion.
+ * stack, counters, magnetic buttons and the hover glow. All of it is
+ * additive — the page is complete and readable before this runs.
  */
 export function useDepthEffects(lang: string) {
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document.body.classList.add("anim");
 
     const cleanups: Array<() => void> = [];
@@ -50,7 +48,7 @@ export function useDepthEffects(lang: string) {
 
           const raw = el.dataset.value ?? "";
           const digits = raw.match(/^(\d+)(.*)$/);
-          if (!digits || reduce) {
+          if (!digits) {
             el.textContent = raw;
             continue;
           }
@@ -116,7 +114,7 @@ export function useDepthEffects(lang: string) {
     cleanups.push(() => window.removeEventListener("pointermove", onMove));
 
     // --- magnetic buttons -------------------------------------------------
-    if (!reduce) {
+    {
       const magnets = Array.from(document.querySelectorAll<HTMLElement>(".btn"));
       const onMagnet = (e: PointerEvent) => {
         for (const el of magnets) {
@@ -142,7 +140,7 @@ export function useDepthEffects(lang: string) {
     }
 
     // --- tilting card stack -----------------------------------------------
-    if (!reduce) {
+    {
       const cards = Array.from(document.querySelectorAll<HTMLElement>(".card"));
       if (cards.length) {
         let x = 0.5;
@@ -175,9 +173,9 @@ export function useDepthEffects(lang: string) {
 }
 
 /**
- * Types the request out character by character, then shows the answer,
- * pauses, and starts over. Returns nothing — it drives the given nodes
- * directly so React never re-renders on every keystroke.
+ * Types the request out character by character, shows the answer, pauses,
+ * and starts over. Drives the nodes directly, so React never re-renders on
+ * every keystroke.
  */
 export function useTypewriter(
   askId: string,
@@ -190,13 +188,6 @@ export function useTypewriter(
     if (!ask || !out) return;
 
     const caret = '<span class="cur"></span>';
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reduce) {
-      ask.textContent = lines.join(" ");
-      out.classList.add("on");
-      return;
-    }
 
     let line = 0;
     let chars = 0;

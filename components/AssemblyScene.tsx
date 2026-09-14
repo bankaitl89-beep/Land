@@ -33,16 +33,6 @@ export default function AssemblyScene({
     if (!section || !board) return;
 
     const cards = Array.from(board.querySelectorAll<HTMLElement>(".sc-card"));
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reduce) {
-      cards.forEach((card, i) => {
-        card.style.opacity = "1";
-        card.style.transform = `translateY(${-i * 44}px) scale(${1 - i * 0.012})`;
-      });
-      if (count.current) count.current.textContent = String(cards.length);
-      return;
-    }
 
     let frame = 0;
     let shown = -1;

@@ -5,8 +5,8 @@ import { useEffect, useRef } from "react";
 /**
  * The live field behind the page: a grid of points that leans away from the
  * pointer and lights up near it, with a signal travelling along the lattice.
- * Canvas rather than DOM — thousands of points at 60fps, and it costs the
- * layout nothing. Draws one still frame and stops under reduced motion.
+ * Canvas rather than DOM — a thousand points at 60fps, and it costs the
+ * layout nothing.
  */
 export default function FieldCanvas() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -17,7 +17,6 @@ export default function FieldCanvas() {
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const GAP = 34;
     const REACH = 190;
 
@@ -116,21 +115,13 @@ export default function FieldCanvas() {
     const onLeave = () => {
       pointer.active = false;
     };
-    const onResize = () => {
-      build();
-      if (reduce) draw();
-    };
+    const onResize = () => build();
 
     build();
-
-    if (reduce) {
-      draw();
-    } else {
-      window.addEventListener("pointermove", onMove, { passive: true });
-      window.addEventListener("pointerleave", onLeave);
-      frame = requestAnimationFrame(loop);
-    }
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerleave", onLeave);
     window.addEventListener("resize", onResize);
+    frame = requestAnimationFrame(loop);
 
     return () => {
       cancelAnimationFrame(frame);

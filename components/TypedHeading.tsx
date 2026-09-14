@@ -18,7 +18,6 @@ export default function TypedHeading({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const [lead, before, accent, tail] = parts;
     const plain = `${lead}\n${before}`;

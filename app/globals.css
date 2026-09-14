@@ -1428,28 +1428,7 @@ body:not(.anim) .setup-lines div {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  body.anim .rv {
-    opacity: 1;
-    transform: none;
-  }
-  .pill i,
-  .cur {
-    animation: none;
-  }
-  .card {
-    transform: none !important;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    transition-duration: 0.001ms !important;
-  }
-}
+/* Calm mode: shorter travel, no endless pulsing — but the page still moves. */
 
 /* ---------- the live field behind everything ---------- */
 
@@ -1570,15 +1549,6 @@ body.anim #field {
   from {
     transform: scale(0.4);
     opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .btn {
-    transform: none !important;
-  }
-  .faq-body {
-    transition: none;
   }
 }
 
@@ -1734,30 +1704,6 @@ body.anim #field {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .scene {
-    height: auto;
-  }
-  .scene-pin {
-    position: static;
-    height: auto;
-    padding-block: 80px;
-  }
-  .scene-stage {
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .sc-card {
-    position: static;
-    opacity: 1;
-  }
-  .type-cur {
-    display: none;
-  }
-}
-
 /* ============================================================
    scene change between sections
    ============================================================ */
@@ -1793,3 +1739,4 @@ body:not(.anim) .faq-body {
 body:not(.anim) .compare {
   animation: none;
 }
+
