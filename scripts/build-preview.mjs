@@ -15,6 +15,7 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const LANGS = ["en", "es", "ru"];
+const PREVIEW_LANGS = ["en"];
 
 // Preview file names: English is the entry page, the others sit beside it.
 const fileFor = (lang) => (lang === "en" ? "index.html" : `${lang}.html`);
@@ -29,7 +30,7 @@ try {
   rmSync(join(root, "out"), { recursive: true, force: true });
   execSync("next build", {
     stdio: "inherit",
-    env: { ...process.env, NEXT_EXPORT: "1" },
+    env: { ...process.env, NEXT_EXPORT: "1", NEXT_PUBLIC_PREVIEW: "1" },
   });
 } finally {
   for (const [from, to] of parked) if (existsSync(to)) renameSync(to, from);
@@ -44,7 +45,7 @@ mkdirSync(previewDir, { recursive: true });
 const asset = (src) =>
   readFileSync(join(outDir, decodeURIComponent(src.replace(/^\.?\//, ""))), "utf8");
 
-for (const lang of LANGS) {
+for (const lang of PREVIEW_LANGS) {
   let html = readFileSync(join(outDir, `${lang}.html`), "utf8");
 
   html = html.replace(
@@ -63,11 +64,9 @@ for (const lang of LANGS) {
   // preload hints point at files that are now inlined
   html = html.replace(/<link[^>]+rel="preload"[^>]+\.\/_next\/[^>]*\/?>/g, "");
 
-  // The Artifact host serves no root-relative paths, so the language switch
-  // points at sibling files instead of the production "/en" style routes.
-  for (const l of LANGS) {
-    html = html.replaceAll(`href="/${l}"`, `href="./${fileFor(l)}"`);
-  }
+  // The Artifact host serves no root-relative paths, so the self-hosted
+  // fonts are addressed relative to the page instead of from the site root.
+  html = html.replaceAll("url(/fonts/", "url(fonts/");
 
   // The host supplies <!doctype>/<html>/<head>/<body>; ship a fragment.
   const head = html.match(/<head[^>]*>([\s\S]*?)<\/head>/)?.[1] ?? "";

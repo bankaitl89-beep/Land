@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { content, type Lang } from "@/lib/content";
 import { LANGS, SITE_URL, isLang } from "@/lib/i18n";
+import "../fonts.css";
 import "../globals.css";
 
 const meta: Record<Lang, { title: string; description: string }> = {
@@ -74,14 +75,6 @@ export default async function LangLayout({
 
   return (
     <html lang={lang}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
-        />
-      </head>
       <body>
         {children}
         <script

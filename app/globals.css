@@ -10,7 +10,7 @@
   --bg-3: #0d1428;
   --ink: #f0f3fa;
   --dim: #8e97b0;
-  --dim-2: #6b7492;
+  --dim-2: #757e9c;
 
   --cyan: #3de1ff;
   --violet: #8a6bff;
@@ -23,7 +23,9 @@
 
   --ok: #4ade80;
 
-  --display: "Sora", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Onest, not Sora: Sora ships no Cyrillic, so every Russian heading fell
+     back to a system face. Onest covers Latin and Cyrillic in one voice. */
+  --display: "Onest", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --body: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --r-sm: 10px;
@@ -1503,5 +1505,45 @@ section[id] {
 @media (max-width: 900px) {
   .quotes {
     grid-template-columns: 1fr;
+  }
+}
+
+.lang button {
+  font-family: var(--body);
+  border: 0;
+  background: transparent;
+  color: var(--dim);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.16s ease, background 0.16s ease;
+}
+
+.lang button:hover {
+  color: var(--ink);
+}
+
+.lang button[aria-current="true"] {
+  background: var(--glass-2);
+  color: var(--ink);
+}
+
+/* Touch targets: the header controls are small type, so give them real
+   height on phones rather than relying on the text box. */
+@media (max-width: 700px) {
+  .logo {
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .lang a,
+  .lang button {
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    padding-inline: 14px;
   }
 }

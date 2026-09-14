@@ -17,9 +17,19 @@ const MARK: Record<string, string> = {
   next: "3",
 };
 
-export default function Landing({ lang }: { lang: Lang }) {
+export default function Landing({
+  lang: initialLang,
+  preview = false,
+}: {
+  lang: Lang;
+  /** Design preview: one standalone file, so the switch changes language
+      in place instead of navigating to a sibling page. */
+  preview?: boolean;
+}) {
+  const [previewLang, setPreviewLang] = useState<Lang>(initialLang);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [tab, setTab] = useState(0);
+  const lang = preview ? previewLang : initialLang;
   const c = content[lang];
   const example = c.demo.tabs[tab];
 
@@ -45,19 +55,32 @@ export default function Landing({ lang }: { lang: Lang }) {
 
           <div className="hdr-right">
             <nav className="lang" aria-label="Language">
-              {LANGS.map((code) => (
-                <a
-                  key={code}
-                  href={`/${code}`}
-                  hrefLang={code}
-                  lang={code}
-                  onClick={() => remember(code)}
-                  aria-current={lang === code ? "true" : undefined}
-                  title={content[code].label}
-                >
-                  {LANG_LABEL[code]}
-                </a>
-              ))}
+              {LANGS.map((code) =>
+                preview ? (
+                  <button
+                    key={code}
+                    type="button"
+                    lang={code}
+                    onClick={() => setPreviewLang(code)}
+                    aria-current={lang === code ? "true" : undefined}
+                    title={content[code].label}
+                  >
+                    {LANG_LABEL[code]}
+                  </button>
+                ) : (
+                  <a
+                    key={code}
+                    href={`/${code}`}
+                    hrefLang={code}
+                    lang={code}
+                    onClick={() => remember(code)}
+                    aria-current={lang === code ? "true" : undefined}
+                    title={content[code].label}
+                  >
+                    {LANG_LABEL[code]}
+                  </a>
+                ),
+              )}
             </nav>
             <a className="btn btn--primary" href="#pricing">
               {c.nav.cta}

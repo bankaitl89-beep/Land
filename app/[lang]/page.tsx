@@ -12,5 +12,5 @@ export default async function Page({
   const { lang } = await params;
   if (!isLang(lang)) notFound();
 
-  return <Landing lang={lang} />;
+  return <Landing lang={lang} preview={process.env.NEXT_PUBLIC_PREVIEW === "1"} />;
 }
