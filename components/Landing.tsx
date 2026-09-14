@@ -345,6 +345,30 @@ export default function Landing({ lang }: { lang: Lang }) {
           </div>
         </section>
 
+        {/* ---------------- testimonials ----------------
+            Renders only once real, attributed quotes exist. */}
+        {c.testimonials.items.length > 0 && (
+          <section className="section section--tight">
+            <div className="shell">
+              <p className="eyebrow">{c.testimonials.eyebrow}</p>
+              <h2 className="h2">{c.testimonials.title}</h2>
+
+              <div className="quotes">
+                {c.testimonials.items.map((t) => (
+                  <figure className="quote" key={t.name}>
+                    <p className="quote-result">{t.result}</p>
+                    <blockquote>{t.quote}</blockquote>
+                    <figcaption>
+                      <b>{t.name}</b>
+                      <span>{t.role}</span>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* ---------------- cost of waiting ---------------- */}
         <section className="section section--tight">
           <div className="shell">

@@ -273,6 +273,14 @@ export const content = {
       text: "There's no deadline here and no disappearing bonus. If you close this page, your Monday will look exactly the same — which is precisely why it's easy to keep closing it. The loss doesn't arrive as a bill. It arrives as three hours here, a lost morning there, and a colleague who quietly got faster than you while you were busy. Two hours a week is roughly thirteen working days a year. The program costs less than one of them.",
       cta: "Start this week",
     },
+    testimonials: {
+      eyebrow: "Graduates",
+      title: "What people say after week four",
+      // Real quotes only. Each one needs a name, a role, and permission to
+      // publish. An empty list hides the whole section — never fill it with
+      // invented people. See docs/collect-testimonials.md.
+      items: [] as { quote: string; name: string; role: string; result: string }[],
+    },
     faq: {
       eyebrow: "Straight answers",
       title: "The things you're actually thinking right now",
@@ -611,6 +619,11 @@ export const content = {
       text: "Aquí no hay cuenta atrás ni bonus que desaparecen. Si cierras esta página, tu lunes será exactamente igual, y por eso es tan fácil seguir cerrándola. La pérdida no llega como una factura. Llega como tres horas aquí, una mañana perdida allá y un compañero que se volvió más rápido que tú mientras estabas ocupado. Dos horas por semana son unos trece días laborables al año. El programa cuesta menos que uno de esos días.",
       cta: "Empezar esta semana",
     },
+    testimonials: {
+      eyebrow: "Graduados",
+      title: "Lo que dicen después de la cuarta semana",
+      items: [] as { quote: string; name: string; role: string; result: string }[],
+    },
     faq: {
       eyebrow: "Respuestas directas",
       title: "Lo que de verdad estás pensando ahora",
@@ -948,6 +961,11 @@ export const content = {
       title: "Если вы это пропустите, ничего страшного не случится. В этом и проблема.",
       text: "Здесь нет дедлайна и исчезающих бонусов. Закроете страницу — ваш понедельник будет выглядеть ровно так же, и именно поэтому её так легко закрывать снова и снова. Потеря не приходит счётом. Она приходит тремя часами тут, потерянным утром там и коллегой, который тихо стал быстрее вас, пока вы были заняты. Два часа в неделю — это примерно тринадцать рабочих дней в год. Курс стоит меньше, чем один такой день.",
       cta: "Начать на этой неделе",
+    },
+    testimonials: {
+      eyebrow: "Выпускники",
+      title: "Что говорят после четвёртой недели",
+      items: [] as { quote: string; name: string; role: string; result: string }[],
     },
     faq: {
       eyebrow: "Прямые ответы",
