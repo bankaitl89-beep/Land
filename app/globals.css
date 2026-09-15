@@ -43,18 +43,7 @@ html {
 body {
   position: relative;
   margin: 0;
-  /* Film grain, baked into the ground rather than laid over the page.
-
-     This is the difference between a surface that was designed and one that
-     was declared: flat gradients on a dark ground read as a template, the
-     same gradients under a fine grain read as a material. As a fixed overlay
-     it cost ten frames a second, because a full-screen layer above
-     everything makes the compositor touch the whole viewport on every
-     repaint beneath it. As a background layer it is painted once with the
-     page and costs nothing. */
-  background-color: var(--bg);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--b);
   font-size: 16px;
