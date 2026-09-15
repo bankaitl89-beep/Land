@@ -168,6 +168,22 @@ export default function Landing({
           </div>
         </section>
 
+        {/* ---------------- who teaches it ---------------- */}
+        <section className="cred">
+          <div className="shell cred-in">
+            <div className="cred-copy">
+              <p className="eyebrow rv">{c.authority.eyebrow}</p>
+              <p className="cred-line rv">{c.authority.line}</p>
+              <p className="cred-note rv">{c.authority.note}</p>
+            </div>
+            <ul className="cred-list rv">
+              {c.authority.items.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         {/* ---------------- pain ---------------- */}
         <section className="section">
           <div className="shell">
@@ -309,6 +325,7 @@ export default function Landing({
           <div className="shell">
             <p className="eyebrow rv">{c.curriculum.eyebrow}</p>
             <h2 className="h2 rv">{c.curriculum.title}</h2>
+            <p className="lede rv">{c.curriculum.sub}</p>
 
             <div className="mods">
               {c.curriculum.modules.map((m) => (

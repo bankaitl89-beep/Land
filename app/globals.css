@@ -1558,6 +1558,82 @@ body.anim #field {
    ============================================================ */
 
 /* ============================================================
+   who teaches it
+   ============================================================ */
+
+.cred {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(26px, 3vw, 38px);
+  border-block: 1px solid var(--line2);
+  background: linear-gradient(180deg, rgba(91, 103, 245, 0.05), transparent 70%);
+}
+
+.cred-in {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: clamp(24px, 4vw, 60px);
+  align-items: center;
+}
+
+.cred-copy .eyebrow {
+  margin-bottom: 10px;
+}
+
+.cred-line {
+  font-family: var(--d);
+  font-weight: 600;
+  font-size: clamp(17px, 1.6vw, 21px);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  margin: 0;
+  max-width: 34ch;
+}
+
+.cred-note {
+  color: var(--mute);
+  font-size: 14.5px;
+  line-height: 1.55;
+  margin: 10px 0 0;
+  max-width: 52ch;
+}
+
+/* the names are set as plain text, never as logos — this is a statement
+   about where the teacher has worked, not a claim of endorsement */
+.cred-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-end;
+}
+
+.cred-list li {
+  font-family: var(--m);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mute);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 15px;
+  background: rgba(255, 255, 255, 0.02);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .cred-in {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .cred-list {
+    justify-content: flex-start;
+  }
+}
+
+/* ============================================================
    pinned assembly scene
    ============================================================ */
 

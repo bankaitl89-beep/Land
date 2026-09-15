@@ -9,17 +9,17 @@ const meta: Record<Lang, { title: string; description: string }> = {
   en: {
     title: "Prompta aut perire — AI at work, properly taught",
     description:
-      "A 2–4 week program that turns ChatGPT, Claude and Gemini into a system that runs your actual work. Lessons, comprehension checks, homework on your own tasks and personal review. 500+ graduates.",
+      "Six parts, from knowing nothing to running your own agents. Lessons, comprehension checks, homework on your own real work and review by a live teacher. No coding, at your own pace. 500+ graduates.",
   },
   es: {
     title: "Prompta aut perire — IA en el trabajo, enseñada de verdad",
     description:
-      "Un programa de 2 a 4 semanas que convierte ChatGPT, Claude y Gemini en un sistema que sostiene tu trabajo real. Lecciones, controles, tareas sobre tus propios casos y corrección personal. Más de 500 graduados.",
+      "Seis partes, de no saber nada a manejar tus propios agentes. Lecciones, controles, tareas sobre tu trabajo real y corrección de una profesora. Sin programar, a tu ritmo. Más de 500 graduados.",
   },
   ru: {
     title: "Prompta aut perire — ИИ в работе, с настоящим обучением",
     description:
-      "Программа на 2–4 недели, которая превращает ChatGPT, Claude и Gemini в систему, ведущую вашу работу. Уроки, проверка усвоения, домашние задания на ваших задачах и личный разбор. Более 500 выпускников.",
+      "Шесть частей: с нуля до собственных ИИ-агентов. Уроки, проверка усвоения, задания на вашей настоящей работе и разбор живым преподавателем. Без программирования, в вашем темпе. Более 500 выпускников.",
   },
 };
 
@@ -101,7 +101,6 @@ export default async function LangLayout({
               hasCourseInstance: {
                 "@type": "CourseInstance",
                 courseMode: "online",
-                courseWorkload: "P4W",
                 name: content[lang].curriculum.title,
               },
             }),
