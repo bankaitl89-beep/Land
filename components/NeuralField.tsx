@@ -202,7 +202,7 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       const g = i / (LEVELS - 1);
       nodeR.push(0.9 + g * 2.6);
       nodeFill.push(
-        `rgba(${Math.round(120 + g * 46)}, ${Math.round(130 + g * 40)}, 255, ${(
+        `rgba(${Math.round(128 + g * 82)}, ${Math.round(160 + g * 66)}, ${Math.round(216 + g * 39)}, ${(
           0.16 + g * 0.6
         ).toFixed(3)})`,
       );
@@ -212,9 +212,9 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
 
     const EDGE_STEPS = 3;
     const edgeStroke = [
-      "rgba(118,130,245,0.34)",
-      "rgba(110,122,236,0.19)",
-      "rgba(104,116,226,0.09)",
+      "rgba(132,164,224,0.32)",
+      "rgba(124,154,212,0.18)",
+      "rgba(116,144,200,0.085)",
     ];
 
     let width = 0;
@@ -409,14 +409,14 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
             ctx!.fillText("\u2713", sx[i] - 16, y);
             ctx!.fillStyle = `rgba(214,240,228,${(show * (0.45 + d * 0.5)).toFixed(3)})`;
           } else {
-            ctx!.fillStyle = `rgba(170,180,230,${(show * 0.42).toFixed(3)})`;
+            ctx!.fillStyle = `rgba(158,182,222,${(show * 0.42).toFixed(3)})`;
           }
           ctx!.fillText(words[w], x, y);
         }
       }
 
       // --- the signals themselves, the brightest thing on screen ---
-      ctx!.fillStyle = "rgba(196,204,255,0.92)";
+      ctx!.fillStyle = "rgba(206,226,255,0.94)";
       ctx!.beginPath();
       for (let i = 0; i < PULSES; i++) {
         const e = pEdge[i];

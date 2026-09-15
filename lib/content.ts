@@ -98,23 +98,6 @@ export const content = {
       eyebrow: "The difference",
       title: "You build setups. One per lesson.",
       lede: "Tricks are forgotten. A setup is not. You describe the job once, then you just run it: every Monday, for every client.",
-      pillars: [
-        {
-          n: "You build",
-          title: "A setup for your own job",
-          text: "Your real report, your email, your contract. Not a teaching example.",
-        },
-        {
-          n: "Checked",
-          title: "A teacher finds what breaks",
-          text: "She reads what you built and shows you where it will fail. A video cannot do that.",
-        },
-        {
-          n: "You keep",
-          title: "The setup stays yours",
-          text: "At the end you have a set of them. They work even when you have forgotten how you made them.",
-        },
-      ],
       example: {
         label: "Here's what one looks like",
         name: "Weekly report for my director",
@@ -355,6 +338,49 @@ export const content = {
       title: "What they say afterwards",
       items: [] as { quote: string; name: string; role: string; result: string }[],
     },
+    manifesto: {
+      gloss: "prompt or perish",
+      text: "The work is not going anywhere. It is going to the people who can ask for it properly.",
+    },
+    builder: {
+      eyebrow: "Your turn",
+      title: "Type your own job. Watch it become a working request.",
+      lede: "Not a demo on invented data. Write the thing you actually do, in your own words, and the page assembles it the way the course teaches — one block at a time.",
+      placeholder: "the weekly report for my director",
+      label: "What do you need done?",
+      samplesLabel: "or take one of these",
+      samples: [
+        "the weekly report for my director",
+        "a reply to a client who says we are too expensive",
+        "a summary of a 40-page contract",
+      ],
+      naiveLabel: "What most people type",
+      builtLabel: "What the method turns it into",
+      jobLabel: "The job",
+      jobPrefix: "Do this:",
+      blocks: [
+        {
+          label: "Who is reading",
+          text: "You are writing for a busy reader who has 90 seconds and asks about money first.",
+        },
+        {
+          label: "What to work from",
+          text: "I will paste my own figures and documents. Use only those. If something is missing, ask me — do not invent it.",
+        },
+        {
+          label: "The shape",
+          text: "One page. Short paragraphs, no adjectives, nothing you cannot point at in the source.",
+        },
+        {
+          label: "How I will judge it",
+          text: "Finish with one risk and one decision that is waiting on me.",
+        },
+      ],
+      empty: "Start typing and the request builds itself.",
+      copy: "Copy the request",
+      copied: "Copied",
+      note: "Five plain lines, written once, and you run them every week. That is the whole trick — the course is six parts of doing it on jobs harder than this one.",
+    },
     cost: {
       eyebrow: "Straight talk",
       title: "Put it off and nothing bad happens. That is the problem.",
@@ -533,23 +559,6 @@ export const content = {
       eyebrow: "La diferencia",
       title: "Usted construye plantillas. Una por lección.",
       lede: "Los trucos se olvidan. Una plantilla no. Describe el trabajo una vez y luego solo la ejecuta: cada lunes, para cada cliente.",
-      pillars: [
-        {
-          n: "Construye",
-          title: "Una plantilla para su propio trabajo",
-          text: "Su informe real, su correo, su contrato. No un ejemplo de clase.",
-        },
-        {
-          n: "Se revisa",
-          title: "Una profesora encuentra lo que falla",
-          text: "Lee lo que usted construyó y le muestra dónde se va a romper. Un vídeo no puede hacer eso.",
-        },
-        {
-          n: "Se queda",
-          title: "La plantilla es suya para siempre",
-          text: "Al final tiene un juego entero. Funcionan incluso cuando ya olvidó cómo las hizo.",
-        },
-      ],
       example: {
         label: "Así es una de ellas",
         name: "Informe semanal para mi directora",
@@ -790,6 +799,49 @@ export const content = {
       title: "Lo que dicen al terminar",
       items: [] as { quote: string; name: string; role: string; result: string }[],
     },
+    manifesto: {
+      gloss: "pide o perece",
+      text: "El trabajo no va a desaparecer. Va a pasar a quien sepa pedirlo bien.",
+    },
+    builder: {
+      eyebrow: "Su turno",
+      title: "Escriba su propia tarea. Mire en qué se convierte.",
+      lede: "No es una demostración con datos inventados. Escriba lo que usted hace de verdad, con sus palabras, y la página la arma como enseña el curso: bloque a bloque.",
+      placeholder: "el informe semanal para mi directora",
+      label: "¿Qué necesita que se haga?",
+      samplesLabel: "o tome una de estas",
+      samples: [
+        "el informe semanal para mi directora",
+        "una respuesta a un cliente que dice que somos caros",
+        "un resumen de un contrato de 40 páginas",
+      ],
+      naiveLabel: "Lo que escribe la mayoría",
+      builtLabel: "En lo que lo convierte el método",
+      jobLabel: "La tarea",
+      jobPrefix: "Haz esto:",
+      blocks: [
+        {
+          label: "Quién lo lee",
+          text: "Escribes para alguien con prisa, que dispone de 90 segundos y pregunta primero por el dinero.",
+        },
+        {
+          label: "Con qué trabajar",
+          text: "Voy a pegar mis propias cifras y documentos. Usa solo eso. Si falta algo, pregúntamelo: no lo inventes.",
+        },
+        {
+          label: "La forma",
+          text: "Una página. Párrafos cortos, sin adjetivos, nada que no puedas señalar en la fuente.",
+        },
+        {
+          label: "Cómo lo voy a juzgar",
+          text: "Termina con un riesgo y una decisión que esté esperando por mí.",
+        },
+      ],
+      empty: "Empiece a escribir y la petición se arma sola.",
+      copy: "Copiar la petición",
+      copied: "Copiado",
+      note: "Cinco líneas corrientes, escritas una vez, y se ejecutan cada semana. Ese es todo el truco: el curso son seis partes haciéndolo con tareas más difíciles que esta.",
+    },
     cost: {
       eyebrow: "Sin rodeos",
       title: "Déjelo para después y no pasará nada. Ese es justo el problema.",
@@ -968,23 +1020,6 @@ export const content = {
       eyebrow: "В чём разница",
       title: "Вы собираете заготовки. По одной за урок.",
       lede: "Приёмы забываются. Заготовка — нет. Один раз описали задачу, дальше просто запускаете: каждый понедельник, для каждого клиента.",
-      pillars: [
-        {
-          n: "Делаете",
-          title: "Заготовку под вашу задачу",
-          text: "Ваш настоящий отчёт, ваше письмо, ваш договор. Не учебный пример.",
-        },
-        {
-          n: "Проверяют",
-          title: "Преподаватель находит ошибки",
-          text: "Читает то, что вы собрали, и показывает, где это подведёт. Видео так не умеет.",
-        },
-        {
-          n: "Остаётся",
-          title: "Заготовка ваша навсегда",
-          text: "К концу у вас их набор. Работают, даже когда вы забыли, как их делали.",
-        },
-      ],
       example: {
         label: "Вот как она выглядит",
         name: "Еженедельный отчёт для директора",
@@ -1224,6 +1259,49 @@ export const content = {
       eyebrow: "Выпускники",
       title: "Что говорят после курса",
       items: [] as { quote: string; name: string; role: string; result: string }[],
+    },
+    manifesto: {
+      gloss: "промпти или погибни",
+      text: "Работа никуда не денется. Она перейдёт к тем, кто умеет её правильно попросить.",
+    },
+    builder: {
+      eyebrow: "Теперь вы",
+      title: "Впишите свою задачу. Посмотрите, во что она превращается.",
+      lede: "Это не демонстрация на выдуманных данных. Напишите то, что вы делаете на самом деле, своими словами — а страница соберёт запрос так, как учит курс: блок за блоком.",
+      placeholder: "недельный отчёт для моего директора",
+      label: "Что нужно сделать?",
+      samplesLabel: "или возьмите готовое",
+      samples: [
+        "недельный отчёт для моего директора",
+        "ответ клиенту, который говорит, что у нас дорого",
+        "краткое содержание договора на 40 страниц",
+      ],
+      naiveLabel: "Как пишет большинство",
+      builtLabel: "Во что это превращает метод",
+      jobLabel: "Задача",
+      jobPrefix: "Сделай:",
+      blocks: [
+        {
+          label: "Кто читает",
+          text: "Ты пишешь для занятого человека: у него 90 секунд, и первое, что он спросит, — про деньги.",
+        },
+        {
+          label: "С чем работать",
+          text: "Я вставлю свои цифры и документы. Работай только с ними. Если чего-то не хватает — спроси у меня, не выдумывай.",
+        },
+        {
+          label: "В каком виде",
+          text: "Одна страница. Короткие абзацы, без прилагательных, ничего, на что нельзя показать пальцем в исходнике.",
+        },
+        {
+          label: "По чему я буду судить",
+          text: "В конце — один риск и одно решение, которое ждёт меня.",
+        },
+      ],
+      empty: "Начните печатать — запрос соберётся сам.",
+      copy: "Скопировать запрос",
+      copied: "Скопировано",
+      note: "Пять обычных строк, написанных один раз, — и вы запускаете их каждую неделю. В этом весь фокус, а курс — это шесть частей того же самого на задачах посложнее.",
     },
     cost: {
       eyebrow: "Честно",

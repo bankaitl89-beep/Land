@@ -5,20 +5,26 @@
    ============================================================ */
 
 :root {
-  --bg: #07080a;
-  --bg2: #0d0f14;
+  --bg: #06070b;
+  --bg2: #0c0e15;
   --ink: #f1f2f5;
   --mute: #9aa0ab;
   /* measured 3.82:1 over the lit part of the hero in its old value */
   --mute2: #888e9a;
 
-  --acc: #5b67f5;
-  /* The brand indigo is for fills and borders. As *text* it measures 4.49:1
-     on the page ground and 3.64:1 over the lit areas, both under AA, and
-     every eyebrow and label on the page is set in it — so small accent text
-     gets its own lighter value that clears 4.5 on every ground here. */
-  --acc-text: #7682ff;
-  --acc-soft: #a3abff;
+  /* Two colours, and they mean different things.
+     Warm ember is you: what you write, what you press, what the teacher
+     hands back. Cool ice is the machine: the network in the opening, and
+     every block that shows what the model returned. Nothing else on the
+     page is saturated, which is what keeps one accent from becoming five. */
+  --acc: #ff6a3d;
+  /* Ember is for fills and borders. Small accent *text* gets its own
+     lighter value so it clears AA on the ground and over the lit areas. */
+  --acc-text: #ff8a5e;
+  --acc-soft: #ffbda4;
+
+  --cool: #8fb0e8;
+  --cool-text: #9dbcf2;
   --ok: #2bd98b;
   --warn: #ff8b9c;
 
@@ -27,7 +33,7 @@
   --glass: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.02));
   --solid: linear-gradient(180deg, #151822, #0a0c11);
 
-  --d: "Onest", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --d: "Unbounded", "Onest", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --b: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --m: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
@@ -64,8 +70,8 @@ h3,
 h4 {
   font-family: var(--d);
   margin: 0;
-  letter-spacing: -0.032em;
-  line-height: 1.1;
+  letter-spacing: -0.042em;
+  line-height: 1.14;
   text-wrap: balance;
 }
 
@@ -75,7 +81,7 @@ a {
 }
 
 ::selection {
-  background: rgba(91, 103, 245, 0.35);
+  background: rgba(255, 106, 61, 0.35);
 }
 
 :focus-visible {
@@ -92,7 +98,7 @@ a {
   z-index: 0;
   background: radial-gradient(
     520px circle at var(--mx, 50%) var(--my, 18%),
-    rgba(91, 103, 245, 0.16),
+    rgba(255, 106, 61, 0.16),
     transparent 62%
   );
   opacity: 0;
@@ -149,21 +155,21 @@ section[id] {
 }
 
 .h2 {
-  font-size: clamp(26px, 3.2vw, 39px);
+  font-size: clamp(23px, 2.7vw, 33px);
 }
 
 /* the two moments the page is built around: the mechanism and the price */
 .h2--lg {
-  font-size: clamp(32px, 4.6vw, 58px);
+  font-size: clamp(28px, 3.9vw, 49px);
 }
 
 /* supporting sections, which should not shout as loudly as those two */
 .h2--sm {
-  font-size: clamp(24px, 2.6vw, 32px);
+  font-size: clamp(21px, 2.2vw, 27px);
 }
 
 .h3 {
-  font-size: clamp(20px, 2.2vw, 25px);
+  font-size: clamp(18px, 1.9vw, 22px);
 }
 
 .lede {
@@ -206,8 +212,10 @@ section[id] {
 
 .btn--acc {
   background: var(--acc);
-  color: #fff;
-  box-shadow: 0 16px 40px -20px rgba(91, 103, 245, 1);
+  /* Ember is bright enough that white sits at 2.8:1 on it. Near-black on a
+     warm solid clears 5:1 and is the better look besides. */
+  color: #1b0c05;
+  box-shadow: 0 16px 40px -20px rgba(255, 106, 61, 1);
 }
 
 .btn--acc::after {
@@ -225,7 +233,7 @@ section[id] {
 
 .btn--acc:hover {
   transform: translateY(-2px);
-  box-shadow: 0 24px 52px -20px rgba(91, 103, 245, 1);
+  box-shadow: 0 24px 52px -20px rgba(255, 106, 61, 1);
 }
 
 .btn--acc:hover::after {
@@ -283,8 +291,8 @@ section[id] {
 }
 
 .logo svg {
-  width: 24px;
-  height: 24px;
+  width: 27px;
+  height: 27px;
   flex: none;
 }
 
@@ -359,8 +367,8 @@ section[id] {
 
 .hero-in {
   display: grid;
-  grid-template-columns: 1.04fr 0.96fr;
-  gap: 52px;
+  grid-template-columns: 1.14fr 0.86fr;
+  gap: clamp(36px, 5vw, 68px);
   align-items: center;
 }
 
@@ -397,10 +405,10 @@ section[id] {
 }
 
 .hero h1 {
-  font-size: clamp(31px, 4.4vw, 55px);
-  line-height: 1.05;
+  font-size: clamp(27px, 3.7vw, 46px);
+  line-height: 1.1;
   margin: 20px 0 0;
-  max-width: 16ch;
+  max-width: 19ch;
 }
 
 .hero .lede {
@@ -817,8 +825,8 @@ section[id] {
 .setup {
   margin-top: 26px;
   border-radius: var(--r-lg);
-  border: 1px solid rgba(91, 103, 245, 0.4);
-  background: linear-gradient(180deg, rgba(91, 103, 245, 0.13), rgba(91, 103, 245, 0.03));
+  border: 1px solid rgba(255, 106, 61, 0.4);
+  background: linear-gradient(180deg, rgba(255, 106, 61, 0.13), rgba(255, 106, 61, 0.03));
   padding: 24px;
   box-shadow: 0 36px 72px -44px rgba(0, 0, 0, 0.95);
   max-width: 900px;
@@ -832,7 +840,7 @@ section[id] {
   color: var(--acc-soft);
 }
 
-.setup h4 {
+.setup h3 {
   font-size: 19px;
   margin-top: 8px;
 }
@@ -942,8 +950,8 @@ body:not(.anim) .setup-lines div {
 
 .setup-now {
   color: var(--ink);
-  border-color: rgba(91, 103, 245, 0.34);
-  background: rgba(91, 103, 245, 0.08);
+  border-color: rgba(255, 106, 61, 0.34);
+  background: rgba(255, 106, 61, 0.08);
 }
 
 @media (max-width: 720px) {
@@ -990,7 +998,7 @@ body:not(.anim) .setup-lines div {
   color: #fff;
   background: var(--acc);
   border-color: transparent;
-  box-shadow: 0 14px 30px -18px rgba(91, 103, 245, 1);
+  box-shadow: 0 14px 30px -18px rgba(255, 106, 61, 1);
 }
 
 .compare {
@@ -1012,8 +1020,8 @@ body:not(.anim) .setup-lines div {
 }
 
 .cmp--good {
-  border-color: rgba(91, 103, 245, 0.45);
-  background: linear-gradient(180deg, rgba(91, 103, 245, 0.1), rgba(91, 103, 245, 0.02));
+  border-color: rgba(255, 106, 61, 0.45);
+  background: linear-gradient(180deg, rgba(255, 106, 61, 0.1), rgba(255, 106, 61, 0.02));
   box-shadow: 0 30px 60px -44px rgba(0, 0, 0, 0.95);
 }
 
@@ -1221,9 +1229,9 @@ body:not(.anim) .setup-lines div {
 }
 
 .leg:hover .leg-mark {
-  border-color: rgba(91, 103, 245, 0.6);
+  border-color: rgba(255, 106, 61, 0.6);
   background: #0d1018;
-  box-shadow: 0 0 0 4px rgba(91, 103, 245, 0.08);
+  box-shadow: 0 0 0 4px rgba(255, 106, 61, 0.08);
 }
 
 .leg-mark .mod-ico {
@@ -1240,7 +1248,7 @@ body:not(.anim) .setup-lines div {
   font-family: var(--m);
   font-size: 10.5px;
   letter-spacing: 0.18em;
-  color: var(--acc-text);
+  color: var(--cool-text);
   display: block;
   margin-bottom: 7px;
 }
@@ -1308,7 +1316,7 @@ body:not(.anim) .setup-lines div {
 
 .mod:hover {
   transform: translateY(-5px);
-  border-color: rgba(91, 103, 245, 0.45);
+  border-color: rgba(255, 106, 61, 0.45);
   background: rgba(255, 255, 255, 0.055);
 }
 
@@ -1316,7 +1324,7 @@ body:not(.anim) .setup-lines div {
   font-family: var(--m);
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: var(--acc-text);
+  color: var(--cool-text);
 }
 
 .mod h3 {
@@ -1395,7 +1403,7 @@ body:not(.anim) .setup-lines div {
   font-family: var(--m);
   font-size: 10.5px;
   letter-spacing: 0.18em;
-  color: var(--acc-text);
+  color: var(--cool-text);
   display: block;
   margin-bottom: 9px;
 }
@@ -1472,12 +1480,12 @@ body:not(.anim) .setup-lines div {
 .stat b {
   font-family: var(--d);
   font-weight: 800;
-  font-size: clamp(28px, 3.4vw, 40px);
+  font-size: clamp(25px, 2.9vw, 34px);
   letter-spacing: -0.04em;
   display: block;
   line-height: 1;
   font-variant-numeric: tabular-nums;
-  background: linear-gradient(92deg, #fff, var(--acc-soft));
+  background: linear-gradient(92deg, #fff, var(--cool));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -1563,7 +1571,7 @@ body:not(.anim) .setup-lines div {
   padding-block: clamp(56px, 6.6vw, 96px);
   border-block: 1px solid var(--line2);
   background:
-    radial-gradient(120% 140% at 12% 0%, rgba(91, 103, 245, 0.2), transparent 62%),
+    radial-gradient(120% 140% at 12% 0%, rgba(255, 106, 61, 0.2), transparent 62%),
     linear-gradient(180deg, #11131d, #0b0d14);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
@@ -1662,7 +1670,7 @@ body:not(.anim) .setup-lines div {
    dot is on the far side. */
 .panel--lit {
   position: relative;
-  border-color: rgba(91, 103, 245, 0.34);
+  border-color: rgba(255, 106, 61, 0.34);
 }
 
 .trace {
@@ -1674,8 +1682,8 @@ body:not(.anim) .setup-lines div {
   border-radius: 50%;
   background: var(--acc-soft);
   box-shadow:
-    0 0 10px 2px rgba(91, 103, 245, 0.85),
-    0 0 26px 6px rgba(91, 103, 245, 0.35);
+    0 0 10px 2px rgba(255, 106, 61, 0.85),
+    0 0 26px 6px rgba(255, 106, 61, 0.35);
   transform: translate(-50%, -50%);
   animation: trace 9s linear infinite;
   pointer-events: none;
@@ -1719,7 +1727,7 @@ body:not(.anim) .setup-lines div {
 .price {
   font-family: var(--d);
   font-weight: 800;
-  font-size: clamp(40px, 5vw, 54px);
+  font-size: clamp(34px, 4.2vw, 46px);
   letter-spacing: -0.045em;
   line-height: 1;
   display: flex;
@@ -1817,8 +1825,8 @@ body:not(.anim) .setup-lines div {
 
 .field input:focus-visible {
   outline: none;
-  border-color: rgba(91, 103, 245, 0.75);
-  box-shadow: 0 0 0 3px rgba(91, 103, 245, 0.26);
+  border-color: rgba(255, 106, 61, 0.75);
+  box-shadow: 0 0 0 3px rgba(255, 106, 61, 0.26);
 }
 
 .field input::placeholder {
@@ -2050,7 +2058,7 @@ body.anim #field {
     inset 0 1px 0 rgba(255, 255, 255, 0.34),
     inset 0 -1px 0 rgba(0, 0, 0, 0.28),
     0 1px 0 rgba(0, 0, 0, 0.5),
-    0 16px 40px -20px rgba(91, 103, 245, 1);
+    0 16px 40px -20px rgba(255, 106, 61, 1);
 }
 
 .btn--acc:hover {
@@ -2058,7 +2066,7 @@ body.anim #field {
     inset 0 1px 0 rgba(255, 255, 255, 0.4),
     inset 0 -1px 0 rgba(0, 0, 0, 0.28),
     0 1px 0 rgba(0, 0, 0, 0.5),
-    0 24px 52px -20px rgba(91, 103, 245, 1);
+    0 24px 52px -20px rgba(255, 106, 61, 1);
 }
 
 /* The metal itself. The reference runs a WebGL shader per button for this;
@@ -2071,11 +2079,11 @@ body.anim #field {
     linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0) 16%),
     linear-gradient(
       100deg,
-      #39429f 0%,
-      #4450c8 30%,
-      #4450c8 54%,
-      #3d46b8 74%,
-      #353d95 100%
+      #d8522a 0%,
+      #ff7a48 30%,
+      #ff7a48 54%,
+      #f56a38 74%,
+      #dd542c 100%
     );
 }
 
@@ -2126,7 +2134,7 @@ body.anim #field {
   box-shadow:
     inset 0 2px 5px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 6px 18px -12px rgba(91, 103, 245, 1);
+    0 6px 18px -12px rgba(255, 106, 61, 1);
 }
 
 .btn--ghost:active {
@@ -2235,7 +2243,7 @@ body.anim #field {
   z-index: 1;
   padding-block: clamp(26px, 3vw, 38px);
   border-block: 1px solid var(--line2);
-  background: linear-gradient(180deg, rgba(91, 103, 245, 0.05), transparent 70%);
+  background: linear-gradient(180deg, rgba(255, 106, 61, 0.05), transparent 70%);
 }
 
 .cred-in {
@@ -2360,11 +2368,11 @@ body.anim #field {
 .scene-count span {
   font-family: var(--d);
   font-weight: 800;
-  font-size: clamp(44px, 6vw, 72px);
+  font-size: clamp(38px, 5vw, 60px);
   line-height: 1;
   letter-spacing: -0.05em;
   font-variant-numeric: tabular-nums;
-  background: linear-gradient(92deg, #fff, var(--acc-soft));
+  background: linear-gradient(92deg, #fff, var(--cool));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -2416,18 +2424,18 @@ body.anim #field {
 }
 
 .sc-card.is-top {
-  border-color: rgba(91, 103, 245, 0.65);
+  border-color: rgba(255, 106, 61, 0.65);
   box-shadow:
     0 26px 50px -30px rgba(0, 0, 0, 1),
-    0 0 0 1px rgba(91, 103, 245, 0.28),
-    0 0 40px -12px rgba(91, 103, 245, 0.75);
+    0 0 0 1px rgba(255, 106, 61, 0.28),
+    0 0 40px -12px rgba(255, 106, 61, 0.75);
 }
 
 .sc-n {
   font-family: var(--m);
   font-size: 10.5px;
   letter-spacing: 0.14em;
-  color: var(--acc-text);
+  color: var(--cool-text);
   flex: none;
 }
 
@@ -2484,7 +2492,7 @@ body::before {
   background:
     radial-gradient(
       90% 60% at 50% calc(100% * var(--scene, 0)),
-      rgba(91, 103, 245, 0.1),
+      rgba(255, 106, 61, 0.1),
       transparent 70%
     );
   transition: background 0.8s linear;
@@ -2516,7 +2524,7 @@ body:not(.anim) .compare {
   left: 0;
   width: 26px;
   height: 26px;
-  border: 1px solid rgba(163, 171, 255, 0.75);
+  border: 1px solid rgba(255, 189, 164, 0.75);
   border-radius: 50%;
   pointer-events: none;
   z-index: 90;
@@ -2532,14 +2540,14 @@ body:not(.anim) .compare {
 .ring.is-hot {
   width: 54px;
   height: 54px;
-  background: rgba(91, 103, 245, 0.16);
-  border-color: rgba(163, 171, 255, 0.95);
+  background: rgba(255, 106, 61, 0.16);
+  border-color: rgba(255, 189, 164, 0.95);
 }
 
 .ring.is-down {
   width: 20px;
   height: 20px;
-  background: rgba(91, 103, 245, 0.34);
+  background: rgba(255, 106, 61, 0.34);
 }
 
 /* ---------- headings arrive word by word ---------- */
@@ -2700,8 +2708,8 @@ body:not(.anim) .compare {
 }
 
 .app-list li[data-state="now"] {
-  background: rgba(91, 103, 245, 0.14);
-  border: 1px solid rgba(91, 103, 245, 0.4);
+  background: rgba(255, 106, 61, 0.14);
+  border: 1px solid rgba(255, 106, 61, 0.4);
   color: var(--ink);
 }
 
@@ -2761,8 +2769,8 @@ body:not(.anim) .compare {
 }
 
 .app-block--review {
-  border-color: rgba(91, 103, 245, 0.42);
-  background: linear-gradient(180deg, rgba(91, 103, 245, 0.12), rgba(91, 103, 245, 0.03));
+  border-color: rgba(255, 106, 61, 0.42);
+  background: linear-gradient(180deg, rgba(255, 106, 61, 0.12), rgba(255, 106, 61, 0.03));
 }
 
 .app-lbl {
@@ -2851,4 +2859,424 @@ body:not(.anim) .compare {
 .mod:hover .mod-ico {
   stroke: rgba(255, 255, 255, 0.6);
   transform: scale(1.06);
+}
+
+/* ============================================================
+   The brand statement
+   One full-bleed screen with nothing on it but the name, set larger than
+   anything else on the page and deliberately off the shell's centre line:
+   three words, three treatments, each starting from a different left edge.
+   ============================================================ */
+
+.mnf {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(64px, 10vw, 148px);
+  border-block: 1px solid var(--line2);
+  background:
+    radial-gradient(80% 120% at 82% 6%, rgba(143, 176, 232, 0.09), transparent 58%),
+    radial-gradient(70% 110% at 6% 104%, rgba(255, 106, 61, 0.11), transparent 60%),
+    linear-gradient(180deg, #0a0c12, #07080f);
+  overflow: hidden;
+}
+
+/* wider than the shell on purpose — the name runs past where every other
+   section stops, which is the whole point of it. The gloss and the sentence
+   share the type's last row rather than sitting under it, so they fill the
+   space the short third word leaves open on the right. */
+.mnf-in {
+  width: 100%;
+  max-width: 1340px;
+  margin: 0 auto;
+  padding-inline: 30px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.mnf-say {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+  justify-self: end;
+  width: min(34ch, 38vw);
+  padding-bottom: 0.4em;
+}
+
+.mnf-line {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  margin: 0;
+  font-size: clamp(46px, 14.2vw, 178px);
+  line-height: 0.88;
+  font-weight: 800;
+  letter-spacing: -0.058em;
+}
+
+.mnf-line span {
+  display: block;
+  white-space: nowrap;
+}
+
+.mnf-line span:nth-child(2) {
+  margin-left: 9vw;
+  color: var(--acc);
+}
+
+.mnf-line span:nth-child(3) {
+  margin-left: 3.5vw;
+}
+
+/* "perire" is the one that is hollow. Stroked at 0.6 alpha it measures
+   4.6:1 on this ground, so the word is still readable as text. */
+@supports (-webkit-text-stroke: 1px red) {
+  .mnf-line span:nth-child(3) {
+    color: transparent;
+    -webkit-text-stroke: clamp(1px, 0.13vw, 2px) rgba(241, 242, 245, 0.6);
+  }
+}
+
+.mnf-gloss {
+  font-family: var(--m);
+  font-size: clamp(11px, 1.05vw, 13px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--acc-text);
+  margin: 0;
+}
+
+.mnf-text {
+  margin: 14px 0 0;
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .mnf-in {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mnf-say {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    width: auto;
+    max-width: 38ch;
+    margin-top: clamp(24px, 4vw, 40px);
+    padding-bottom: 0;
+  }
+
+  .mnf-line span:nth-child(2) {
+    margin-left: 12vw;
+  }
+}
+
+/* ============================================================
+   The rail
+   A section label that travels down the left margin while its section
+   scrolls past, so the long sections stop being one centred column.
+   ============================================================ */
+
+.sec--rail .rail {
+  display: grid;
+  grid-template-columns: 148px minmax(0, 1fr);
+  gap: 0 clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+
+.rail-tag {
+  position: sticky;
+  top: 106px;
+  margin: 7px 0 0;
+}
+
+.rail-body {
+  min-width: 0;
+}
+
+/* the second half of the merged section — same argument, taught side */
+.runs {
+  margin-top: clamp(46px, 5.6vw, 78px);
+  padding-top: clamp(34px, 4vw, 52px);
+  border-top: 1px solid var(--line2);
+}
+
+@media (max-width: 920px) {
+  .sec--rail .rail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rail-tag {
+    position: static;
+    margin-top: 0;
+  }
+}
+
+/* the complaints sit off the heading's left edge, not under it */
+.pains {
+  margin-left: auto;
+  width: min(100%, 92%);
+}
+
+@media (max-width: 760px) {
+  .pains {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   The request builder
+   The one thing here the visitor does instead of reads.
+   ============================================================ */
+
+.bld {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 0.88fr 1.12fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.bld-in {
+  display: flex;
+  flex-direction: column;
+}
+
+.bld-in,
+.bld-out {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--glass);
+  padding: clamp(18px, 2vw, 24px);
+}
+
+.bld-out {
+  border-color: rgba(255, 106, 61, 0.28);
+  background:
+    linear-gradient(180deg, rgba(255, 106, 61, 0.055), rgba(255, 106, 61, 0)),
+    var(--glass);
+  min-height: 100%;
+}
+
+.bld-lbl {
+  display: block;
+  font-family: var(--m);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--acc-text);
+  margin-bottom: 11px;
+}
+
+/* The caret is painted over the field rather than beside it, so the input
+   itself carries the border and the focus ring — the same shape the lead
+   form uses, and the ring lands on the element that has focus. */
+.bld-entry {
+  position: relative;
+}
+
+.bld-entry span {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-52%);
+  font-family: var(--m);
+  font-size: 15px;
+  color: var(--acc);
+  pointer-events: none;
+}
+
+.bld-entry input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: rgba(0, 0, 0, 0.32);
+  color: var(--ink);
+  font-family: var(--b);
+  font-size: 15px;
+  padding: 14px 14px 14px 32px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.bld-entry input::placeholder {
+  color: var(--mute2);
+}
+
+.bld-entry input:focus,
+.bld-entry input:focus-visible {
+  outline: none;
+  border-color: rgba(255, 106, 61, 0.75);
+  box-shadow: 0 0 0 3px rgba(255, 106, 61, 0.26);
+}
+
+.bld-samples-lbl {
+  margin: 16px 0 9px;
+  font-size: 12.5px;
+  color: var(--mute2);
+}
+
+.bld-samples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.bld-samples button {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--mute);
+  border-radius: 999px;
+  padding: 7px 13px;
+  font-family: var(--b);
+  font-size: 12.5px;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.bld-samples button:hover {
+  color: var(--ink);
+  border-color: rgba(255, 106, 61, 0.45);
+  background: rgba(255, 106, 61, 0.08);
+}
+
+/* what they would have typed sits at the foot of the panel, level with the
+   end of the assembled request opposite it */
+.bld-naive {
+  margin-top: auto;
+  padding-top: 22px;
+  border-top: 1px solid var(--line2);
+}
+
+.bld-cap {
+  margin: 0 0 9px;
+  font-family: var(--m);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute2);
+}
+
+.bld-cap--out {
+  color: var(--cool-text);
+}
+
+.bld-naive-line {
+  margin: 0;
+  font-family: var(--m);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--mute);
+}
+
+.bld-naive-line i {
+  display: inline-block;
+  width: 7px;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: -0.18em;
+  background: var(--mute2);
+  animation: blink 1.15s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.bld-empty {
+  margin: 0 0 4px;
+  font-size: 14px;
+  color: var(--mute2);
+}
+
+.bld-blocks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.bld-empty {
+  margin: 0 0 12px;
+  font-size: 13.5px;
+  color: var(--mute2);
+  transition: opacity 0.3s;
+}
+
+.bld-empty[data-built="true"] {
+  opacity: 0;
+}
+
+.bld-blocks li {
+  display: grid;
+  gap: 5px;
+  padding: 12px 14px;
+  border: 1px solid var(--line2);
+  border-left: 2px solid rgba(143, 176, 232, 0.4);
+  border-radius: 0 11px 11px 0;
+  background: rgba(0, 0, 0, 0.26);
+  opacity: 0.32;
+  transform: translateY(6px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s cubic-bezier(0.2, 0.7, 0.3, 1);
+  transition-delay: calc(var(--i) * 80ms);
+}
+
+.bld-blocks[data-built="true"] li {
+  opacity: 1;
+  transform: none;
+}
+
+.bld-blocks li.is-yours {
+  border-left-color: var(--acc);
+  background: rgba(255, 106, 61, 0.07);
+}
+
+.bld-blocks li span {
+  font-family: var(--m);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool-text);
+}
+
+.bld-blocks li.is-yours span {
+  color: var(--acc-text);
+}
+
+.bld-blocks li p {
+  margin: 0;
+  font-size: 14.2px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.bld-copy {
+  margin-top: 16px;
+  width: 100%;
+  justify-content: center;
+  font-size: 13.5px;
+  padding: 12px 18px;
+}
+
+@media (max-width: 860px) {
+  .bld {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

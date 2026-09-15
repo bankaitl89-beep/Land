@@ -7,16 +7,35 @@ import AssemblyScene from "./AssemblyScene";
 import Cursor from "./Cursor";
 import ModuleIcon from "./ModuleIcon";
 import PlatformMock from "./PlatformMock";
+import PromptBuilder from "./PromptBuilder";
 import NeuralField from "./NeuralField";
 import { useDepthEffects, useTypewriter } from "./useDepthEffects";
 import LeadForm from "./LeadForm";
 
+/* The mark is a P drawn as a neuron: an ember stem — the prompt caret you
+   type into — and the bowl replaced by three ice nodes wired back to it.
+   The two colours are the page’s own system, warm for you and cool for the
+   machine, and it still reads as a P at 16px in a tab. */
 function Mark() {
   return (
     <svg viewBox="0 0 26 26" fill="none" aria-hidden="true">
-      <path d="M8 2H2v22h6" stroke="#5B67F5" strokeWidth="2.2" />
-      <path d="M18 2h6v22h-6" stroke="#5B67F5" strokeWidth="2.2" />
-      <rect x="11.5" y="6" width="3" height="14" fill="#F1F2F5" />
+      <g
+        stroke="var(--cool)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        opacity=".85"
+      >
+        <path d="M8.4 5.6 13.4 5.6" />
+        <path d="M13.4 5.6 18.6 9.6" />
+        <path d="M18.6 9.6 13.4 13.6" />
+        <path d="M13.4 13.6 8.4 13.6" />
+      </g>
+      <g fill="var(--cool)">
+        <circle cx="13.4" cy="5.6" r="2.2" />
+        <circle cx="18.6" cy="9.6" r="2.2" />
+        <circle cx="13.4" cy="13.6" r="2.2" />
+      </g>
+      <rect x="5.6" y="4" width="3.2" height="18" rx="1.1" fill="var(--acc)" />
     </svg>
   );
 }
@@ -225,64 +244,92 @@ export default function Landing({
           </div>
         </section>
 
-        {/* ---------------- mechanism ---------------- */}
-        <section className="section" id="method">
-          <div className="shell">
-            <p className="eyebrow rv">{c.mechanism.eyebrow}</p>
-            <h2 className="h2 h2--lg rv">{c.mechanism.title}</h2>
-            <p className="lede rv">{c.mechanism.lede}</p>
-
-            <div className="tiles">
-              {c.mechanism.pillars.map((p) => (
-                <article className="tile rv" key={p.n}>
-                  <b>{p.n}</b>
-                  <h3>{p.title}</h3>
-                  <p>{p.text}</p>
-                </article>
-              ))}
+        {/* ---------------- brand statement ---------------- */}
+        {/* One screen with nothing on it but the name, set larger than
+            anything else on the page. It is the turn between the complaints
+            above and the answer below. */}
+        <section className="mnf" aria-labelledby="mnf-h">
+          <div className="mnf-in">
+            <h2 className="mnf-line rv" id="mnf-h">
+              <span>Prompta</span>
+              <span>aut</span>
+              <span>perire</span>
+            </h2>
+            <div className="mnf-say rv">
+              <p className="mnf-gloss">{c.manifesto.gloss}</p>
+              <p className="mnf-text">{c.manifesto.text}</p>
             </div>
-
-            <figure className="setup rv">
-              <figcaption>
-                <span className="setup-t">{c.mechanism.example.label}</span>
-                <h4>{c.mechanism.example.name}</h4>
-              </figcaption>
-              <p className="setup-lbl">{c.mechanism.example.askLabel}</p>
-              <div className="setup-lines">
-                {c.mechanism.example.lines.map((line) => (
-                  <div key={line}>{line}</div>
-                ))}
-              </div>
-
-              <p className="setup-lbl setup-lbl--out">
-                {c.mechanism.example.outLabel}
-              </p>
-              <ul className="setup-out">
-                {c.mechanism.example.out.map((line) => (
-                  <li key={line}>{line}</li>
-                ))}
-              </ul>
-
-              <div className="setup-ba">
-                <p className="setup-was">{c.mechanism.example.before}</p>
-                <p className="setup-now">{c.mechanism.example.after}</p>
-              </div>
-
-              <p className="setup-note">{c.mechanism.example.note}</p>
-            </figure>
-
-            <p className="note rv">{c.mechanism.close}</p>
           </div>
         </section>
 
-        {/* ---------------- pinned assembly scene ---------------- */}
-        <AssemblyScene
-          eyebrow={c.scene.eyebrow}
-          title={c.scene.title}
-          note={c.scene.note}
-          counterLabel={c.scene.counter}
-          items={c.outcomes.skills.map((s) => s.title)}
-        />
+        {/* ---------------- what you build, and how it is taught ----------
+            These were two sections making the same argument: one said you
+            build setups and a teacher checks them, the other said lessons
+            are checked before the next one opens. Merged, with the three
+            pillars dropped — the four steps already said it. */}
+        <section className="section sec--rail" id="method">
+          <div className="shell rail">
+            <p className="eyebrow rail-tag rv">{c.mechanism.eyebrow}</p>
+
+            <div className="rail-body">
+              <h2 className="h2 h2--lg rv">{c.mechanism.title}</h2>
+              <p className="lede rv">{c.mechanism.lede}</p>
+
+              <figure className="setup rv">
+                <figcaption>
+                  <span className="setup-t">{c.mechanism.example.label}</span>
+                  <h3>{c.mechanism.example.name}</h3>
+                </figcaption>
+                <p className="setup-lbl">{c.mechanism.example.askLabel}</p>
+                <div className="setup-lines">
+                  {c.mechanism.example.lines.map((line) => (
+                    <div key={line}>{line}</div>
+                  ))}
+                </div>
+
+                <p className="setup-lbl setup-lbl--out">
+                  {c.mechanism.example.outLabel}
+                </p>
+                <ul className="setup-out">
+                  {c.mechanism.example.out.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+
+                <div className="setup-ba">
+                  <p className="setup-was">{c.mechanism.example.before}</p>
+                  <p className="setup-now">{c.mechanism.example.after}</p>
+                </div>
+
+                <p className="setup-note">{c.mechanism.example.note}</p>
+              </figure>
+
+              <p className="note rv">{c.mechanism.close}</p>
+
+              <div className="runs">
+                <h3 className="h2 h2--sm rv">{c.method.title}</h3>
+                <p className="lede rv">{c.method.lede}</p>
+
+                <div className="tiles tiles--4">
+                  {c.method.steps.map((s) => (
+                    <article className="tile rv" key={s.n}>
+                      <b>{s.n}</b>
+                      <h3>{s.title}</h3>
+                      <p>{s.text}</p>
+                    </article>
+                  ))}
+                </div>
+
+                <div className="plat rv">
+                  <PlatformMock ui={c.method.ui} />
+                  <p className="plat-note">{c.method.platform}</p>
+                </div>
+
+                <p className="note note--warn rv">{c.method.note}</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* ---------------- demo ---------------- */}
         <section className="section">
@@ -376,31 +423,29 @@ export default function Landing({
           </div>
         </section>
 
-        {/* ---------------- how it runs ---------------- */}
+        {/* ---------------- try it on your own job ---------------- */}
         <section className="section">
           <div className="shell">
-            <p className="eyebrow rv">{c.method.eyebrow}</p>
-            <h2 className="h2 rv">{c.method.title}</h2>
-            <p className="lede rv">{c.method.lede}</p>
+            <p className="eyebrow rv">{c.builder.eyebrow}</p>
+            <h2 className="h2 rv">{c.builder.title}</h2>
+            <p className="lede rv">{c.builder.lede}</p>
 
-            <div className="tiles tiles--4">
-              {c.method.steps.map((s) => (
-                <article className="tile rv" key={s.n}>
-                  <b>{s.n}</b>
-                  <h3>{s.title}</h3>
-                  <p>{s.text}</p>
-                </article>
-              ))}
+            <div className="rv">
+              <PromptBuilder c={c.builder} />
             </div>
 
-            <div className="plat rv">
-              <PlatformMock ui={c.method.ui} />
-              <p className="plat-note">{c.method.platform}</p>
-            </div>
-
-            <p className="note note--warn rv">{c.method.note}</p>
+            <p className="note rv">{c.builder.note}</p>
           </div>
         </section>
+
+        {/* ---------------- pinned assembly scene ---------------- */}
+        <AssemblyScene
+          eyebrow={c.scene.eyebrow}
+          title={c.scene.title}
+          note={c.scene.note}
+          counterLabel={c.scene.counter}
+          items={c.outcomes.skills.map((s) => s.title)}
+        />
 
         {/* ---------------- curriculum ---------------- */}
         <section className="section" id="curriculum">
