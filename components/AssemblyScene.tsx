@@ -36,6 +36,21 @@ export default function AssemblyScene({
 
     let frame = 0;
     let shown = -1;
+    // how far apart the landed cards sit: derived from the stage so the
+    // finished stack fills the pinned viewport instead of floating in it
+    let step = 52;
+
+    const measure = () => {
+      // the tallest card sets the floor: cards may overlap into a stack, but
+      // never so far that one covers the label of the one below it
+      let maxH = 0;
+      for (const c of cards) maxH = Math.max(maxH, c.offsetHeight);
+      const span = board.offsetHeight - maxH;
+      step =
+        cards.length > 1
+          ? Math.max(maxH * 0.78, span / (cards.length - 1))
+          : 0;
+    };
 
     const render = () => {
       frame = 0;
@@ -45,7 +60,9 @@ export default function AssemblyScene({
 
       // the last fifth is a hold, so the finished stack is readable
       const eased = Math.min(1, p / 0.82);
-      const landed = eased * cards.length;
+      // the first setup is already down when the scene opens, so the stack is
+      // never an empty rectangle while the reader works out what it is
+      const landed = 1 + eased * (cards.length - 1);
 
       cards.forEach((card, i) => {
         const local = Math.min(1, Math.max(0, landed - i));
@@ -54,7 +71,7 @@ export default function AssemblyScene({
         // stack it is landing on instead of ghosting through it
         card.style.opacity = String(Math.min(1, local * 6));
         card.style.transform =
-          `translateY(${-i * 52 + drop * 150}px) ` +
+          `translateY(${-i * step + drop * 150}px) ` +
           `translateX(${drop * 38}px) ` +
           `scale(${(1 - i * 0.012) * (0.94 + local * 0.06)}) ` +
           `rotate(${drop * 5}deg)`;
@@ -73,14 +90,19 @@ export default function AssemblyScene({
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(render);
     };
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
+    measure();
     render();
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
       if (frame) cancelAnimationFrame(frame);
     };
   }, [items]);

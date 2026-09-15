@@ -1571,6 +1571,8 @@ body.anim #field {
   position: sticky;
   top: 0;
   height: 100vh;
+  /* the header is sticky and sits over the pin — the scene starts below it */
+  padding-top: 66px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -1580,8 +1582,17 @@ body.anim #field {
   display: grid;
   grid-template-columns: 1fr 0.9fr;
   gap: 54px;
-  align-items: center;
+  /* the copy sits at the top of the pinned frame and the stack grows up from
+     the bottom of it, so the two together fill the height instead of both
+     hovering in the middle with dead air above and below */
+  align-items: stretch;
+  min-height: min(660px, 74vh);
   width: 100%;
+}
+
+.scene-copy {
+  display: flex;
+  flex-direction: column;
 }
 
 .scene-copy .lede {
@@ -1592,7 +1603,11 @@ body.anim #field {
   display: flex;
   align-items: baseline;
   gap: 10px;
+  /* pushed to the foot of the column so the counter anchors the bottom of the
+     frame opposite the stack, rather than leaving the left half empty */
   margin: 30px 0 0;
+  padding-top: 30px;
+  margin-top: auto;
 }
 
 .scene-count span {
@@ -1628,7 +1643,9 @@ body.anim #field {
 
 .scene-stage {
   position: relative;
-  height: 512px;
+  /* the stack stretches to the row set by .scene-in — the spacing between
+     cards is derived from that height in JS */
+  height: auto;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -1683,8 +1700,24 @@ body.anim #field {
     grid-template-columns: 1fr;
     gap: 30px;
   }
+  .scene-in {
+    min-height: 0;
+  }
+  .scene-count {
+    margin-top: 26px;
+    padding-top: 0;
+  }
   .scene-stage {
-    height: 360px;
+    min-height: min(470px, 50vh);
+  }
+  /* the labels stay on one line at phone width, so the cards keep a single
+     height and the stack reads as a stack */
+  .sc-card {
+    padding: 14px 15px;
+    gap: 11px;
+  }
+  .sc-t {
+    font-size: 14px;
   }
   .scene-count span {
     font-size: 48px;
