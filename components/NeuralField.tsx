@@ -44,9 +44,12 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     // layers, with the rest of the network still ahead of it
     const Z_START = 3.7;
     const Z_END = 0.45;
-    // The dive finishes with the hero. Anything longer and the network is
-    // still at full strength across the first sections of text.
-    const DIVE_SCREENS = 1.0;
+    // The dive is measured against the hero itself rather than a guessed
+    // number of screens. Measured over the real page: any visible network on
+    // top of body text breaks its contrast — even at a third of full
+    // strength the paragraphs under it read at 1.7:1 — so the rule is not
+    // "dim it", it is "be gone by the time text arrives".
+    let runway = 700;
 
     // ---- neurons ------------------------------------------------------
     const nx = new Float32Array(COUNT);
@@ -230,6 +233,9 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     // A mask that erases the network from the column the hero text sits in.
     // Rebuilt only on resize; making a gradient every frame allocates.
     let guard: CanvasGradient | null = null;
+    // Where the hero ends in document coordinates. Below it the page is text
+    // from edge to edge, so the network is cut off there.
+    let heroBottom = 800;
 
     function build() {
       // The field is soft dots and thin lines behind the page; it does not
@@ -243,6 +249,13 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
       narrow = width < 760;
       focal = Math.min(width, height) * (narrow ? 0.8 : 1.0);
+      const hero = document.querySelector<HTMLElement>(".hero");
+      heroBottom = hero
+        ? hero.offsetTop + hero.offsetHeight
+        : Math.round(window.innerHeight * 0.85);
+      // finish a little before the hero ends, so the section after it is
+      // never read through a mesh of wires
+      runway = Math.max(360, heroBottom - 140);
       // Solid across the text column, then a long ramp so there is no edge
       // to see. The paragraph runs wider than the headline, so the solid part
       // has to clear it too.
@@ -253,7 +266,6 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     }
 
     function readScroll() {
-      const runway = window.innerHeight * DIVE_SCREENS;
       const raw = Math.max(0, window.scrollY / runway);
       const p = Math.min(1, raw);
       const eased = p * p * (3 - 2 * p);
@@ -263,10 +275,9 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       // long edges cut straight through paragraphs — and frames, because the
       // compositor blends it over the scrolling page every time. So it fades
       // out entirely by a screen past the dive and stops drawing there.
-      // It starts receding before the dive is even over, so that by the time
-      // the first paragraphs are on screen the wires are no longer running
-      // through them.
-      presence = raw <= 0.55 ? 1 : Math.max(0, 1 - (raw - 0.55) * 1.5);
+      // Full strength for the first half of the hero, then out entirely by
+      // the end of it.
+      presence = raw <= 0.5 ? 1 : Math.max(0, 1 - (raw - 0.5) * 2);
     }
 
     function draw() {
@@ -423,22 +434,39 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
 
       // --- keep it off the words ---
       //
-      // Measured: a signal passing behind the headline dropped the contrast
-      // there to 1.7:1, and behind the paragraph to 1.06:1 — the line simply
-      // disappeared into it. So the left column, where the hero text lives,
-      // is erased from the canvas rather than merely dimmed: destination-out
-      // takes the pixels out and leaves real transparency, so the page ground
-      // shows through exactly as it does everywhere else. It lifts as the
-      // dive proceeds, by which point the hero has scrolled away.
-      const guardStrength = narrow ? 0 : drift;
-      if (guard && guardStrength > 0.01) {
-        ctx!.globalCompositeOperation = "destination-out";
-        ctx!.globalAlpha = 0.94 * guardStrength;
+      // Measured over the built page: a signal passing behind the headline
+      // took the contrast there to 1.7:1 and behind a paragraph to 1.06:1 —
+      // the line vanishes into it. Dimming does not save it either; at a
+      // third of full strength the paragraphs still read at 1.7:1. And on a
+      // 900px screen the section under the hero is already partly visible at
+      // the very top of the page, so there is no moment when the network can
+      // cover the whole viewport without crossing something written.
+      //
+      // So it is not dimmed, it is cut. The text column on the left and
+      // everything below the hero are erased from the canvas — destination-out,
+      // which removes the pixels and leaves real transparency, so the page
+      // ground shows through exactly as it does elsewhere. What is left is the
+      // open right-hand part of the first screen, which is where the network
+      // already lived at rest.
+      ctx!.globalCompositeOperation = "destination-out";
+      ctx!.globalAlpha = 1;
+
+      if (guard && !narrow) {
         ctx!.fillStyle = guard;
         ctx!.fillRect(0, 0, width * 0.74, height);
-        ctx!.globalCompositeOperation = "source-over";
-        ctx!.globalAlpha = narrow ? presence * 0.55 : presence;
       }
+
+      const cut = heroBottom - window.scrollY - 40;
+      if (cut < height) {
+        const fade = ctx!.createLinearGradient(0, Math.max(0, cut - 90), 0, Math.max(0, cut));
+        fade.addColorStop(0, "rgba(0,0,0,0)");
+        fade.addColorStop(1, "rgba(0,0,0,1)");
+        ctx!.fillStyle = fade;
+        ctx!.fillRect(0, Math.max(0, cut - 90), width, height - Math.max(0, cut - 90));
+      }
+
+      ctx!.globalCompositeOperation = "source-over";
+      ctx!.globalAlpha = narrow ? presence * 0.55 : presence;
     }
 
     // A quarter of all frames during a scroll ran long, and removing what was

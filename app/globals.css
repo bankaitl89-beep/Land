@@ -9,9 +9,15 @@
   --bg2: #0d0f14;
   --ink: #f1f2f5;
   --mute: #9aa0ab;
-  --mute2: #757b86;
+  /* measured 3.82:1 over the lit part of the hero in its old value */
+  --mute2: #888e9a;
 
   --acc: #5b67f5;
+  /* The brand indigo is for fills and borders. As *text* it measures 4.49:1
+     on the page ground and 3.64:1 over the lit areas, both under AA, and
+     every eyebrow and label on the page is set in it — so small accent text
+     gets its own lighter value that clears 4.5 on every ground here. */
+  --acc-text: #7682ff;
   --acc-soft: #a3abff;
   --ok: #2bd98b;
   --warn: #ff8b9c;
@@ -137,7 +143,7 @@ section[id] {
   font-size: 10.5px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--acc);
+  color: var(--acc-text);
   display: block;
   margin: 0 0 16px;
 }
@@ -515,7 +521,7 @@ section[id] {
   font-size: 9.5px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--mute2);
+  color: #949ba7;
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -791,7 +797,7 @@ section[id] {
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--acc);
+  color: var(--acc-text);
 }
 
 .tile h3 {
@@ -1234,7 +1240,7 @@ body:not(.anim) .setup-lines div {
   font-family: var(--m);
   font-size: 10.5px;
   letter-spacing: 0.18em;
-  color: var(--acc);
+  color: var(--acc-text);
   display: block;
   margin-bottom: 7px;
 }
@@ -1310,7 +1316,7 @@ body:not(.anim) .setup-lines div {
   font-family: var(--m);
   font-size: 10px;
   letter-spacing: 0.14em;
-  color: var(--acc);
+  color: var(--acc-text);
 }
 
 .mod h3 {
@@ -1389,7 +1395,7 @@ body:not(.anim) .setup-lines div {
   font-family: var(--m);
   font-size: 10.5px;
   letter-spacing: 0.18em;
-  color: var(--acc);
+  color: var(--acc-text);
   display: block;
   margin-bottom: 9px;
 }
@@ -2241,6 +2247,8 @@ body.anim #field {
 
 .cred-copy .eyebrow {
   margin-bottom: 10px;
+  /* the band is lifted off the page, where plain --acc reads 4.40:1 */
+  color: var(--acc-soft);
 }
 
 .cred-line {
@@ -2419,7 +2427,7 @@ body.anim #field {
   font-family: var(--m);
   font-size: 10.5px;
   letter-spacing: 0.14em;
-  color: var(--acc);
+  color: var(--acc-text);
   flex: none;
 }
 
@@ -2653,7 +2661,7 @@ body:not(.anim) .compare {
   font-size: 10px;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--acc);
+  color: var(--acc-text);
 }
 
 .app-track {
