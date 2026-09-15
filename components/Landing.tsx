@@ -541,7 +541,8 @@ export default function Landing({
             <p className="lede rv">{c.pricing.sub}</p>
 
             <div className="buy">
-              <div className="panel rv">
+              <div className="panel panel--lit rv">
+                <i className="trace" aria-hidden="true" />
                 <div className="price">
                   <span>{c.pricing.now}</span>
                   <s>{c.pricing.was}</s>

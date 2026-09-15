@@ -1402,6 +1402,59 @@ body:not(.anim) .setup-lines div {
   margin-top: 28px;
 }
 
+/* A light running the edge of the price card. The idea is borrowed from a
+   "moving dot" card; the execution is ours. The dot rides percentages of the
+   panel rather than fixed pixels, so it traces whatever height the price list
+   happens to be in a given language, and it marks the one card the page is
+   trying to get people to read. The panel keeps its own border — the dot adds
+   to it rather than replacing it, so the card still holds together while the
+   dot is on the far side. */
+.panel--lit {
+  position: relative;
+  border-color: rgba(91, 103, 245, 0.34);
+}
+
+.trace {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--acc-soft);
+  box-shadow:
+    0 0 10px 2px rgba(91, 103, 245, 0.85),
+    0 0 26px 6px rgba(91, 103, 245, 0.35);
+  transform: translate(-50%, -50%);
+  animation: trace 9s linear infinite;
+  pointer-events: none;
+}
+
+/* Four corners, four legs. Linear, because a dot that eases into every corner
+   reads as stop-and-go rather than as one light going round. */
+@keyframes trace {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  25% {
+    top: 0;
+    left: 100%;
+  }
+  50% {
+    top: 100%;
+    left: 100%;
+  }
+  75% {
+    top: 100%;
+    left: 0;
+  }
+  100% {
+    top: 0;
+    left: 0;
+  }
+}
+
 .panel {
   border-radius: 17px;
   border: 1px solid var(--line);
