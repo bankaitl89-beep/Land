@@ -4,11 +4,14 @@
 import { mkdirSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
+// Weight ranges, not lists: Google serves one variable file per subset for a
+// range, and three static instances of a display face cost 150KB of latin on
+// their own. Onest is gone — it was the old display face and is now only a
+// name in the fallback stack, which never downloads.
 const FAMILIES = [
-  "Unbounded:wght@400;600;700;800",
-  "Onest:wght@400;600;700;800",
-  "Manrope:wght@400;500;600;700",
-  "JetBrains+Mono:wght@400;700",
+  "Unbounded:wght@600..800",
+  "Manrope:wght@400..700",
+  "JetBrains+Mono:wght@400..700",
 ];
 
 // Latin for the English and Spanish pages, Cyrillic for the Russian one.
@@ -42,7 +45,8 @@ for (const [, subset, face] of blocks) {
   if (!SUBSETS.includes(subset)) continue;
 
   const family = face.match(/font-family: '([^']+)'/)[1];
-  const weight = face.match(/font-weight: (\d+)/)[1];
+  // a variable face declares a range ("400 700"), a static one a single value
+  const weight = face.match(/font-weight: ([\d ]+);/)[1].trim().replace(/\s+/g, "-");
   const src = face.match(/url\((https:\/\/[^)]+\.woff2)\)/)[1];
   const file = `${family.toLowerCase().replace(/\s+/g, "-")}-${weight}-${subset}.woff2`;
   const dest = join(fontDir, file);

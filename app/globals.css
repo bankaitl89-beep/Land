@@ -40,7 +40,7 @@
   --glass: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.02));
   --solid: linear-gradient(180deg, #151822, #0a0c11);
 
-  --d: "Unbounded", "Onest", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --d: "Unbounded", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --b: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --m: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
@@ -1307,69 +1307,6 @@ body:not(.anim) .setup-lines div {
   }
 }
 
-.mods {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 30px;
-}
-
-.mod {
-  border-radius: 15px;
-  border: 1px solid var(--line2);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 24px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-  transition: transform 0.28s cubic-bezier(0.2, 0.7, 0.3, 1), border-color 0.28s, background 0.28s;
-}
-
-.mod:hover {
-  transform: translateY(-5px);
-  border-color: rgba(255, 106, 61, 0.45);
-  background: rgba(255, 255, 255, 0.055);
-}
-
-.mod-n {
-  font-family: var(--m);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  color: var(--cool-text);
-}
-
-.mod h3 {
-  font-size: 18px;
-}
-
-.mod > p {
-  margin: 0;
-  color: var(--mute);
-  font-size: 14.2px;
-  line-height: 1.6;
-  flex: 1;
-}
-
-.mod-res {
-  display: grid;
-  grid-template-columns: 16px 1fr;
-  gap: 10px;
-  align-items: start;
-  border-top: 1px solid var(--line2);
-  padding-top: 13px;
-  font-size: 13.8px;
-  line-height: 1.5;
-  color: var(--ink);
-}
-
-.mod-res i {
-  font-style: normal;
-  color: var(--ok);
-  font-weight: 800;
-  font-size: 12px;
-  margin-top: 2px;
-}
-
 /* ---------- skills ---------- */
 
 /* ---------- nine things you will be able to do ----------
@@ -1750,7 +1687,10 @@ body:not(.anim) .setup-lines div {
 .price s {
   font-size: 21px;
   color: var(--mute2);
-  font-weight: 400;
+  /* the display face is served as one variable file over 600-800; asking for
+     400 here used to pull a whole extra static instance for one struck-out
+     price */
+  font-weight: 600;
 }
 
 .price-save {
@@ -1928,7 +1868,6 @@ body:not(.anim) .setup-lines div {
 @media (max-width: 1040px) {
   .tiles,
   .tiles--4,
-  .mods,
   .skills,
   .quotes {
     grid-template-columns: repeat(2, 1fr);
@@ -1962,7 +1901,8 @@ body:not(.anim) .setup-lines div {
   }
   .lang a,
   .lang button {
-    min-height: 38px;
+    /* a thumb needs 44 */
+    min-height: 44px;
     display: inline-flex;
     align-items: center;
     padding-inline: 14px;
@@ -1975,7 +1915,6 @@ body:not(.anim) .setup-lines div {
   }
   .tiles,
   .tiles--4,
-  .mods,
   .skills,
   .quotes,
   .stats {
@@ -2591,12 +2530,6 @@ body:not(.anim) .compare {
     background 0.28s;
 }
 
-.skill:hover,
-.mod:hover {
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
-    translateY(-5px);
-}
-
 .pain:hover {
   transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
     translateY(-3px);
@@ -2843,14 +2776,6 @@ body:not(.anim) .compare {
   }
 }
 
-/* ---------- module drawings ---------- */
-
-.mod-head {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
 .mod-ico {
   width: 34px;
   height: 34px;
@@ -2867,7 +2792,7 @@ body:not(.anim) .compare {
   fill: var(--acc);
 }
 
-.mod:hover .mod-ico {
+.leg:hover .mod-ico {
   stroke: rgba(255, 255, 255, 0.6);
   transform: scale(1.06);
 }
@@ -3026,6 +2951,7 @@ body:not(.anim) .compare {
   color: var(--mute);
   border-radius: 999px;
   padding: 7px 13px;
+  min-height: 34px;
   font-family: var(--b);
   font-size: 12.5px;
   line-height: 1.3;
@@ -3240,5 +3166,15 @@ body:not(.anim) .compare {
 @media (max-width: 860px) {
   .bld {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* The sample jobs are the main way into the builder on a phone, so they get
+   a thumb-sized target there rather than the desktop chip. */
+@media (max-width: 700px) {
+  .bld-samples button {
+    min-height: 44px;
+    padding: 10px 15px;
+    font-size: 13.5px;
   }
 }

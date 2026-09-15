@@ -9,7 +9,9 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   ...(isExport
     ? { output: "export" as const, assetPrefix: "./", images: { unoptimized: true } }
-    : {}),
+    : // a standalone server bundle, so the VPS can run `node server.js` with
+      // only the files it actually needs instead of the whole node_modules
+      { output: "standalone" as const }),
 };
 
 export default nextConfig;

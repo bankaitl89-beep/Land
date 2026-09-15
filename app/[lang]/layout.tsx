@@ -5,21 +5,23 @@ import { LANGS, SITE_URL, isLang } from "@/lib/i18n";
 import "../fonts.css";
 import "../globals.css";
 
+/* Kept under 160 characters: past that a search result truncates and the
+   sentence that was meant to sell the page ends in an ellipsis. */
 const meta: Record<Lang, { title: string; description: string }> = {
   en: {
     title: "Prompta aut perire — AI at work, properly taught",
     description:
-      "Six parts, from knowing nothing to running your own agents. Lessons, comprehension checks, homework on your own real work and review by a live teacher. No coding, at your own pace. 500+ graduates.",
+      "Six parts, from knowing nothing to running your own agents. Homework on your own real work, reviewed by a live teacher. No coding, at your own pace.",
   },
   es: {
     title: "Prompta aut perire — IA en el trabajo, enseñada de verdad",
     description:
-      "Seis partes, de no saber nada a manejar tus propios agentes. Lecciones, controles, tareas sobre tu trabajo real y corrección de una profesora. Sin programar, a tu ritmo. Más de 500 graduados.",
+      "Seis partes, de no saber nada a manejar tus propios agentes. Tareas sobre tu trabajo real, corregidas por una profesora. Sin programar, a tu ritmo.",
   },
   ru: {
     title: "Prompta aut perire — ИИ в работе, с настоящим обучением",
     description:
-      "Шесть частей: с нуля до собственных ИИ-агентов. Уроки, проверка усвоения, задания на вашей настоящей работе и разбор живым преподавателем. Без программирования, в вашем темпе. Более 500 выпускников.",
+      "Шесть частей: с нуля до собственных ИИ-агентов. Задания на вашей настоящей работе и разбор живым преподавателем. Без программирования, в вашем темпе.",
   },
 };
 
@@ -51,14 +53,29 @@ export async function generateMetadata({
       title: m.title,
       description: m.description,
       url: `/${lang}`,
+      siteName: "Prompta aut perire",
       locale: lang,
       type: "website",
+      images: [
+        {
+          url: `/og-${lang}.png`,
+          width: 1200,
+          height: 630,
+          alt: m.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: m.title,
+      description: m.description,
+      images: [`/og-${lang}.png`],
     },
   };
 }
 
 export const viewport: Viewport = {
-  themeColor: "#070b18",
+  themeColor: "#06070b",
   width: "device-width",
   initialScale: 1,
 };
