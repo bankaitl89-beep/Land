@@ -8,12 +8,16 @@
   --bg: #06070b;
   --bg2: #0c0e15;
   --ink: #f1f2f5;
-  --mute: #9aa0ab;
-  /* The faintest grey on the page, and the one the network sets the floor
-     for: with the field now running behind the whole page, #888e9a measured
-     4.1:1 over the lit grounds. This value clears 4.7:1 on the worst of
-     them — the pointer glow over the hero at rgb(63,39,39). */
-  --mute2: #949aa6;
+  /* Both greys sit a step lighter than a page without a field behind it
+     would need. With the network running the whole way down at a fifth of
+     full strength, the ground under body copy reaches rgb(60,57,63) inside
+     the dive, and the old values measured 4.2-4.4:1 there. */
+  --mute: #a3a9b4;
+  /* The small-label grey. It is lighter than --mute rather than darker,
+     which looks backwards until you see where it is used: mono labels at
+     9.5-11px, over the warmest, most lit grounds on the page, with the
+     network behind them. Measured there, #949aa6 came in at 4.0:1. */
+  --mute2: #a8aeb9;
 
   /* Two colours, and they mean different things.
      Warm ember is you: what you write, what you press, what the teacher
@@ -101,7 +105,11 @@ a {
   z-index: 0;
   background: radial-gradient(
     520px circle at var(--mx, 50%) var(--my, 18%),
-    rgba(255, 106, 61, 0.16),
+    /* Ember carries far more luminance than the indigo this replaced, so the
+       same 0.16 lifted the ground under the pointer to rgb(76,55,56) and took
+       the greys there to 4.1:1. The wash is ambient; it can afford to be
+       fainter, and the network behind it needs the headroom. */
+    rgba(255, 106, 61, 0.09),
     transparent 62%
   );
   opacity: 0;
@@ -829,7 +837,7 @@ section[id] {
   margin-top: 26px;
   border-radius: var(--r-lg);
   border: 1px solid rgba(255, 106, 61, 0.4);
-  background: linear-gradient(180deg, rgba(255, 106, 61, 0.13), rgba(255, 106, 61, 0.03));
+  background: linear-gradient(180deg, rgba(255, 106, 61, 0.09), rgba(255, 106, 61, 0.02));
   padding: 24px;
   box-shadow: 0 36px 72px -44px rgba(0, 0, 0, 0.95);
   max-width: 900px;
@@ -2495,7 +2503,7 @@ body::before {
   background:
     radial-gradient(
       90% 60% at 50% calc(100% * var(--scene, 0)),
-      rgba(255, 106, 61, 0.1),
+      rgba(255, 106, 61, 0.07),
       transparent 70%
     );
   transition: background 0.8s linear;

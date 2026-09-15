@@ -32,10 +32,8 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    // More layers than the opening alone needs: the camera now flies for the
-    // whole page, so there has to be a whole page of network in front of it.
-    const LAYERS = 16;
-    const PER_LAYER = 24;
+    const LAYERS = 8;
+    const PER_LAYER = 40;
     const COUNT = LAYERS * PER_LAYER;
     const FAN = 3; // edges forward from each neuron
     const RADIUS = 0.95;
@@ -45,27 +43,20 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     // the camera starts outside the whole stack and ends among the first
     // layers, with the rest of the network still ahead of it
     const Z_START = 3.7;
-    // where the opening dive ends, at the foot of the hero
-    const Z_DIVE = 0.45;
-    // and how far the camera keeps travelling per pixel scrolled after that:
-    // about two layers per screenful, which is a walk rather than a flight
-    const Z_PER_PX = 0.00133;
-    // Past the dive the camera loops. Every fourth layer is a repeat of the
-    // one four before it — see the spiral below — so sliding the camera back
-    // by four layers' worth lands it on a configuration identical to the one
-    // it just left, and the layers keep coming forever without a seam and
-    // without a second stack of geometry to carry.
-    const LOOP_SPAN = 4 * Z_GAP;
-    const LOOP_TOP = 1.4;
-    // How strongly the network is painted is measured against the hero alone.
-    // Over the hero it is at full strength; by the foot of the hero it has
-    // come down to REST and it stays there for the rest of the page. REST is
-    // not a guess: at 0.13 the brightest thing the network can put behind a
-    // word — a signal head at rgba(206,226,255,.94) — lifts the ground to
-    // rgb(30,34,41), where the page's faintest grey still measures 4.9:1.
-    let heroRun = 700;
-    const REST = 0.13;
-    const REST_NARROW = 0.085;
+    const Z_END = 0.45;
+    // The dive runs for nearly a screen and a half, at full strength the
+    // whole way, because that is the length at which it reads as flying in
+    // rather than as a transition. Then the network recedes over the screen
+    // that follows and settles at REST, where it stays for the rest of the
+    // page: present behind everything, never the thing you are looking at.
+    const DIVE_SCREENS = 1.45;
+    // Measured, not chosen: at full strength a signal head near the camera
+    // paints rgb(196,208,233) — near white — and body text over it reads at
+    // 1.0:1. At REST the same head lifts the ground to rgb(44,47,55), where
+    // the page's faintest grey still clears AA. So the network is free to run
+    // at full strength over the hero, where the words are held off it, and is
+    // clamped to REST everywhere the page is text.
+    const REST = 0.22;
 
     // ---- neurons ------------------------------------------------------
     const nx = new Float32Array(COUNT);
@@ -86,10 +77,7 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
           // a golden-angle spiral fills a disc evenly; a ring or a grid would
           // read as a pattern rather than as a layer of cells
           const r = Math.sqrt((i + 0.5) / PER_LAYER) * RADIUS;
-          // the turn repeats every fourth layer, which is what lets the
-          // camera loop invisibly; within a period of four it is still
-          // enough to stop the layers superimposing into a moiré
-          const th = i * golden + (l % 4) * 0.7;
+          const th = i * golden + l * 0.7;
           nx[k] = Math.cos(th) * r;
           ny[k] = Math.sin(th) * r;
           nz[k] = z;
@@ -149,14 +137,20 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
             const dy = ny[t] - ny[from];
             const d = dx * dx + dy * dy;
             if (d < bestD[0]) {
-              bestD[2] = bestD[1]; best[2] = best[1];
-              bestD[1] = bestD[0]; best[1] = best[0];
-              bestD[0] = d; best[0] = t;
+              bestD[2] = bestD[1];
+              best[2] = best[1];
+              bestD[1] = bestD[0];
+              best[1] = best[0];
+              bestD[0] = d;
+              best[0] = t;
             } else if (d < bestD[1]) {
-              bestD[2] = bestD[1]; best[2] = best[1];
-              bestD[1] = d; best[1] = t;
+              bestD[2] = bestD[1];
+              best[2] = best[1];
+              bestD[1] = d;
+              best[1] = t;
             } else if (d < bestD[2]) {
-              bestD[2] = d; best[2] = t;
+              bestD[2] = d;
+              best[2] = t;
             }
           }
           for (let f = 0; f < FAN; f++) {
@@ -181,7 +175,7 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       // network reads as computing its way out to them
       pEdge[i] = deepestFirstEdge + ((Math.random() * PER_LAYER * FAN) | 0);
       pT[i] = Math.random();
-      pV[i] = 0.006 + Math.random() * 0.010;
+      pV[i] = 0.006 + Math.random() * 0.01;
     }
     for (let i = 0; i < PULSES; i++) seed(i);
 
@@ -197,7 +191,7 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
         if (n > 0) {
           pEdge[i] = s + ((Math.random() * n) | 0);
           pT[i] = 0;
-          pV[i] = 0.006 + Math.random() * 0.010;
+          pV[i] = 0.006 + Math.random() * 0.01;
         } else {
           seed(i); // reached the output layer, start again at the far side
         }
@@ -222,10 +216,27 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       nodeR.push(0.9 + g * 2.6);
       nodeFill.push(
         `rgba(${Math.round(128 + g * 82)}, ${Math.round(160 + g * 66)}, ${Math.round(216 + g * 39)}, ${(
-          0.16 + g * 0.6
+          0.16 +
+          g * 0.6
         ).toFixed(3)})`,
       );
     }
+    // The same neurons, the same sizes, with only the top of the brightness
+    // range turned down. Used once the network has receded: the global alpha
+    // is applied per draw call, so a neuron with two more behind it stacks
+    // past whatever it is set to, and it is those stacks — not the density —
+    // that were putting rgb(82,88,104) behind body text.
+    const nodeFillDim: string[] = [];
+    for (let i = 0; i < LEVELS; i++) {
+      const g = i / (LEVELS - 1);
+      const a = (0.16 + g * 0.6) * (g > 0.55 ? 0.34 : 0.7);
+      nodeFillDim.push(
+        `rgba(${Math.round(128 + g * 82)}, ${Math.round(160 + g * 66)}, ${Math.round(
+          216 + g * 39,
+        )}, ${a.toFixed(3)})`,
+      );
+    }
+
     const bx: number[][] = Array.from({ length: LEVELS }, () => []);
     const by: number[][] = Array.from({ length: LEVELS }, () => []);
 
@@ -234,6 +245,11 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       "rgba(132,164,224,0.32)",
       "rgba(124,154,212,0.18)",
       "rgba(116,144,200,0.085)",
+    ];
+    const edgeStrokeDim = [
+      "rgba(132,164,224,0.2)",
+      "rgba(124,154,212,0.12)",
+      "rgba(116,144,200,0.06)",
     ];
 
     let width = 0;
@@ -249,11 +265,12 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     let wantTiltY = 0;
     let presence = 1;
     let narrow = false;
-    // A mask that erases the network from the column the hero text sits in.
+    // A mask that thins the network out of the column the hero text sits in.
     // Rebuilt only on resize; making a gradient every frame allocates.
     let guard: CanvasGradient | null = null;
-    // Where the hero ends in document coordinates. Below it the page is text
-    // from edge to edge, so the network is cut off there.
+    // Where the hero ends in document coordinates: below it the page is text
+    // from edge to edge, so the network is held at REST there however bright
+    // it is over the hero.
     let heroBottom = 800;
 
     function build() {
@@ -272,9 +289,6 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       heroBottom = hero
         ? hero.offsetTop + hero.offsetHeight
         : Math.round(window.innerHeight * 0.85);
-      // the fade to resting strength is over by the foot of the hero; the
-      // flight itself has no end, it loops
-      heroRun = Math.max(360, heroBottom - 140);
       // Solid across the text column, then a long ramp so there is no edge
       // to see. The paragraph runs wider than the headline, so the solid part
       // has to clear it too.
@@ -289,34 +303,33 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       // The flight: eased over the first screen so the opening has some
       // punch, then linear, so the rest of the page advances at an even rate
       // instead of crawling to a stop.
-      const opening = Math.min(1, y / heroRun);
-      const eased = opening * opening * (3 - 2 * opening);
-      let z = Z_START + (Z_DIVE - Z_START) * eased;
-      if (y > heroRun) z -= (y - heroRun) * Z_PER_PX;
-      // fold the travel back into one loop's worth
-      if (z < LOOP_TOP) {
-        const d = LOOP_TOP - z;
-        z = LOOP_TOP - (d % LOOP_SPAN);
-      }
-      camZ = z;
-
-      // The strength: full over the top half of the hero, down to REST by the
-      // foot of it, and REST from there to the end of the page.
-      const rest = narrow ? REST_NARROW : REST;
-      const h = Math.max(0, y / heroRun);
-      presence = h <= 0.45 ? 1 : Math.max(rest, 1 - ((h - 0.45) / 0.55) * (1 - rest));
+      const runway = window.innerHeight * DIVE_SCREENS;
+      const raw = y / runway;
+      const p = Math.min(1, raw);
+      const eased = p * p * (3 - 2 * p);
+      camZ = Z_START + (Z_END - Z_START) * eased;
+      // once the reader is inside, the network gets out from under the words:
+      // it recedes over the screen that follows and stays at REST
+      presence = raw <= 1 ? 1 : Math.max(REST, 1 - (raw - 1) * 0.9);
     }
 
     function draw() {
       ctx!.clearRect(0, 0, width, height);
-      ctx!.globalAlpha = presence;
+      ctx!.globalAlpha = narrow ? presence * 0.55 : presence;
 
       // On a wide screen the left half of the hero is the headline and the
       // price; the network sits in the right half, where the page has no
       // words, until the dive pulls it over everything.
-      const drift = Math.min(1, Math.max(0, (camZ - Z_DIVE) / (Z_START - Z_DIVE)));
+      const drift = Math.min(
+        1,
+        Math.max(0, (camZ - Z_END) / (Z_START - Z_END)),
+      );
       const cx = width * (narrow ? 0.5 : 0.5 + 0.18 * drift);
       const cy = height * (narrow ? 0.66 : 0.47);
+
+      // below the dive the page is text, and the network gives up everything
+      // that could stack into a bright blob behind a word
+      const dim = presence <= 0.35;
 
       tiltX += (wantTiltX - tiltX) * 0.06;
       tiltY += (wantTiltY - tiltY) * 0.06;
@@ -365,7 +378,7 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       // --- edges, in three brightness bands ---
       ctx!.lineWidth = 1;
       for (let band = 0; band < EDGE_STEPS; band++) {
-        ctx!.strokeStyle = edgeStroke[band];
+        ctx!.strokeStyle = dim ? edgeStrokeDim[band] : edgeStroke[band];
         ctx!.beginPath();
         let any = false;
         for (let e = 0; e < E; e++) {
@@ -394,12 +407,21 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
         bx[lvl].push(sx[i]);
         by[lvl].push(sy[i]);
       }
+      // Once the network has receded it keeps its wires and its dots but
+      // gives up its highlights: the top brightness buckets are drawn with
+      // the fill two steps down. Measured on the page, a neuron at full
+      // brightness with two more behind it stacks to rgb(82,88,104) even at
+      // a fifth of global strength, which is where the greys were failing —
+      // the global alpha is per draw call, so overlapping draws accumulate
+      // past whatever it is set to. Capping the brightest buckets holds the
+      // ceiling down without thinning the network out.
+      const fills = dim ? nodeFillDim : nodeFill;
       for (let l = 0; l < LEVELS; l++) {
         const xs = bx[l];
         if (!xs.length) continue;
         const ys = by[l];
         const r = nodeR[l];
-        ctx!.fillStyle = nodeFill[l];
+        ctx!.fillStyle = fills[l];
         ctx!.beginPath();
         for (let i = 0; i < xs.length; i++) {
           ctx!.moveTo(xs[i] + r, ys[i]);
@@ -417,7 +439,7 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       // labels only exist near the camera, so they arrive as the reader flies
       // in and are gone once the network has receded behind the page.
       const words = tasksRef.current;
-      if (words.length && presence > 0.35) {
+      if (words.length && presence > 0.5) {
         ctx!.textBaseline = "middle";
         ctx!.font =
           '10.5px ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo, monospace';
@@ -443,61 +465,73 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       }
 
       // --- the signals themselves, the brightest thing on screen ---
-      ctx!.fillStyle = "rgba(206,226,255,0.94)";
-      ctx!.beginPath();
-      for (let i = 0; i < PULSES; i++) {
-        const e = pEdge[i];
-        const a = eFrom[e];
-        const b = eTo[e];
-        if (!sOk[a] || !sOk[b]) continue;
-        const f = pT[i];
-        const x = sx[a] + (sx[b] - sx[a]) * f;
-        const y = sy[a] + (sy[b] - sy[a]) * f;
-        const r = 1 + (sNear[a] + sNear[b]) * 0.9;
-        ctx!.moveTo(x + r, y);
-        ctx!.arc(x, y, r, 0, Math.PI * 2);
+      // and so the first thing turned down once there are words underneath
+      {
+        ctx!.fillStyle = dim
+          ? "rgba(178,200,236,0.3)"
+          : "rgba(206,226,255,0.94)";
+        ctx!.beginPath();
+        for (let i = 0; i < PULSES; i++) {
+          const e = pEdge[i];
+          const a = eFrom[e];
+          const b = eTo[e];
+          if (!sOk[a] || !sOk[b]) continue;
+          const f = pT[i];
+          const x = sx[a] + (sx[b] - sx[a]) * f;
+          const y = sy[a] + (sy[b] - sy[a]) * f;
+          const r = 1 + (sNear[a] + sNear[b]) * 0.9;
+          ctx!.moveTo(x + r, y);
+          ctx!.arc(x, y, r, 0, Math.PI * 2);
+        }
+        ctx!.fill();
       }
-      ctx!.fill();
 
-      // --- keep it off the words ---
+      // --- hold it off the words ---
       //
-      // Measured over the built page: a signal passing behind the headline at
-      // full strength took the contrast there to 1.7:1 and behind a paragraph
-      // to 1.06:1 — the line vanishes into it. So wherever there are words,
-      // the network is knocked down to REST, which is the strength measured
-      // to leave even the page's faintest grey at 4.9:1.
+      // Two places, and only two, so the dive itself is untouched: the column
+      // the hero's own headline and paragraph sit in, and everything below
+      // the foot of the hero, where the page is text edge to edge.
       //
-      // It is knocked down rather than cut, and that is the difference from
-      // before: destination-out at a partial alpha thins the pixels instead
-      // of removing them, so the network carries on behind the whole page
-      // instead of stopping at the foot of the hero.
-      const rest = narrow ? REST_NARROW : REST;
-      const knock = presence > rest ? 1 - rest / presence : 0;
-
+      // Both are thinned rather than cut — destination-out at a partial alpha
+      // removes a fraction of the pixels and leaves the rest — so the network
+      // carries on behind the whole page at REST instead of stopping dead at
+      // the hero. The ramp is three hundred pixels tall, which is too long to
+      // read as an edge.
+      const knock = presence > REST ? 1 - REST / presence : 0;
       if (knock > 0.004) {
         ctx!.globalCompositeOperation = "destination-out";
-        ctx!.globalAlpha = knock;
 
-        // the hero's own text column, for as long as the hero is on screen
-        if (guard && !narrow) {
+        const cut = heroBottom - window.scrollY - 30;
+
+        // The hero's own column is erased outright rather than thinned — the
+        // network lives in the open right-hand half of the first screen, and
+        // leaving even a fifth of it over the headline put the lede at 4.4:1
+        // — and only down as far as the hero actually reaches, so the fill
+        // shrinks to nothing as the hero scrolls away.
+        if (guard && !narrow && cut > 0) {
+          ctx!.globalAlpha = 1;
           ctx!.fillStyle = guard;
-          ctx!.fillRect(0, 0, width * 0.74, height);
+          ctx!.fillRect(0, 0, width * 0.74, Math.min(height, cut));
         }
 
-        // and everything below the hero, where the page is text edge to edge
-        const cut = heroBottom - window.scrollY - 40;
         if (cut < height) {
-          const top = Math.max(0, cut - 90);
-          const fade = ctx!.createLinearGradient(0, top, 0, Math.max(top + 1, cut));
+          const top = Math.max(0, cut - 300);
+          const fade = ctx!.createLinearGradient(
+            0,
+            top,
+            0,
+            Math.max(top + 1, cut),
+          );
           fade.addColorStop(0, "rgba(0,0,0,0)");
-          fade.addColorStop(1, "rgba(0,0,0,1)");
+          fade.addColorStop(1, `rgba(0,0,0,${knock.toFixed(3)})`);
+          ctx!.globalAlpha = 1;
           ctx!.fillStyle = fade;
           ctx!.fillRect(0, top, width, height - top);
         }
 
         ctx!.globalCompositeOperation = "source-over";
+        ctx!.globalAlpha = narrow ? presence * 0.55 : presence;
       }
-      ctx!.globalAlpha = presence;
     }
 
     // A full-viewport canvas over a scrolling page is what makes frames run
