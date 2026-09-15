@@ -18,6 +18,7 @@ export const content = {
       ghost: "What's inside",
       was: "$299",
       now: "$150",
+      save: "you save $149",
       tags: ["ChatGPT", "Claude", "Gemini", "No coding"],
       gloss: "Prompta aut perire is Latin for “prompt or perish”. A prompt is the plain text you write to tell an AI what you need.",
       app: {
@@ -97,13 +98,24 @@ export const content = {
       example: {
         label: "Here's what one looks like",
         name: "Weekly report for my director",
+        askLabel: "You write this once, in plain words",
         lines: [
           "You're writing a report for my director. She reads for 90 seconds.",
           "I'll paste this week's figures. Give me: what changed and why,",
           "one risk, and one decision waiting on her.",
           "One page, no adjectives.",
         ],
-        note: "That's it. Ordinary text, written in plain words and saved once. Every Monday you open it, paste in the week's figures, and get a finished report. By the end of the course you have nine of these, built around the work you repeat.",
+        outLabel: "And every Monday you get this back",
+        out: [
+          "Margin: 18% → 22%. Two large deals in October, p. 4.",
+          "Churn: 3% → 7%. Delivery delays at the Kazan warehouse, p. 9.",
+          "Average order: $560 → $640, p. 6.",
+          "Risk: one client is 40% of revenue. Lose them, lose a third of the plan, p. 12.",
+          "Waiting on you: renew the contractor or not. Due the 30th.",
+        ],
+        before: "Before: Tuesday evening pulling the figures together and choosing the words.",
+        after: "After: paste the figures, report done in half a minute.",
+        note: "That's it. Ordinary text, written in plain words and saved once. By the end of the course you have nine of these, built around the work you repeat.",
       },
       close: "That's why graduates are still using theirs six months later.",
     },
@@ -127,7 +139,13 @@ export const content = {
           label: "Report to a boss",
           bad: {
             prompt: "Summarise this report for my director.",
-            result: "Eight paragraphs of retelling. No figures, no conclusions. You rewrite it yourself.",
+            result: [
+              "The company continues to demonstrate steady momentum.",
+              "The sales team held a number of productive meetings.",
+              "The supplier situation remains under control.",
+              "Continued monitoring of key indicators is recommended.",
+            ],
+            verdict: "Not one figure. You rewrite it yourself — forty minutes.",
           },
           good: {
             prompt: [
@@ -137,7 +155,14 @@ export const content = {
               "One decision that is waiting on her.",
               "One page.",
             ],
-            result: "A page that opens with the money. Every figure carries a page reference. You send it as it is.",
+            result: [
+              "Margin: 18% → 22%. Two large deals in October, p. 4.",
+              "Churn: 3% → 7%. Delivery delays at the Kazan warehouse, p. 9.",
+              "Average order: $560 → $640, p. 6.",
+              "Risk: one client is 40% of revenue, p. 12.",
+              "Waiting on you: renew the contractor or not, due the 30th.",
+            ],
+            verdict: "You send it as it is. Half a minute.",
           },
         },
         {
@@ -145,7 +170,13 @@ export const content = {
           label: "Bad news to a client",
           bad: {
             prompt: "Write to the client that the deadline moves by two weeks.",
-            result: "Polite apologies with no plan. The client calls your boss.",
+            result: [
+              "Dear Mr Harper,",
+              "We regret to inform you that, due to circumstances beyond",
+              "our control, the project timeline has shifted.",
+              "We sincerely apologise and appreciate your understanding.",
+            ],
+            verdict: "No date, no plan. The client calls your boss.",
           },
           good: {
             prompt: [
@@ -155,7 +186,14 @@ export const content = {
               "End with what we need from them and by when.",
               "Eight lines, calm tone.",
             ],
-            result: "The email opens with the fix, not the apology. The client replies about the work.",
+            result: [
+              "James, the new delivery date is 28 October.",
+              "Layouts and copy come to you Thursday — you can work with them now.",
+              "Cause: our supplier missed a shipment; we found a replacement in three days.",
+              "What we need: your sign-off on the layouts by the 21st.",
+              "Later than that and the 28th moves too — I'll tell you straight away.",
+            ],
+            verdict: "The client replies about the work, not to your boss.",
           },
         },
         {
@@ -163,7 +201,13 @@ export const content = {
           label: "Check a contract",
           bad: {
             prompt: "Read this contract and tell me what's wrong with it.",
-            result: "A retelling of the clauses and advice to see a lawyer. You read it yourself.",
+            result: [
+              "The contract is broadly standard in its construction.",
+              "Pay attention to the payment and timeline sections.",
+              "Some wording could be clarified further.",
+              "We recommend consulting a qualified lawyer.",
+            ],
+            verdict: "You read the contract yourself. An evening.",
           },
           good: {
             prompt: [
@@ -173,7 +217,15 @@ export const content = {
               "For each: the quote, the clause number, and what to propose instead.",
               "Skip the clauses that are fine.",
             ],
-            result: "Six clauses, quoted and numbered. A replacement for each. Twenty minutes instead of an evening.",
+            result: [
+              "4.2 — \"revisions continue until the Client is fully satisfied\".",
+              "→ That is work without end. Replace with: \"no more than two rounds\".",
+              "7.1 — termination at any time with no payment for work done.",
+              "→ Replace with: \"payment for work completed as at the termination date\".",
+              "9.3 — penalty of 0.5% per day with no upper limit.",
+              "→ Replace with: \"capped at 10% of the contract value\".",
+            ],
+            verdict: "Three traps, numbered, each with a replacement. Twenty minutes.",
           },
         },
       ],
@@ -381,6 +433,7 @@ export const content = {
       ghost: "Qué incluye",
       was: "$299",
       now: "$150",
+      save: "ahorra $149",
       tags: ["ChatGPT", "Claude", "Gemini", "Sin programar"],
       gloss: "Prompta aut perire es latín: «pide o perece». Un prompt es el texto corriente con el que usted le explica a la IA lo que necesita.",
       app: {
@@ -460,13 +513,24 @@ export const content = {
       example: {
         label: "Así es una de ellas",
         name: "Informe semanal para mi directora",
+        askLabel: "Esto lo escribe una vez, con palabras normales",
         lines: [
           "Escribes un informe para mi directora. Ella lee 90 segundos.",
           "Te pasaré las cifras de la semana. Dame: qué cambió y por qué,",
           "un riesgo y una decisión que la espera.",
           "Una página, sin adjetivos.",
         ],
-        note: "Eso es todo. Texto corriente, escrito con palabras normales y guardado una vez. Cada lunes lo abre, pega las cifras de la semana y recibe un informe terminado. Al terminar el curso tiene nueve, hechas alrededor del trabajo que repite.",
+        outLabel: "Y cada lunes recibe esto",
+        out: [
+          "Margen: 18% → 22%. Dos operaciones grandes en octubre, p. 4.",
+          "Fuga de clientes: 3% → 7%. Retrasos en el almacén, p. 9.",
+          "Ticket medio: $560 → $640, p. 6.",
+          "Riesgo: un cliente es el 40% de los ingresos. Si se va, cae un tercio del plan, p. 12.",
+          "Le espera a usted: renovar o no al proveedor. Antes del día 30.",
+        ],
+        before: "Antes: la tarde del martes juntando cifras y buscando cómo decirlo.",
+        after: "Ahora: pega las cifras y el informe sale en medio minuto.",
+        note: "Eso es todo. Texto corriente, escrito con palabras normales y guardado una vez. Al terminar el curso tiene nueve, hechas alrededor del trabajo que repite.",
       },
       close: "Por eso los graduados siguen usando las suyas seis meses después.",
     },
@@ -490,7 +554,13 @@ export const content = {
           label: "Informe a dirección",
           bad: {
             prompt: "Resume este informe para mi directora.",
-            result: "Ocho párrafos de paráfrasis. Sin cifras, sin conclusiones. Lo reescribe usted.",
+            result: [
+              "La empresa mantiene una dinámica estable.",
+              "El equipo comercial celebró varias reuniones productivas.",
+              "La situación con los proveedores sigue bajo control.",
+              "Se recomienda continuar el seguimiento de los indicadores.",
+            ],
+            verdict: "Ni una cifra. Lo reescribe usted: cuarenta minutos.",
           },
           good: {
             prompt: [
@@ -500,7 +570,14 @@ export const content = {
               "Una decisión que la está esperando.",
               "Una página.",
             ],
-            result: "Una página que empieza por el dinero. Cada cifra con su página. Se envía tal cual.",
+            result: [
+              "Margen: 18% → 22%. Dos operaciones grandes en octubre, p. 4.",
+              "Fuga de clientes: 3% → 7%. Retrasos en el almacén, p. 9.",
+              "Ticket medio: $560 → $640, p. 6.",
+              "Riesgo: un cliente es el 40% de los ingresos, p. 12.",
+              "Le espera a ella: renovar o no al proveedor, antes del día 30.",
+            ],
+            verdict: "Lo envía tal cual. Medio minuto.",
           },
         },
         {
@@ -508,7 +585,13 @@ export const content = {
           label: "Mala noticia a un cliente",
           bad: {
             prompt: "Escribe al cliente que el plazo se mueve dos semanas.",
-            result: "Disculpas educadas sin plan. El cliente llama a su jefe.",
+            result: [
+              "Estimado Sr. Herrera:",
+              "Lamentamos comunicarle que, por circunstancias ajenas",
+              "a nuestra voluntad, los plazos del proyecto se desplazan.",
+              "Le pedimos disculpas y agradecemos su comprensión.",
+            ],
+            verdict: "Sin fecha y sin plan. El cliente llama a su jefe.",
           },
           good: {
             prompt: [
@@ -518,7 +601,14 @@ export const content = {
               "Al final: qué necesitamos de él y para cuándo.",
               "Ocho líneas, tono tranquilo.",
             ],
-            result: "El correo empieza por la solución, no por la disculpa. El cliente responde sobre el trabajo.",
+            result: [
+              "Javier, la nueva fecha de entrega es el 28 de octubre.",
+              "Los diseños y los textos te llegan el jueves: ya puedes trabajar con ellos.",
+              "Causa: el proveedor falló un envío; encontramos recambio en tres días.",
+              "Necesitamos de ti: el visto bueno a los diseños antes del 21.",
+              "Si llega más tarde, el 28 también se mueve, y te lo diré enseguida.",
+            ],
+            verdict: "El cliente responde sobre el trabajo, no llama a su jefe.",
           },
         },
         {
@@ -526,17 +616,31 @@ export const content = {
           label: "Revisar un contrato",
           bad: {
             prompt: "Lee este contrato y dime qué está mal.",
-            result: "Una paráfrasis de las cláusulas y el consejo de ver a un abogado. Lo lee usted.",
+            result: [
+              "El contrato está redactado de forma bastante estándar.",
+              "Preste atención a los apartados de pago y plazos.",
+              "Algunas formulaciones podrían precisarse mejor.",
+              "Recomendamos consultar con un abogado.",
+            ],
+            verdict: "Se lee el contrato usted. Una tarde.",
           },
           good: {
             prompt: [
-              "Soy el proveedor. Presupuesto 12 000 $, tres meses.",
+              "Soy el proveedor. Presupuesto $12 000, tres meses.",
               "Busca las cláusulas que puedan hacerme trabajar o pagar por encima del contrato.",
               "Busca dónde el cliente puede rescindir sin compensación.",
               "De cada una: la cita, el número de cláusula y qué proponer en su lugar.",
               "No menciones las cláusulas que están bien.",
             ],
-            result: "Seis cláusulas, citadas y numeradas. Un recambio para cada una. Veinte minutos en vez de una tarde.",
+            result: [
+              "4.2 — «las correcciones siguen hasta la plena satisfacción del Cliente».",
+              "→ Es trabajo sin fin. Cambiar por: «no más de dos rondas de correcciones».",
+              "7.1 — rescisión en cualquier momento sin pagar lo ejecutado.",
+              "→ Cambiar por: «pago de lo realmente ejecutado a la fecha de rescisión».",
+              "9.3 — penalización del 0,5% diario, sin límite superior.",
+              "→ Cambiar por: «con un máximo del 10% del importe del contrato».",
+            ],
+            verdict: "Tres trampas, numeradas y con recambio. Veinte minutos.",
           },
         },
       ],
@@ -744,6 +848,7 @@ export const content = {
       ghost: "Что внутри",
       was: "$299",
       now: "$150",
+      save: "вы экономите $149",
       tags: ["ChatGPT", "Claude", "Gemini", "Без программирования"],
       gloss: "Prompta aut perire — с латыни «промпти или погибни». Промпт — это текст, которым вы объясняете нейросети, что вам нужно.",
       app: {
@@ -823,13 +928,24 @@ export const content = {
       example: {
         label: "Вот как она выглядит",
         name: "Еженедельный отчёт для директора",
+        askLabel: "Это вы пишете один раз, обычными словами",
         lines: [
           "Ты готовишь отчёт для директора. Она читает 90 секунд.",
           "Я пришлю цифры за неделю. Дай: что изменилось и почему,",
           "один риск и одно решение, которое ждёт её.",
           "Одна страница, без прилагательных.",
         ],
-        note: "Это всё. Обычный текст, написанный словами и сохранённый один раз. Каждый понедельник вы открываете его, вставляете свежие цифры и получаете готовый отчёт. К концу курса таких заготовок у вас девять — под ваши повторяющиеся задачи.",
+        outLabel: "А это приходит в ответ каждый понедельник",
+        out: [
+          "Маржа: 18% → 22%. Две крупные сделки в октябре, с. 4.",
+          "Отток клиентов: 3% → 7%. Задержки на складе в Казани, с. 9.",
+          "Средний чек: $560 → $640, с. 6.",
+          "Риск: один клиент даёт 40% выручки. Уйдёт — минус треть плана, с. 12.",
+          "Ждёт вашего решения: продлевать ли договор с подрядчиком. До 30-го.",
+        ],
+        before: "Было: вечер вторника на сведение цифр и подбор формулировок.",
+        after: "Стало: вставили цифры — отчёт готов за полминуты.",
+        note: "Это всё. Обычный текст, написанный словами и сохранённый один раз. К концу курса таких заготовок у вас девять — под ваши повторяющиеся задачи.",
       },
       close: "Поэтому нашими заготовками пользуются и через полгода после курса.",
     },
@@ -853,7 +969,13 @@ export const content = {
           label: "Отчёт руководителю",
           bad: {
             prompt: "Сделай краткое содержание этого отчёта для директора.",
-            result: "Восемь абзацев пересказа. Ни цифр, ни выводов. Переписываете сами.",
+            result: [
+              "Компания продолжает демонстрировать устойчивую динамику.",
+              "Отдел продаж провёл ряд результативных встреч.",
+              "Ситуация с поставщиками остаётся под контролем.",
+              "Рекомендуется продолжить мониторинг ключевых показателей.",
+            ],
+            verdict: "Ни одной цифры. Переписываете сами — сорок минут.",
           },
           good: {
             prompt: [
@@ -863,7 +985,14 @@ export const content = {
               "Одно решение, которое ждёт её.",
               "Одна страница.",
             ],
-            result: "Страница, которая начинается с денег. Каждая цифра — со ссылкой на страницу. Отправляете как есть.",
+            result: [
+              "Маржа: 18% → 22%. Две крупные сделки в октябре, с. 4.",
+              "Отток клиентов: 3% → 7%. Задержки на складе в Казани, с. 9.",
+              "Средний чек: $560 → $640, с. 6.",
+              "Риск: один клиент даёт 40% выручки, с. 12.",
+              "Ждёт вашего решения: продлевать ли договор с подрядчиком, до 30-го.",
+            ],
+            verdict: "Отправляете как есть. Полминуты.",
           },
         },
         {
@@ -871,7 +1000,13 @@ export const content = {
           label: "Плохая новость клиенту",
           bad: {
             prompt: "Напиши клиенту, что сроки сдвигаются на две недели.",
-            result: "Вежливые извинения без плана. Клиент звонит вашему руководителю.",
+            result: [
+              "Уважаемый Иван Иванович!",
+              "К сожалению, вынуждены сообщить, что по независящим от нас",
+              "обстоятельствам сроки реализации проекта сдвигаются.",
+              "Приносим искренние извинения и надеемся на понимание.",
+            ],
+            verdict: "Ни даты, ни плана. Клиент звонит вашему руководителю.",
           },
           good: {
             prompt: [
@@ -881,7 +1016,14 @@ export const content = {
               "В конце: что нужно от клиента и до какого числа.",
               "Восемь строк, спокойный тон.",
             ],
-            result: "Письмо начинается с решения, а не с извинений. Клиент отвечает по делу.",
+            result: [
+              "Иван, новая дата сдачи — 28 октября.",
+              "Макеты и тексты отдам в четверг, работать с ними можно уже сейчас.",
+              "Причина: поставщик сорвал поставку, замену нашли за три дня.",
+              "От вас нужно: утвердить макеты до 21-го.",
+              "Если позже — 28-е тоже сдвинется, и я скажу об этом сразу.",
+            ],
+            verdict: "Клиент отвечает по делу, а не звонит начальству.",
           },
         },
         {
@@ -889,17 +1031,31 @@ export const content = {
           label: "Проверить договор",
           bad: {
             prompt: "Прочитай договор и скажи, что в нём не так.",
-            result: "Пересказ пунктов и совет сходить к юристу. Читаете сами.",
+            result: [
+              "Договор в целом составлен стандартно.",
+              "Обратите внимание на разделы об оплате и сроках.",
+              "Некоторые формулировки могут быть уточнены.",
+              "Рекомендуем проконсультироваться с юристом.",
+            ],
+            verdict: "Читаете договор сами. Вечер.",
           },
           good: {
             prompt: [
-              "Я исполнитель. Бюджет 12 000 $, срок три месяца.",
+              "Я исполнитель. Бюджет $12 000, срок три месяца.",
               "Найди пункты, из-за которых я могу работать или платить сверх договора.",
               "Найди, где заказчик может расторгнуть без компенсации.",
               "По каждому: цитата, номер пункта и что предложить взамен.",
               "Нормальные пункты не упоминай.",
             ],
-            result: "Шесть пунктов с цитатами и номерами. К каждому — готовая замена. Двадцать минут вместо вечера.",
+            result: [
+              "п. 4.2 — «правки вносятся до полного удовлетворения Заказчика».",
+              "→ Это работа без конца. Замена: «не более двух кругов правок».",
+              "п. 7.1 — расторжение в любой момент без оплаты выполненного.",
+              "→ Замена: «оплата фактически выполненного на дату расторжения».",
+              "п. 9.3 — штраф 0,5% в день, верхней границы нет.",
+              "→ Замена: «но не более 10% от суммы договора».",
+            ],
+            verdict: "Три ловушки с номерами и готовой заменой. Двадцать минут.",
           },
         },
       ],

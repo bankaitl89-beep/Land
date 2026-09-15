@@ -399,8 +399,50 @@ section[id] {
   margin-top: 30px;
 }
 
+/* the discount has to be legible as a discount in one glance, not read as
+   another item in the tag row it used to sit in */
+.hero-price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0 0;
+}
+
+.hp-old {
+  font-family: var(--d);
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--mute2);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: var(--warn);
+}
+
+.hp-new {
+  font-family: var(--d);
+  font-weight: 800;
+  font-size: 30px;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.hp-off {
+  font-family: var(--m);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ok);
+  border: 1px solid rgba(43, 217, 139, 0.32);
+  background: rgba(43, 217, 139, 0.08);
+  border-radius: 999px;
+  padding: 6px 11px;
+  white-space: nowrap;
+}
+
 .hero-meta {
-  margin: 18px 0 0;
+  margin: 14px 0 0;
   font-size: 13.2px;
   color: var(--mute2);
 }
@@ -783,6 +825,85 @@ body:not(.anim) .setup-lines div {
   transition-delay: 0.5s;
 }
 
+.setup-lbl {
+  margin: 16px 0 10px;
+  font-family: var(--m);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute2);
+}
+
+.setup-lbl--out {
+  margin-top: 22px;
+  color: var(--ok);
+}
+
+.setup-out {
+  list-style: none;
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: 13px;
+  border: 1px solid rgba(43, 217, 139, 0.22);
+  background: rgba(43, 217, 139, 0.045);
+  display: grid;
+  gap: 9px;
+}
+
+.setup-out li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 14.6px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.setup-out li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+
+/* what the setup replaces, said in time rather than in adjectives */
+.setup-ba {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.setup-was,
+.setup-now {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 13px 15px;
+  border-radius: 11px;
+  border: 1px solid var(--line2);
+}
+
+.setup-was {
+  color: var(--mute);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.setup-now {
+  color: var(--ink);
+  border-color: rgba(91, 103, 245, 0.34);
+  background: rgba(91, 103, 245, 0.08);
+}
+
+@media (max-width: 720px) {
+  .setup-ba {
+    grid-template-columns: 1fr;
+  }
+}
+
 .setup-note {
   margin: 16px 0 0;
   color: var(--mute);
@@ -889,15 +1010,63 @@ body:not(.anim) .setup-lines div {
   color: var(--mute2);
 }
 
-.cmp-res {
+.cmp-out {
   margin: 0;
-  font-size: 14.4px;
-  line-height: 1.62;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--line2);
+  background: rgba(255, 255, 255, 0.022);
+  display: grid;
+  gap: 6px;
+}
+
+.cmp-out p {
+  margin: 0;
+  font-size: 14.2px;
+  line-height: 1.5;
   color: var(--mute);
 }
 
-.cmp--good .cmp-res {
+/* a follow-up to the line above it, not a finding of its own */
+.cmp-out p.is-sub {
+  padding-left: 18px;
+  font-size: 13.6px;
+  opacity: 0.8;
+}
+
+.cmp-out--good {
+  border-color: rgba(43, 217, 139, 0.22);
+  background: rgba(43, 217, 139, 0.045);
+}
+
+.cmp-out--good p {
   color: var(--ink);
+}
+
+.cmp-verdict {
+  margin: 0;
+  display: flex;
+  gap: 9px;
+  align-items: baseline;
+  font-size: 13.6px;
+  line-height: 1.45;
+  color: var(--mute2);
+}
+
+.cmp-verdict::before {
+  content: "✕";
+  color: var(--warn);
+  font-size: 12px;
+  flex: none;
+}
+
+.cmp-verdict--good {
+  color: var(--ink);
+}
+
+.cmp-verdict--good::before {
+  content: "✓";
+  color: var(--ok);
 }
 
 .note {

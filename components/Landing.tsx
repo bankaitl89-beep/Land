@@ -131,9 +131,12 @@ export default function Landing({
                 </a>
               </div>
 
-              <p className="hero-meta rv">
-                {c.pricing.was} · {c.hero.tags.join(" · ")}
+              <p className="hero-price rv">
+                <span className="hp-old">{c.hero.was}</span>
+                <span className="hp-new">{c.hero.now}</span>
+                <span className="hp-off">{c.hero.save}</span>
               </p>
+              <p className="hero-meta rv">{c.hero.tags.join(" · ")}</p>
               <p className="gloss rv">{c.hero.gloss}</p>
             </div>
 
@@ -241,11 +244,27 @@ export default function Landing({
                 <span className="setup-t">{c.mechanism.example.label}</span>
                 <h4>{c.mechanism.example.name}</h4>
               </figcaption>
+              <p className="setup-lbl">{c.mechanism.example.askLabel}</p>
               <div className="setup-lines">
                 {c.mechanism.example.lines.map((line) => (
                   <div key={line}>{line}</div>
                 ))}
               </div>
+
+              <p className="setup-lbl setup-lbl--out">
+                {c.mechanism.example.outLabel}
+              </p>
+              <ul className="setup-out">
+                {c.mechanism.example.out.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+
+              <div className="setup-ba">
+                <p className="setup-was">{c.mechanism.example.before}</p>
+                <p className="setup-now">{c.mechanism.example.after}</p>
+              </div>
+
               <p className="setup-note">{c.mechanism.example.note}</p>
             </figure>
 
@@ -297,14 +316,36 @@ export default function Landing({
                 <h3 className="cmp-label">{c.demo.badLabel}</h3>
                 <pre className="cmp-prompt">{example.bad.prompt}</pre>
                 <p className="cmp-res-label">{c.demo.resultLabel}</p>
-                <p className="cmp-res">{example.bad.result}</p>
+                <div className="cmp-out">
+                  {example.bad.result.map((line) => (
+                    <p
+                      key={line}
+                      className={line.startsWith("\u2192") ? "is-sub" : undefined}
+                    >
+                      {line}
+                    </p>
+                  ))}
+                </div>
+                <p className="cmp-verdict">{example.bad.verdict}</p>
               </article>
 
               <article className="cmp cmp--good">
                 <h3 className="cmp-label">{c.demo.goodLabel}</h3>
                 <pre className="cmp-prompt">{example.good.prompt.join("\n")}</pre>
                 <p className="cmp-res-label">{c.demo.resultLabel}</p>
-                <p className="cmp-res">{example.good.result}</p>
+                <div className="cmp-out cmp-out--good">
+                  {example.good.result.map((line) => (
+                    <p
+                      key={line}
+                      className={line.startsWith("\u2192") ? "is-sub" : undefined}
+                    >
+                      {line}
+                    </p>
+                  ))}
+                </div>
+                <p className="cmp-verdict cmp-verdict--good">
+                  {example.good.verdict}
+                </p>
               </article>
             </div>
 
