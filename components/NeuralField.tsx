@@ -227,6 +227,9 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     let wantTiltY = 0;
     let presence = 1;
     let narrow = false;
+    // A mask that erases the network from the column the hero text sits in.
+    // Rebuilt only on resize; making a gradient every frame allocates.
+    let guard: CanvasGradient | null = null;
 
     function build() {
       // The field is soft dots and thin lines behind the page; it does not
@@ -240,6 +243,13 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
       narrow = width < 760;
       focal = Math.min(width, height) * (narrow ? 0.8 : 1.0);
+      // Solid across the text column, then a long ramp so there is no edge
+      // to see. The paragraph runs wider than the headline, so the solid part
+      // has to clear it too.
+      guard = ctx!.createLinearGradient(0, 0, width * 0.74, 0);
+      guard.addColorStop(0, "rgba(0,0,0,1)");
+      guard.addColorStop(0.7, "rgba(0,0,0,1)");
+      guard.addColorStop(1, "rgba(0,0,0,0)");
     }
 
     function readScroll() {
@@ -410,6 +420,25 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
         ctx!.arc(x, y, r, 0, Math.PI * 2);
       }
       ctx!.fill();
+
+      // --- keep it off the words ---
+      //
+      // Measured: a signal passing behind the headline dropped the contrast
+      // there to 1.7:1, and behind the paragraph to 1.06:1 — the line simply
+      // disappeared into it. So the left column, where the hero text lives,
+      // is erased from the canvas rather than merely dimmed: destination-out
+      // takes the pixels out and leaves real transparency, so the page ground
+      // shows through exactly as it does everywhere else. It lifts as the
+      // dive proceeds, by which point the hero has scrolled away.
+      const guardStrength = narrow ? 0 : drift;
+      if (guard && guardStrength > 0.01) {
+        ctx!.globalCompositeOperation = "destination-out";
+        ctx!.globalAlpha = 0.94 * guardStrength;
+        ctx!.fillStyle = guard;
+        ctx!.fillRect(0, 0, width * 0.74, height);
+        ctx!.globalCompositeOperation = "source-over";
+        ctx!.globalAlpha = narrow ? presence * 0.55 : presence;
+      }
     }
 
     // A quarter of all frames during a scroll ran long, and removing what was
