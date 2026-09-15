@@ -21,8 +21,10 @@ import { useEffect, useRef } from "react";
  * those arrays instead of doing their own maths, and by drawing everything in
  * a handful of batched paths rather than one path per element.
  */
-export default function NeuralField() {
+export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
   const ref = useRef<HTMLCanvasElement>(null);
+  const tasksRef = useRef(tasks);
+  tasksRef.current = tasks;
 
   useEffect(() => {
     const canvas = ref.current;
@@ -42,13 +44,21 @@ export default function NeuralField() {
     // layers, with the rest of the network still ahead of it
     const Z_START = 3.7;
     const Z_END = 0.45;
-    const DIVE_SCREENS = 2.4;
+    // The dive has to finish about where the hero does. Stretched over two
+    // and a half screens it was still at full strength while the reader was
+    // trying to read the sections underneath it.
+    const DIVE_SCREENS = 1.45;
 
     // ---- neurons ------------------------------------------------------
     const nx = new Float32Array(COUNT);
     const ny = new Float32Array(COUNT);
     const nz = new Float32Array(COUNT);
     const act = new Float32Array(COUNT); // how recently a signal arrived
+    // How long ago this neuron last finished a job. Decays far slower than
+    // the flash, so a label stays marked done long enough to be read.
+    const done = new Float32Array(COUNT);
+    // Which job each neuron carries, or -1 for the ones that stay anonymous.
+    const label = new Int32Array(COUNT).fill(-1);
     {
       const golden = Math.PI * (3 - Math.sqrt(5));
       for (let l = 0; l < LAYERS; l++) {
@@ -66,23 +76,47 @@ export default function NeuralField() {
       }
     }
 
-    // ---- edges: every neuron reaches into the next layer ---------------
+    {
+      // Only the layer nearest the reader carries words, and only every fifth
+      // neuron in it: the network has to stay a network. Labelling more of
+      // them turned the screen into a wall of text with wires behind it.
+      const n = tasksRef.current.length;
+      if (n > 0) {
+        let given = 0;
+        for (let i = 0; i < PER_LAYER; i += 5) {
+          label[i] = given % n;
+          given++;
+        }
+      }
+    }
+
+    // ---- edges: every neuron reaches toward the layer in front of it ----
+    //
+    // They run from the far layers toward the near one, because that is the
+    // direction the signal has to travel: it starts deep in the network and
+    // ends at the neurons the reader can actually see, which are the ones
+    // carrying the jobs. Built the other way round — and they were, at first
+    // — the signals bounce between the two deepest layers and the labels are
+    // never reached at all.
     const E = (LAYERS - 1) * PER_LAYER * FAN;
     const eFrom = new Int32Array(E);
     const eTo = new Int32Array(E);
     // where each neuron's own outgoing edges start, so a signal that arrives
-    // can pick one to continue along without searching
+    // can pick one to continue along without searching. Node ids have to be
+    // walked in ascending order for this to stay a valid index.
     const outStart = new Int32Array(COUNT + 1);
     {
       let e = 0;
-      for (let l = 0; l < LAYERS - 1; l++) {
+      // the nearest layer is the end of the line: nothing leaves it
+      for (let i = 0; i < PER_LAYER; i++) outStart[i] = 0;
+      for (let l = 1; l < LAYERS; l++) {
         for (let i = 0; i < PER_LAYER; i++) {
           const from = l * PER_LAYER + i;
           outStart[from] = e;
-          // the FAN nearest neurons in the next layer, by distance across
+          // the FAN nearest neurons in the layer ahead, by distance across
           // the layer — near connections read as structure, random ones as
           // noise
-          const base = (l + 1) * PER_LAYER;
+          const base = (l - 1) * PER_LAYER;
           const best = [-1, -1, -1];
           const bestD = [Infinity, Infinity, Infinity];
           for (let j = 0; j < PER_LAYER; j++) {
@@ -108,8 +142,7 @@ export default function NeuralField() {
           }
         }
       }
-      // the last layer has no outgoing edges
-      for (let i = (LAYERS - 1) * PER_LAYER; i <= COUNT; i++) outStart[i] = e;
+      outStart[COUNT] = e;
     }
 
     // ---- signals travelling the edges ----------------------------------
@@ -117,7 +150,7 @@ export default function NeuralField() {
     const pEdge = new Int32Array(PULSES);
     const pT = new Float32Array(PULSES);
     const pV = new Float32Array(PULSES);
-    const deepestFirstEdge = (LAYERS - 2) * PER_LAYER * FAN;
+    const deepestFirstEdge = outStart[(LAYERS - 1) * PER_LAYER];
 
     function seed(i: number) {
       // signals start at the far side and run toward the reader, so the
@@ -134,6 +167,7 @@ export default function NeuralField() {
         if (pT[i] < 1) continue;
         const to = eTo[pEdge[i]];
         act[to] = 1; // the neuron fires
+        if (label[to] >= 0) done[to] = 1; // and, if it carries a job, finishes it
         const s = outStart[to];
         const n = outStart[to + 1] - s;
         if (n > 0) {
@@ -144,7 +178,10 @@ export default function NeuralField() {
           seed(i); // reached the output layer, start again at the far side
         }
       }
-      for (let i = 0; i < COUNT; i++) act[i] *= 0.93;
+      for (let i = 0; i < COUNT; i++) {
+        act[i] *= 0.93;
+        done[i] *= 0.988;
+      }
     }
 
     // ---- projection scratch --------------------------------------------
@@ -208,7 +245,7 @@ export default function NeuralField() {
       camZ = Z_START + (Z_END - Z_START) * eased;
       // once the reader is inside, the network has to get out from under the
       // words, so it recedes over the screen that follows and stays there
-      presence = raw <= 1 ? 1 : Math.max(0.26, 1 - (raw - 1) * 1.15);
+      presence = raw <= 1 ? 1 : Math.max(0.22, 1 - (raw - 1) * 0.9);
     }
 
     function draw() {
@@ -310,6 +347,40 @@ export default function NeuralField() {
           ctx!.arc(xs[i], ys[i], r, 0, Math.PI * 2);
         }
         ctx!.fill();
+      }
+
+      // --- the jobs the network is closing ---
+      //
+      // This is the part that makes it read as artificial intelligence rather
+      // than as a screensaver. A lattice of dots is a shape; a lattice whose
+      // neurons carry "Weekly report", "Contract checked", "Email to a client"
+      // and tick them off as the signal reaches them is the product. The
+      // labels only exist near the camera, so they arrive as the reader flies
+      // in and are gone once the network has receded behind the page.
+      const words = tasksRef.current;
+      if (words.length) {
+        ctx!.textBaseline = "middle";
+        ctx!.font =
+          '10.5px ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo, monospace';
+        for (let i = 0; i < COUNT; i++) {
+          const w = label[i];
+          if (w < 0 || !sOk[i]) continue;
+          // fade in as it comes close, out again once it is nearly past
+          const near = sNear[i];
+          const show = Math.min(1, Math.max(0, (near - 0.54) / 0.26));
+          if (show <= 0.02) continue;
+          const d = done[i];
+          const x = sx[i] + 9;
+          const y = sy[i];
+          if (d > 0.04) {
+            ctx!.fillStyle = `rgba(43,217,139,${(0.5 + d * 0.45).toFixed(3)})`;
+            ctx!.fillText("\u2713", sx[i] - 16, y);
+            ctx!.fillStyle = `rgba(214,240,228,${(show * (0.45 + d * 0.5)).toFixed(3)})`;
+          } else {
+            ctx!.fillStyle = `rgba(170,180,230,${(show * 0.42).toFixed(3)})`;
+          }
+          ctx!.fillText(words[w], x, y);
+        }
       }
 
       // --- the signals themselves, the brightest thing on screen ---

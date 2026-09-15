@@ -47,7 +47,7 @@ export default function Landing({
 
   return (
     <>
-      <NeuralField />
+      <NeuralField tasks={c.field.tasks} />
       <Cursor />
       <div id="glow" aria-hidden="true" />
       <div id="progress" aria-hidden="true" />
