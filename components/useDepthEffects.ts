@@ -154,6 +154,25 @@ export function useDepthEffects(lang: string) {
     window.addEventListener("pointermove", onMove, { passive: true });
     cleanups.push(() => window.removeEventListener("pointermove", onMove));
 
+    // --- a ripple leaving the press ---------------------------------------
+    // Delegated, so it covers buttons that mount later (the form swaps its
+    // own out when a request is sent) without rebinding anything.
+    {
+      const onPress = (e: PointerEvent) => {
+        const btn = (e.target as HTMLElement | null)?.closest<HTMLElement>(".btn");
+        if (!btn) return;
+        const r = btn.getBoundingClientRect();
+        const ink = document.createElement("span");
+        ink.className = "ripple";
+        ink.style.left = `${e.clientX - r.left}px`;
+        ink.style.top = `${e.clientY - r.top}px`;
+        ink.addEventListener("animationend", () => ink.remove());
+        btn.appendChild(ink);
+      };
+      document.addEventListener("pointerdown", onPress);
+      cleanups.push(() => document.removeEventListener("pointerdown", onPress));
+    }
+
     // --- magnetic buttons -------------------------------------------------
     {
       const magnets = Array.from(document.querySelectorAll<HTMLElement>(".btn"));
