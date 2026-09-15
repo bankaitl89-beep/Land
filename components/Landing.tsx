@@ -191,17 +191,17 @@ export default function Landing({
         <section className="section">
           <div className="shell">
             <p className="eyebrow rv">{c.who.eyebrow}</p>
-            <h2 className="h2 rv">{c.who.title}</h2>
+            <h2 className="h2 h2--sm rv">{c.who.title}</h2>
             <p className="lede rv">{c.who.sub}</p>
 
-            <div className="whos">
+            <dl className="whos">
               {c.who.items.map((it) => (
                 <div className="who rv" key={it.role}>
-                  <h3>{it.role}</h3>
-                  <p>{it.task}</p>
+                  <dt>{it.role}</dt>
+                  <dd>{it.task}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
           </div>
         </section>
 
@@ -212,8 +212,11 @@ export default function Landing({
             <h2 className="h2 rv">{c.pain.title}</h2>
 
             <div className="pains">
-              {c.pain.items.map((it) => (
+              {c.pain.items.map((it, i) => (
                 <div className="pain rv" key={it.q}>
+                  <span className="pain-n" aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   <q>{it.q}</q>
                   <p>{it.a}</p>
                 </div>
@@ -226,7 +229,7 @@ export default function Landing({
         <section className="section" id="method">
           <div className="shell">
             <p className="eyebrow rv">{c.mechanism.eyebrow}</p>
-            <h2 className="h2 rv">{c.mechanism.title}</h2>
+            <h2 className="h2 h2--lg rv">{c.mechanism.title}</h2>
             <p className="lede rv">{c.mechanism.lede}</p>
 
             <div className="tiles">
@@ -401,27 +404,28 @@ export default function Landing({
 
         {/* ---------------- curriculum ---------------- */}
         <section className="section" id="curriculum">
-          <div className="shell">
-            <p className="eyebrow rv">{c.curriculum.eyebrow}</p>
-            <h2 className="h2 rv">{c.curriculum.title}</h2>
-            <p className="lede rv">{c.curriculum.sub}</p>
-
-            <div className="mods">
-              {c.curriculum.modules.map((m) => (
-                <article className="mod rv" key={m.n}>
-                  <span className="mod-head">
-                    <ModuleIcon n={m.n} />
-                    <span className="mod-n">{m.n}</span>
-                  </span>
-                  <h3>{m.title}</h3>
-                  <p>{m.text}</p>
-                  <div className="mod-res">
-                    <i aria-hidden="true">→</i>
-                    <span>{m.result}</span>
-                  </div>
-                </article>
-              ))}
+          <div className="shell cur-in">
+            <div className="cur-head">
+              <p className="eyebrow rv">{c.curriculum.eyebrow}</p>
+              <h2 className="h2 rv">{c.curriculum.title}</h2>
+              <p className="lede rv">{c.curriculum.sub}</p>
             </div>
+
+            <ol className="track">
+              {c.curriculum.modules.map((m) => (
+                <li className="leg rv" key={m.n}>
+                  <span className="leg-mark">
+                    <ModuleIcon n={m.n} />
+                  </span>
+                  <div className="leg-body">
+                    <span className="leg-n">{m.n}</span>
+                    <h3>{m.title}</h3>
+                    <p>{m.text}</p>
+                    <span className="leg-res">{m.result}</span>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
 
@@ -429,7 +433,7 @@ export default function Landing({
         <section className="section" id="skills">
           <div className="shell">
             <p className="eyebrow rv">{c.outcomes.eyebrow}</p>
-            <h2 className="h2 rv">{c.outcomes.title}</h2>
+            <h2 className="h2 h2--sm rv">{c.outcomes.title}</h2>
             <p className="lede rv">{c.outcomes.sub}</p>
 
             <div className="skills">
@@ -478,16 +482,16 @@ export default function Landing({
         )}
 
         {/* ---------------- cost of waiting ---------------- */}
-        <section className="section">
-          <div className="shell">
-            <div className="costbox rv">
-              <p className="eyebrow">{c.cost.eyebrow}</p>
-              <h2 className="h2">{c.cost.title}</h2>
-              <p className="cost-text">{c.cost.text}</p>
-              <a className="btn btn--acc" href="#pricing">
-                {c.cost.cta} — {c.pricing.now}
-              </a>
-            </div>
+        {/* the one full-bleed moment on the page: the ground changes, the
+            type goes up a size, and nothing else competes for the screen */}
+        <section className="band">
+          <div className="shell band-in">
+            <p className="eyebrow rv">{c.cost.eyebrow}</p>
+            <h2 className="h2 h2--lg rv">{c.cost.title}</h2>
+            <p className="cost-text rv">{c.cost.text}</p>
+            <a className="btn btn--acc rv" href="#pricing">
+              {c.cost.cta} — {c.pricing.now}
+            </a>
           </div>
         </section>
 
@@ -495,7 +499,7 @@ export default function Landing({
         <section className="section">
           <div className="shell">
             <p className="eyebrow rv">{c.faq.eyebrow}</p>
-            <h2 className="h2 rv">{c.faq.title}</h2>
+            <h2 className="h2 h2--sm rv">{c.faq.title}</h2>
 
             <div className="faq-list rv">
               {c.faq.items.map((f, i) => {
@@ -537,7 +541,7 @@ export default function Landing({
         <section className="section" id="pricing">
           <div className="shell">
             <p className="eyebrow rv">{c.pricing.eyebrow}</p>
-            <h2 className="h2 rv">{c.pricing.title}</h2>
+            <h2 className="h2 h2--lg rv">{c.pricing.title}</h2>
             <p className="lede rv">{c.pricing.sub}</p>
 
             <div className="buy">

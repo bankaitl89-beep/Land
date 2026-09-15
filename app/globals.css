@@ -123,7 +123,7 @@ body.anim .rv.in {
 }
 
 .section {
-  padding-block: clamp(48px, 5.4vw, 78px);
+  padding-block: clamp(40px, 4.4vw, 64px);
   position: relative;
   z-index: 1;
 }
@@ -143,7 +143,17 @@ section[id] {
 }
 
 .h2 {
-  font-size: clamp(27px, 3.6vw, 44px);
+  font-size: clamp(26px, 3.2vw, 39px);
+}
+
+/* the two moments the page is built around: the mechanism and the price */
+.h2--lg {
+  font-size: clamp(32px, 4.6vw, 58px);
+}
+
+/* supporting sections, which should not shout as loudly as those two */
+.h2--sm {
+  font-size: clamp(24px, 2.6vw, 32px);
 }
 
 .h3 {
@@ -611,75 +621,107 @@ section[id] {
 
 /* ---------- pains ---------- */
 
-/* ---------- who it's for ---------- */
+/* ---------- who it's for ----------
+   Six boxes here and six more further down read as the same section twice.
+   This one is a list: a rule, a role, the routine it repeats. It also takes
+   half the height the cards did. */
 
 .whos {
+  margin: 30px 0 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 30px;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 54px;
+  border-top: 1px solid var(--line2);
 }
 
 .who {
-  border-radius: 15px;
-  border: 1px solid var(--line2);
-  background: rgba(255, 255, 255, 0.028);
-  padding: 20px 20px 22px;
-  position: relative;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  padding: 17px 0 18px;
+  border-bottom: 1px solid var(--line2);
 }
 
-.who::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 18px;
-  bottom: 18px;
-  width: 2px;
-  background: linear-gradient(180deg, var(--acc), transparent);
-  opacity: 0.75;
-}
-
-.who h3 {
+.who dt {
   font-family: var(--d);
   font-weight: 600;
   font-size: 16px;
   letter-spacing: -0.02em;
-  margin: 0 0 8px;
+  color: var(--ink);
 }
 
-.who p {
+.who dd {
+  margin: 0;
   color: var(--mute);
   font-size: 14.5px;
   line-height: 1.55;
-  margin: 0;
 }
 
-@media (max-width: 900px) {
-  .whos {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 620px) {
+@media (max-width: 760px) {
   .whos {
     grid-template-columns: 1fr;
+    column-gap: 0;
   }
 }
 
+/* The complaints are said out loud, so they are set like speech: a number, a
+   line in large type, the answer under it. Four boxes here read as the same
+   furniture as every other section; four spoken lines do not. */
+
 .pains {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-top: 30px;
+  margin-top: 34px;
+  border-top: 1px solid var(--line2);
 }
 
 .pain {
-  border-radius: 15px;
-  border: 1px solid var(--line2);
-  background: rgba(255, 255, 255, 0.028);
-  padding: 24px 22px;
-  transition: border-color 0.25s, background 0.25s, transform 0.25s;
+  display: grid;
+  grid-template-columns: 58px 1fr 1fr;
+  gap: 0 34px;
+  align-items: start;
+  padding: 26px 0 27px;
+  border-bottom: 1px solid var(--line2);
+  transition: background 0.3s;
+}
+
+.pain:hover {
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.pain-n {
+  font-family: var(--m);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--mute2);
+  padding-top: 8px;
+}
+
+.pain q {
+  font-family: var(--d);
+  font-weight: 600;
+  font-size: clamp(17px, 1.75vw, 21px);
+  line-height: 1.38;
+  letter-spacing: -0.025em;
+  quotes: none;
+  color: var(--ink);
+}
+
+.pain p {
+  margin: 0;
+  color: var(--mute);
+  font-size: 15px;
+  line-height: 1.6;
+  padding-top: 3px;
+}
+
+@media (max-width: 860px) {
+  .pain {
+    grid-template-columns: 40px 1fr;
+    gap: 0 16px;
+  }
+  .pain p {
+    grid-column: 2;
+    padding-top: 10px;
+  }
 }
 
 .pain:hover {
@@ -1086,6 +1128,160 @@ body:not(.anim) .setup-lines div {
 
 /* ---------- curriculum ---------- */
 
+/* The heading holds still on the left while the track runs past it, so the
+   section reads as one long movement and the width is not half empty. */
+.cur-in {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) 1.2fr;
+  gap: clamp(30px, 5vw, 80px);
+  align-items: start;
+}
+
+.cur-head {
+  position: sticky;
+  top: 108px;
+}
+
+.cur-head .lede {
+  max-width: 34ch;
+}
+
+.cur-in .track {
+  margin-top: 6px;
+}
+
+@media (max-width: 900px) {
+  .cur-in {
+    grid-template-columns: 1fr;
+  }
+  .cur-head {
+    position: static;
+  }
+  .cur-in .track {
+    margin-top: 28px;
+  }
+}
+
+/* The programme is an order, not a set — base before beginner, agents last.
+   Six cards in a grid said none of that; a track down the page says it
+   without a word, and gets six boxes off a page that had too many. */
+.track {
+  list-style: none;
+  margin: 36px 0 0;
+  padding: 0;
+  position: relative;
+}
+
+/* the line the legs hang off, stopping at the first and last mark */
+.track::before {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: 28px;
+  bottom: 28px;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--line) 6%,
+    var(--line) 94%,
+    transparent
+  );
+}
+
+.leg {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 26px;
+  padding: 0 0 34px;
+  position: relative;
+}
+
+.leg:last-child {
+  padding-bottom: 0;
+}
+
+.leg-mark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 1;
+  transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+}
+
+.leg:hover .leg-mark {
+  border-color: rgba(91, 103, 245, 0.6);
+  background: #0d1018;
+  box-shadow: 0 0 0 4px rgba(91, 103, 245, 0.08);
+}
+
+.leg-mark .mod-ico {
+  width: 26px;
+  height: 26px;
+}
+
+.leg-body {
+  padding-top: 3px;
+  max-width: 62ch;
+}
+
+.leg-n {
+  font-family: var(--m);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--acc);
+  display: block;
+  margin-bottom: 7px;
+}
+
+.leg-body h3 {
+  font-family: var(--d);
+  font-weight: 700;
+  font-size: clamp(19px, 1.9vw, 23px);
+  letter-spacing: -0.025em;
+  margin: 0 0 8px;
+}
+
+.leg-body p {
+  color: var(--mute);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.leg-res {
+  display: inline-block;
+  margin-top: 13px;
+  font-size: 14px;
+  color: var(--ok);
+  border-left: 2px solid rgba(43, 217, 139, 0.55);
+  padding-left: 12px;
+}
+
+@media (max-width: 720px) {
+  .track::before {
+    left: 21px;
+  }
+  .leg {
+    grid-template-columns: 44px 1fr;
+    gap: 18px;
+    padding-bottom: 28px;
+  }
+  .leg-mark {
+    width: 44px;
+    height: 44px;
+  }
+  .leg-mark .mod-ico {
+    width: 22px;
+    height: 22px;
+  }
+}
+
 .mods {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1151,72 +1347,107 @@ body:not(.anim) .setup-lines div {
 
 /* ---------- skills ---------- */
 
+/* ---------- nine things you will be able to do ----------
+   Nine boxes was the largest block of identical rectangles on the page. The
+   same nine as text on a rule reads faster and leaves the cards that are
+   left — the ones carrying a drawing or a price — actually looking like
+   cards. */
+
 .skills {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 30px;
+  column-gap: 0;
+  row-gap: 0;
+  margin-top: 34px;
+  border-top: 1px solid var(--line2);
 }
 
 .skill {
-  border-radius: 15px;
-  border: 1px solid var(--line2);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 22px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
   position: relative;
+  padding: 22px 26px 24px 0;
+  border-bottom: 1px solid var(--line2);
   overflow: hidden;
-  transition: transform 0.28s cubic-bezier(0.2, 0.7, 0.3, 1), border-color 0.28s, background 0.28s;
 }
 
-.skill::after {
+/* the rule between columns, never after the last one in a row */
+.skill:not(:nth-child(3n))::after {
   content: "";
   position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.3s;
-  background: radial-gradient(
-    240px circle at var(--sx, 50%) var(--sy, 50%),
-    rgba(91, 103, 245, 0.2),
-    transparent 60%
-  );
+  top: 18px;
+  bottom: 18px;
+  right: 13px;
+  width: 1px;
+  background: var(--line2);
 }
 
-.skill:hover {
-  transform: translateY(-5px);
-  border-color: rgba(91, 103, 245, 0.45);
-  background: rgba(255, 255, 255, 0.055);
-}
-
-.skill:hover::after {
-  opacity: 1;
-}
-
-.skill > * {
-  position: relative;
+.skill:nth-child(3n + 2),
+.skill:nth-child(3n) {
+  padding-left: 26px;
 }
 
 .skill .n {
   font-family: var(--m);
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
   color: var(--acc);
+  display: block;
+  margin-bottom: 9px;
 }
 
 .skill h3 {
+  font-family: var(--d);
+  font-weight: 600;
   font-size: 17px;
+  letter-spacing: -0.025em;
+  margin: 0 0 7px;
 }
 
 .skill p {
-  margin: 0;
   color: var(--mute);
-  font-size: 13.9px;
-  line-height: 1.58;
+  font-size: 14.4px;
+  line-height: 1.55;
+  margin: 0;
 }
 
-/* ---------- stats ---------- */
+@media (max-width: 900px) {
+  .skills {
+    grid-template-columns: 1fr 1fr;
+  }
+  .skill:not(:nth-child(3n))::after {
+    display: none;
+  }
+  .skill:not(:nth-child(2n))::after {
+    content: "";
+    position: absolute;
+    top: 18px;
+    bottom: 18px;
+    right: 13px;
+    width: 1px;
+    background: var(--line2);
+  }
+  .skill:nth-child(3n + 2),
+  .skill:nth-child(3n) {
+    padding-left: 0;
+  }
+  .skill:nth-child(2n) {
+    padding-left: 26px;
+  }
+}
+
+@media (max-width: 620px) {
+  .skills {
+    grid-template-columns: 1fr;
+  }
+  .skill::after,
+  .skill:not(:nth-child(2n))::after {
+    display: none !important;
+  }
+  .skill,
+  .skill:nth-child(2n) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 
 .stats {
   display: grid;
@@ -1316,19 +1547,33 @@ body:not(.anim) .setup-lines div {
 
 /* ---------- cost of waiting ---------- */
 
-.costbox {
-  border-radius: var(--r-lg);
-  border: 1px solid var(--line);
-  background: linear-gradient(150deg, rgba(91, 103, 245, 0.14), rgba(7, 8, 10, 0.4));
-  padding: clamp(26px, 4vw, 44px);
+/* Thirteen sections on one ground gives the eye nothing to rest on. This one
+   is a different ground: full width, edge to edge, lifted off the page and
+   lit from the left, with rules top and bottom so the change reads as
+   deliberate rather than as a rendering fault. */
+.band {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(56px, 6.6vw, 96px);
+  border-block: 1px solid var(--line2);
+  background:
+    radial-gradient(120% 140% at 12% 0%, rgba(91, 103, 245, 0.2), transparent 62%),
+    linear-gradient(180deg, #11131d, #0b0d14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.band-in {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  box-shadow: 0 40px 80px -50px rgba(0, 0, 0, 1);
+}
+
+.band .h2 {
+  max-width: 19ch;
 }
 
 .cost-text {
-  margin: 20px 0 28px;
+  margin: 22px 0 32px;
   font-size: clamp(15.5px, 1.4vw, 18px);
   line-height: 1.7;
   color: var(--mute);
@@ -2057,7 +2302,7 @@ body.anim #field {
 
 .scene {
   position: relative;
-  height: 190vh;
+  height: 165vh;
   z-index: 1;
 }
 
@@ -2188,7 +2433,7 @@ body.anim #field {
 
 @media (max-width: 900px) {
   .scene {
-    height: 215vh;
+    height: 190vh;
   }
   .scene-in {
     grid-template-columns: 1fr;
