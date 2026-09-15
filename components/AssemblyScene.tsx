@@ -50,9 +50,11 @@ export default function AssemblyScene({
       cards.forEach((card, i) => {
         const local = Math.min(1, Math.max(0, landed - i));
         const drop = 1 - local;
-        card.style.opacity = String(Math.min(1, local * 1.6));
+        // the incoming card turns solid almost at once, so it covers the
+        // stack it is landing on instead of ghosting through it
+        card.style.opacity = String(Math.min(1, local * 6));
         card.style.transform =
-          `translateY(${-i * 44 + drop * 130}px) ` +
+          `translateY(${-i * 52 + drop * 150}px) ` +
           `translateX(${drop * 38}px) ` +
           `scale(${(1 - i * 0.012) * (0.94 + local * 0.06)}) ` +
           `rotate(${drop * 5}deg)`;

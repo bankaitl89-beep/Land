@@ -8,7 +8,6 @@ import Cursor from "./Cursor";
 import ModuleIcon from "./ModuleIcon";
 import PlatformMock from "./PlatformMock";
 import FieldCanvas from "./FieldCanvas";
-import TypedHeading from "./TypedHeading";
 import { useDepthEffects, useTypewriter } from "./useDepthEffects";
 import LeadForm from "./LeadForm";
 
@@ -113,7 +112,13 @@ export default function Landing({
                 {c.hero.pill}
               </span>
 
-              <TypedHeading parts={c.hero.title} />
+              <h1 className="rv">
+                {c.hero.title[0]}
+                <br />
+                {c.hero.title[1]}
+                <span className="grad">{c.hero.title[2]}</span>
+                {c.hero.title[3]}
+              </h1>
 
               <p className="lede rv">{c.hero.sub}</p>
 
