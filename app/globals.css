@@ -1810,6 +1810,61 @@ body.anim #field {
     0 24px 52px -20px rgba(91, 103, 245, 1);
 }
 
+/* The metal itself. The reference runs a WebGL shader per button for this;
+   a swept highlight over a banded gradient gets the same read for the price
+   of one composited transform, and it works at any width, which a 142px
+   shader canvas does not. The sweep stays faint enough that the label never
+   loses its contrast against the accent underneath. */
+.btn--acc {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0) 16%),
+    linear-gradient(
+      100deg,
+      #39429f 0%,
+      #4450c8 30%,
+      #4450c8 54%,
+      #3d46b8 74%,
+      #353d95 100%
+    );
+}
+
+.btn--acc::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  bottom: -40%;
+  left: 0;
+  width: 48%;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.05) 26%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.05) 74%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-180%) skewX(-16deg);
+  animation: sheen 5.4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  pointer-events: none;
+}
+
+/* the light crosses in the first third of the cycle and the rest is rest,
+   so five buttons on one page do not read as five flashing lights */
+@keyframes sheen {
+  0% {
+    transform: translateX(-180%) skewX(-16deg);
+  }
+  34%,
+  100% {
+    transform: translateX(420%) skewX(-16deg);
+  }
+}
+
+/* hovering speeds the metal up, the way the reference does with its shader */
+.btn--acc:hover::before {
+  animation-duration: 1.9s;
+}
+
 /* pressing it has to give, or the button is a picture of a button */
 .btn:active {
   transform: translate(var(--tx, 0px), calc(var(--ty, 0px) + 1px)) scale(0.985);
