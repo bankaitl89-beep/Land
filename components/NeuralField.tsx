@@ -32,8 +32,10 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    const LAYERS = 8;
-    const PER_LAYER = 40;
+    // More layers than the opening alone needs: the camera now flies for the
+    // whole page, so there has to be a whole page of network in front of it.
+    const LAYERS = 16;
+    const PER_LAYER = 24;
     const COUNT = LAYERS * PER_LAYER;
     const FAN = 3; // edges forward from each neuron
     const RADIUS = 0.95;
@@ -43,13 +45,27 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     // the camera starts outside the whole stack and ends among the first
     // layers, with the rest of the network still ahead of it
     const Z_START = 3.7;
-    const Z_END = 0.45;
-    // The dive is measured against the hero itself rather than a guessed
-    // number of screens. Measured over the real page: any visible network on
-    // top of body text breaks its contrast — even at a third of full
-    // strength the paragraphs under it read at 1.7:1 — so the rule is not
-    // "dim it", it is "be gone by the time text arrives".
-    let runway = 700;
+    // where the opening dive ends, at the foot of the hero
+    const Z_DIVE = 0.45;
+    // and how far the camera keeps travelling per pixel scrolled after that:
+    // about two layers per screenful, which is a walk rather than a flight
+    const Z_PER_PX = 0.00133;
+    // Past the dive the camera loops. Every fourth layer is a repeat of the
+    // one four before it — see the spiral below — so sliding the camera back
+    // by four layers' worth lands it on a configuration identical to the one
+    // it just left, and the layers keep coming forever without a seam and
+    // without a second stack of geometry to carry.
+    const LOOP_SPAN = 4 * Z_GAP;
+    const LOOP_TOP = 1.4;
+    // How strongly the network is painted is measured against the hero alone.
+    // Over the hero it is at full strength; by the foot of the hero it has
+    // come down to REST and it stays there for the rest of the page. REST is
+    // not a guess: at 0.13 the brightest thing the network can put behind a
+    // word — a signal head at rgba(206,226,255,.94) — lifts the ground to
+    // rgb(30,34,41), where the page's faintest grey still measures 4.9:1.
+    let heroRun = 700;
+    const REST = 0.13;
+    const REST_NARROW = 0.085;
 
     // ---- neurons ------------------------------------------------------
     const nx = new Float32Array(COUNT);
@@ -70,7 +86,10 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
           // a golden-angle spiral fills a disc evenly; a ring or a grid would
           // read as a pattern rather than as a layer of cells
           const r = Math.sqrt((i + 0.5) / PER_LAYER) * RADIUS;
-          const th = i * golden + l * 0.7;
+          // the turn repeats every fourth layer, which is what lets the
+          // camera loop invisibly; within a period of four it is still
+          // enough to stop the layers superimposing into a moiré
+          const th = i * golden + (l % 4) * 0.7;
           nx[k] = Math.cos(th) * r;
           ny[k] = Math.sin(th) * r;
           nz[k] = z;
@@ -86,7 +105,7 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       const n = tasksRef.current.length;
       if (n > 0) {
         let given = 0;
-        for (let l = 0; l < 2; l++) {
+        for (let l = 0; l < 3; l++) {
           for (let i = 0; i < PER_LAYER; i += 2) {
             label[l * PER_LAYER + i] = given % n;
             given++;
@@ -253,9 +272,9 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       heroBottom = hero
         ? hero.offsetTop + hero.offsetHeight
         : Math.round(window.innerHeight * 0.85);
-      // finish a little before the hero ends, so the section after it is
-      // never read through a mesh of wires
-      runway = Math.max(360, heroBottom - 140);
+      // the fade to resting strength is over by the foot of the hero; the
+      // flight itself has no end, it loops
+      heroRun = Math.max(360, heroBottom - 140);
       // Solid across the text column, then a long ramp so there is no edge
       // to see. The paragraph runs wider than the headline, so the solid part
       // has to clear it too.
@@ -266,28 +285,36 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     }
 
     function readScroll() {
-      const raw = Math.max(0, window.scrollY / runway);
-      const p = Math.min(1, raw);
-      const eased = p * p * (3 - 2 * p);
-      camZ = Z_START + (Z_END - Z_START) * eased;
-      // The network is the opening, and only the opening. Below it the page
-      // is text, and a full-viewport canvas over text costs both legibility —
-      // long edges cut straight through paragraphs — and frames, because the
-      // compositor blends it over the scrolling page every time. So it fades
-      // out entirely by a screen past the dive and stops drawing there.
-      // Full strength for the first half of the hero, then out entirely by
-      // the end of it.
-      presence = raw <= 0.5 ? 1 : Math.max(0, 1 - (raw - 0.5) * 2);
+      const y = Math.max(0, window.scrollY);
+      // The flight: eased over the first screen so the opening has some
+      // punch, then linear, so the rest of the page advances at an even rate
+      // instead of crawling to a stop.
+      const opening = Math.min(1, y / heroRun);
+      const eased = opening * opening * (3 - 2 * opening);
+      let z = Z_START + (Z_DIVE - Z_START) * eased;
+      if (y > heroRun) z -= (y - heroRun) * Z_PER_PX;
+      // fold the travel back into one loop's worth
+      if (z < LOOP_TOP) {
+        const d = LOOP_TOP - z;
+        z = LOOP_TOP - (d % LOOP_SPAN);
+      }
+      camZ = z;
+
+      // The strength: full over the top half of the hero, down to REST by the
+      // foot of it, and REST from there to the end of the page.
+      const rest = narrow ? REST_NARROW : REST;
+      const h = Math.max(0, y / heroRun);
+      presence = h <= 0.45 ? 1 : Math.max(rest, 1 - ((h - 0.45) / 0.55) * (1 - rest));
     }
 
     function draw() {
       ctx!.clearRect(0, 0, width, height);
-      ctx!.globalAlpha = narrow ? presence * 0.55 : presence;
+      ctx!.globalAlpha = presence;
 
       // On a wide screen the left half of the hero is the headline and the
       // price; the network sits in the right half, where the page has no
       // words, until the dive pulls it over everything.
-      const drift = Math.min(1, Math.max(0, (camZ - Z_END) / (Z_START - Z_END)));
+      const drift = Math.min(1, Math.max(0, (camZ - Z_DIVE) / (Z_START - Z_DIVE)));
       const cx = width * (narrow ? 0.5 : 0.5 + 0.18 * drift);
       const cy = height * (narrow ? 0.66 : 0.47);
 
@@ -390,7 +417,7 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       // labels only exist near the camera, so they arrive as the reader flies
       // in and are gone once the network has receded behind the page.
       const words = tasksRef.current;
-      if (words.length) {
+      if (words.length && presence > 0.35) {
         ctx!.textBaseline = "middle";
         ctx!.font =
           '10.5px ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo, monospace';
@@ -434,79 +461,59 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
 
       // --- keep it off the words ---
       //
-      // Measured over the built page: a signal passing behind the headline
-      // took the contrast there to 1.7:1 and behind a paragraph to 1.06:1 —
-      // the line vanishes into it. Dimming does not save it either; at a
-      // third of full strength the paragraphs still read at 1.7:1. And on a
-      // 900px screen the section under the hero is already partly visible at
-      // the very top of the page, so there is no moment when the network can
-      // cover the whole viewport without crossing something written.
+      // Measured over the built page: a signal passing behind the headline at
+      // full strength took the contrast there to 1.7:1 and behind a paragraph
+      // to 1.06:1 — the line vanishes into it. So wherever there are words,
+      // the network is knocked down to REST, which is the strength measured
+      // to leave even the page's faintest grey at 4.9:1.
       //
-      // So it is not dimmed, it is cut. The text column on the left and
-      // everything below the hero are erased from the canvas — destination-out,
-      // which removes the pixels and leaves real transparency, so the page
-      // ground shows through exactly as it does elsewhere. What is left is the
-      // open right-hand part of the first screen, which is where the network
-      // already lived at rest.
-      ctx!.globalCompositeOperation = "destination-out";
-      ctx!.globalAlpha = 1;
+      // It is knocked down rather than cut, and that is the difference from
+      // before: destination-out at a partial alpha thins the pixels instead
+      // of removing them, so the network carries on behind the whole page
+      // instead of stopping at the foot of the hero.
+      const rest = narrow ? REST_NARROW : REST;
+      const knock = presence > rest ? 1 - rest / presence : 0;
 
-      if (guard && !narrow) {
-        ctx!.fillStyle = guard;
-        ctx!.fillRect(0, 0, width * 0.74, height);
+      if (knock > 0.004) {
+        ctx!.globalCompositeOperation = "destination-out";
+        ctx!.globalAlpha = knock;
+
+        // the hero's own text column, for as long as the hero is on screen
+        if (guard && !narrow) {
+          ctx!.fillStyle = guard;
+          ctx!.fillRect(0, 0, width * 0.74, height);
+        }
+
+        // and everything below the hero, where the page is text edge to edge
+        const cut = heroBottom - window.scrollY - 40;
+        if (cut < height) {
+          const top = Math.max(0, cut - 90);
+          const fade = ctx!.createLinearGradient(0, top, 0, Math.max(top + 1, cut));
+          fade.addColorStop(0, "rgba(0,0,0,0)");
+          fade.addColorStop(1, "rgba(0,0,0,1)");
+          ctx!.fillStyle = fade;
+          ctx!.fillRect(0, top, width, height - top);
+        }
+
+        ctx!.globalCompositeOperation = "source-over";
       }
-
-      const cut = heroBottom - window.scrollY - 40;
-      if (cut < height) {
-        const fade = ctx!.createLinearGradient(0, Math.max(0, cut - 90), 0, Math.max(0, cut));
-        fade.addColorStop(0, "rgba(0,0,0,0)");
-        fade.addColorStop(1, "rgba(0,0,0,1)");
-        ctx!.fillStyle = fade;
-        ctx!.fillRect(0, Math.max(0, cut - 90), width, height - Math.max(0, cut - 90));
-      }
-
-      ctx!.globalCompositeOperation = "source-over";
-      ctx!.globalAlpha = narrow ? presence * 0.55 : presence;
+      ctx!.globalAlpha = presence;
     }
 
-    // A quarter of all frames during a scroll ran long, and removing what was
-    // drawn changed nothing — the cost is the full-viewport canvas being
-    // composited over the moving page, not the drawing. So it is drawn at
-    // half rate once the dive is over, where a slow drift of dots is
-    // indistinguishable at thirty frames a second and the page underneath
-    // gets its frames back. The dive itself keeps every frame, because that
-    // one is scrubbed by the scroll and has to track it exactly.
+    // A full-viewport canvas over a scrolling page is what makes frames run
+    // long — the compositor blends it on every scroll frame — and the only
+    // lever is how often it is repainted. So: thirty frames a second over the
+    // hero, where the dive is the thing being watched, and fifteen for the
+    // rest of the page, where it is a slow drift behind the words and nobody
+    // can tell. The camera still reads every scroll event either way, so the
+    // flight tracks the wheel exactly however often it is drawn.
     let tick = 0;
-    let shown = true;
     function loop() {
       frame = requestAnimationFrame(loop);
-
-      // Gone means gone: hidden, not merely transparent. A transparent
-      // full-viewport layer is still a layer the compositor blends on every
-      // scroll frame, which is the whole cost this is avoiding.
-      if (presence <= 0.004) {
-        if (shown) {
-          shown = false;
-          canvas!.style.visibility = "hidden";
-          ctx!.clearRect(0, 0, width, height);
-        }
-        return;
-      }
-      if (!shown) {
-        shown = true;
-        canvas!.style.visibility = "";
-      }
-
-      // Thirty frames a second, throughout. The measurement is unambiguous:
-      // a full-viewport canvas over a scrolling page is what makes frames run
-      // long — hiding it takes the page from twenty-one per cent long frames
-      // to one — and the only lever left is how often it is repainted. The
-      // camera still reads the scroll on every scroll event, so the dive
-      // tracks the wheel exactly; it is only redrawn half as often, which on
-      // a slow drift of dots and wires nobody can see.
       tick++;
-      if (tick % 2) return;
-      t += 32;
+      const every = presence > 0.35 ? 2 : 4;
+      if (tick % every) return;
+      t += every * 16;
       step();
       draw();
     }

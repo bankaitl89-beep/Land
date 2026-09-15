@@ -9,8 +9,11 @@
   --bg2: #0c0e15;
   --ink: #f1f2f5;
   --mute: #9aa0ab;
-  /* measured 3.82:1 over the lit part of the hero in its old value */
-  --mute2: #888e9a;
+  /* The faintest grey on the page, and the one the network sets the floor
+     for: with the field now running behind the whole page, #888e9a measured
+     4.1:1 over the lit grounds. This value clears 4.7:1 on the worst of
+     them — the pointer glow over the hero at rgb(63,39,39). */
+  --mute2: #949aa6;
 
   /* Two colours, and they mean different things.
      Warm ember is you: what you write, what you press, what the teacher
@@ -2862,116 +2865,6 @@ body:not(.anim) .compare {
 }
 
 /* ============================================================
-   The brand statement
-   One full-bleed screen with nothing on it but the name, set larger than
-   anything else on the page and deliberately off the shell's centre line:
-   three words, three treatments, each starting from a different left edge.
-   ============================================================ */
-
-.mnf {
-  position: relative;
-  z-index: 1;
-  padding-block: clamp(64px, 10vw, 148px);
-  border-block: 1px solid var(--line2);
-  background:
-    radial-gradient(80% 120% at 82% 6%, rgba(143, 176, 232, 0.09), transparent 58%),
-    radial-gradient(70% 110% at 6% 104%, rgba(255, 106, 61, 0.11), transparent 60%),
-    linear-gradient(180deg, #0a0c12, #07080f);
-  overflow: hidden;
-}
-
-/* wider than the shell on purpose — the name runs past where every other
-   section stops, which is the whole point of it. The gloss and the sentence
-   share the type's last row rather than sitting under it, so they fill the
-   space the short third word leaves open on the right. */
-.mnf-in {
-  width: 100%;
-  max-width: 1340px;
-  margin: 0 auto;
-  padding-inline: 30px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-}
-
-.mnf-say {
-  grid-column: 2;
-  grid-row: 1;
-  align-self: end;
-  justify-self: end;
-  width: min(34ch, 38vw);
-  padding-bottom: 0.4em;
-}
-
-.mnf-line {
-  grid-column: 1 / -1;
-  grid-row: 1;
-  margin: 0;
-  font-size: clamp(46px, 14.2vw, 178px);
-  line-height: 0.88;
-  font-weight: 800;
-  letter-spacing: -0.058em;
-}
-
-.mnf-line span {
-  display: block;
-  white-space: nowrap;
-}
-
-.mnf-line span:nth-child(2) {
-  margin-left: 9vw;
-  color: var(--acc);
-}
-
-.mnf-line span:nth-child(3) {
-  margin-left: 3.5vw;
-}
-
-/* "perire" is the one that is hollow. Stroked at 0.6 alpha it measures
-   4.6:1 on this ground, so the word is still readable as text. */
-@supports (-webkit-text-stroke: 1px red) {
-  .mnf-line span:nth-child(3) {
-    color: transparent;
-    -webkit-text-stroke: clamp(1px, 0.13vw, 2px) rgba(241, 242, 245, 0.6);
-  }
-}
-
-.mnf-gloss {
-  font-family: var(--m);
-  font-size: clamp(11px, 1.05vw, 13px);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--acc-text);
-  margin: 0;
-}
-
-.mnf-text {
-  margin: 14px 0 0;
-  font-size: clamp(16px, 1.5vw, 20px);
-  line-height: 1.6;
-  color: var(--ink);
-}
-
-@media (max-width: 900px) {
-  .mnf-in {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .mnf-say {
-    grid-column: 1;
-    grid-row: 2;
-    justify-self: start;
-    width: auto;
-    max-width: 38ch;
-    margin-top: clamp(24px, 4vw, 40px);
-    padding-bottom: 0;
-  }
-
-  .mnf-line span:nth-child(2) {
-    margin-left: 12vw;
-  }
-}
-
-/* ============================================================
    The rail
    A section label that travels down the left margin while its section
    scrolls past, so the long sections stop being one centred column.
@@ -3034,12 +2927,7 @@ body:not(.anim) .compare {
   display: grid;
   grid-template-columns: 0.88fr 1.12fr;
   gap: 20px;
-  align-items: stretch;
-}
-
-.bld-in {
-  display: flex;
-  flex-direction: column;
+  align-items: start;
 }
 
 .bld-in,
@@ -3147,11 +3035,9 @@ body:not(.anim) .compare {
   background: rgba(255, 106, 61, 0.08);
 }
 
-/* what they would have typed sits at the foot of the panel, level with the
-   end of the assembled request opposite it */
 .bld-naive {
-  margin-top: auto;
-  padding-top: 22px;
+  margin-top: 22px;
+  padding-top: 20px;
   border-top: 1px solid var(--line2);
 }
 
@@ -3198,21 +3084,7 @@ body:not(.anim) .compare {
 }
 
 .bld-empty {
-  margin: 0 0 4px;
-  font-size: 14px;
-  color: var(--mute2);
-}
-
-.bld-blocks {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 10px;
-}
-
-.bld-empty {
-  margin: 0 0 12px;
+  margin: 0 0 14px;
   font-size: 13.5px;
   color: var(--mute2);
   transition: opacity 0.3s;
@@ -3222,57 +3094,139 @@ body:not(.anim) .compare {
   opacity: 0;
 }
 
-.bld-blocks li {
+/* three steps, in the order the questions get asked: what is the problem,
+   what do you paste in, what comes back */
+.bld-steps {
   display: grid;
-  gap: 5px;
-  padding: 12px 14px;
-  border: 1px solid var(--line2);
-  border-left: 2px solid rgba(143, 176, 232, 0.4);
-  border-radius: 0 11px 11px 0;
-  background: rgba(0, 0, 0, 0.26);
-  opacity: 0.32;
+  gap: 16px;
+}
+
+.bld-step {
+  opacity: 0.34;
   transform: translateY(6px);
   transition:
     opacity 0.45s ease,
     transform 0.45s cubic-bezier(0.2, 0.7, 0.3, 1);
-  transition-delay: calc(var(--i) * 80ms);
+  transition-delay: calc(var(--i) * 90ms);
 }
 
-.bld-blocks[data-built="true"] li {
+.bld-steps[data-built="true"] .bld-step {
   opacity: 1;
   transform: none;
 }
 
-.bld-blocks li.is-yours {
-  border-left-color: var(--acc);
-  background: rgba(255, 106, 61, 0.07);
-}
-
-.bld-blocks li span {
+.bld-step h3 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 9px;
   font-family: var(--m);
   font-size: 9.5px;
-  letter-spacing: 0.16em;
+  font-weight: 400;
+  letter-spacing: 0.17em;
   text-transform: uppercase;
   color: var(--cool-text);
 }
 
-.bld-blocks li.is-yours span {
-  color: var(--acc-text);
+.bld-step h3 b {
+  display: grid;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 5px;
+  flex: none;
+  background: rgba(143, 176, 232, 0.16);
+  color: var(--cool-text);
+  font-family: var(--m);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
-.bld-blocks li p {
+.bld-problem {
   margin: 0;
+  font-size: 14.6px;
+  line-height: 1.55;
+  color: var(--mute);
+  border-left: 2px solid rgba(255, 255, 255, 0.14);
+  padding-left: 14px;
+}
+
+/* the request itself reads as one piece of text, not five cards */
+.bld-ask {
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.38);
+  padding: 15px 17px;
+  display: grid;
+  gap: 7px;
+}
+
+.bld-ask p {
+  margin: 0;
+  font-size: 14.2px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* the one line that is theirs */
+.bld-ask p.is-mine {
+  margin: 2px -8px;
+  padding: 5px 8px;
+  border-left: 2px solid var(--acc);
+  border-radius: 0 7px 7px 0;
+  background: rgba(255, 106, 61, 0.1);
+}
+
+.bld-res {
+  list-style: none;
+  margin: 0;
+  padding: 15px 17px;
+  border-radius: 12px;
+  border: 1px solid rgba(43, 217, 139, 0.22);
+  background: rgba(43, 217, 139, 0.05);
+  display: grid;
+  gap: 8px;
+}
+
+.bld-res li {
+  position: relative;
+  padding-left: 19px;
   font-size: 14.2px;
   line-height: 1.5;
   color: var(--ink);
 }
 
+.bld-res li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+
+.bld-win {
+  margin: 12px 0 0;
+  font-size: 13.6px;
+  line-height: 1.55;
+  color: var(--mute2);
+}
+
 .bld-copy {
-  margin-top: 16px;
+  margin-top: 12px;
   width: 100%;
   justify-content: center;
   font-size: 13.5px;
-  padding: 12px 18px;
+  padding: 11px 18px;
+}
+
+.bld-samples button[aria-pressed="true"] {
+  color: var(--ink);
+  border-color: rgba(255, 106, 61, 0.55);
+  background: rgba(255, 106, 61, 0.12);
 }
 
 @media (max-width: 860px) {

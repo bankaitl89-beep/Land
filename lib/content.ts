@@ -338,48 +338,101 @@ export const content = {
       title: "What they say afterwards",
       items: [] as { quote: string; name: string; role: string; result: string }[],
     },
-    manifesto: {
-      gloss: "prompt or perish",
-      text: "The work is not going anywhere. It is going to the people who can ask for it properly.",
-    },
     builder: {
       eyebrow: "Your turn",
-      title: "Type your own job. Watch it become a working request.",
-      lede: "Not a demo on invented data. Write the thing you actually do, in your own words, and the page assembles it the way the course teaches — one block at a time.",
-      placeholder: "the weekly report for my director",
+      title: "Take a job you actually have. Watch what it turns into.",
+      lede: "Pick one of the three, or type your own. You get three things: the problem in one line, the exact text you would paste into the chat, and what comes back.",
       label: "What do you need done?",
+      placeholder: "a summary of a 40-page contract",
       samplesLabel: "or take one of these",
-      samples: [
-        "the weekly report for my director",
-        "a reply to a client who says we are too expensive",
-        "a summary of a 40-page contract",
-      ],
+      problemLabel: "The problem",
+      askLabel: "What you paste into the chat",
+      outLabel: "What comes back",
       naiveLabel: "What most people type",
       builtLabel: "What the method turns it into",
-      jobLabel: "The job",
-      jobPrefix: "Do this:",
-      blocks: [
-        {
-          label: "Who is reading",
-          text: "You are writing for a busy reader who has 90 seconds and asks about money first.",
-        },
-        {
-          label: "What to work from",
-          text: "I will paste my own figures and documents. Use only those. If something is missing, ask me — do not invent it.",
-        },
-        {
-          label: "The shape",
-          text: "One page. Short paragraphs, no adjectives, nothing you cannot point at in the source.",
-        },
-        {
-          label: "How I will judge it",
-          text: "Finish with one risk and one decision that is waiting on me.",
-        },
-      ],
-      empty: "Start typing and the request builds itself.",
+      empty: "Pick one above, or type your own job.",
       copy: "Copy the request",
       copied: "Copied",
-      note: "Five plain lines, written once, and you run them every week. That is the whole trick — the course is six parts of doing it on jobs harder than this one.",
+      note: "Five plain lines, written once and run every week. That is the whole trick — the course is six parts of it on jobs harder than these.",
+      generic: {
+        problem:
+          "You explain the job in words once. After that you run it — every Monday, for every client.",
+        ask: [
+          "You are helping me with a work job. Whoever reads this is busy: 90 seconds, no more.",
+          "The job: {job}.",
+          "I will paste my own material — figures, an email, a document. Work only from it. Anything missing, ask me; do not invent it.",
+          "One page, short paragraphs, no adjectives, nothing you cannot point at in the source.",
+          "Finish with one risk and one decision that is waiting on me.",
+        ],
+        out: [
+          "The point, in three lines, each one pointing back at your own document.",
+          "One risk: what can go wrong, and the page it is visible on.",
+          "One decision waiting on you, with the date it is due.",
+          "Nothing invented: what was not in your material is not in the answer.",
+        ],
+        win: "That is the shape of the answer. The content is yours — it comes out of your own files.",
+      },
+      cases: [
+        {
+          chip: "the weekly report for my director",
+          problem:
+            "Every Tuesday you spend an hour pulling the figures together and choosing the words. Your director reads it for 90 seconds and asks about money first.",
+          ask: [
+            "You are writing a brief for my director. She reads for 90 seconds and asks about money first.",
+            "The job: the weekly report — what changed this week and why.",
+            "I will paste this week's export. Take the figures only from it; if something is not there, write “no data” rather than working it out yourself.",
+            "One page: three figures that moved, and the reason for each. No adjectives.",
+            "Finish with one risk and one decision that is waiting on her, with its date.",
+          ],
+          out: [
+            "Margin: 18% → 22%. Two large deals in October, p. 4.",
+            "Churn: 3% → 7%. Delivery delays at the Kazan warehouse, p. 9.",
+            "Average order: $560 → $640, p. 6.",
+            "Risk: one client is 40% of revenue. Lose them and a third of the plan goes, p. 12.",
+            "Waiting on her: renew the contractor or not. Due the 30th.",
+          ],
+          win: "Before: Tuesday evening. After: paste the export, report done in half a minute.",
+        },
+        {
+          chip: "a reply to a client who says we are too expensive",
+          problem:
+            "A client has written back saying you are expensive. You spend half an hour choosing words that neither drop the price nor lose them.",
+          ask: [
+            "You are writing a reply to a client who says we are too expensive. We are not dropping the price.",
+            "The job: an answer to one email — short, human, no pressure.",
+            "I will paste his email and our quote. Work only from those two.",
+            "Six to eight lines. Agree first with the part that genuinely bothers him, then show what he is paying for.",
+            "Finish with one question that is easy for him to say yes to.",
+          ],
+          out: [
+            "“You are comparing us with a quote 40% lower — that is a real gap, and I would look at it too.”",
+            "“The difference is what is inside ours: the survey, the install and a year of support. On theirs those are separate invoices.”",
+            "“At your volume that is about $1,400 a year that does not appear on their number.”",
+            "“Want me to put both quotes into one table, so you are comparing like for like?”",
+          ],
+          win: "Before: half an hour and still awkward. After: a minute, and the conversation is still going.",
+        },
+        {
+          chip: "a summary of a 40-page contract",
+          problem:
+            "Forty pages, signing tomorrow, no lawyer to hand. No time to read it all, and signing blind is worse.",
+          ask: [
+            "You are reading a contract through my eyes: I am the customer, not a lawyer.",
+            "The job: explain a 40-page contract so I understand what I am agreeing to.",
+            "I will paste the contract. Quote only from it, and always give the clause number.",
+            "Ten lines, plain words. First what they owe me, then what I owe them.",
+            "Separately: everything that can cost me money — penalties, auto-renewal, one-sided changes. And one clause I should ask to change.",
+          ],
+          out: [
+            "They owe you: delivery in 30 days, 12-month warranty (cl. 3.1, 6.2).",
+            "You owe them: 50% up front, and acceptance within 5 days or it counts as accepted (cl. 4.1, 5.3).",
+            "Costs money: 0.5% a day in penalties with no cap (cl. 7.2) — a month late is 15% of the total.",
+            "Auto-renews for a year unless you cancel 60 days ahead (cl. 9.4).",
+            "Ask to change: cap the penalty at 10%, and make acceptance 10 days.",
+          ],
+          win: "Before: two hours of reading and still uneasy. After: four minutes, and you know what to argue about.",
+        },
+      ],
     },
     cost: {
       eyebrow: "Straight talk",
@@ -799,48 +852,101 @@ export const content = {
       title: "Lo que dicen al terminar",
       items: [] as { quote: string; name: string; role: string; result: string }[],
     },
-    manifesto: {
-      gloss: "pide o perece",
-      text: "El trabajo no va a desaparecer. Va a pasar a quien sepa pedirlo bien.",
-    },
     builder: {
       eyebrow: "Su turno",
-      title: "Escriba su propia tarea. Mire en qué se convierte.",
-      lede: "No es una demostración con datos inventados. Escriba lo que usted hace de verdad, con sus palabras, y la página la arma como enseña el curso: bloque a bloque.",
-      placeholder: "el informe semanal para mi directora",
+      title: "Tome una tarea que tenga de verdad. Mire en qué se convierte.",
+      lede: "Elija una de las tres o escriba la suya. Verá tres cosas: cuál es el problema, el texto exacto que pegará en el chat y lo que llega de vuelta.",
       label: "¿Qué necesita que se haga?",
+      placeholder: "un resumen de un contrato de 40 páginas",
       samplesLabel: "o tome una de estas",
-      samples: [
-        "el informe semanal para mi directora",
-        "una respuesta a un cliente que dice que somos caros",
-        "un resumen de un contrato de 40 páginas",
-      ],
+      problemLabel: "El problema",
+      askLabel: "Lo que usted pega en el chat",
+      outLabel: "Lo que llega de vuelta",
       naiveLabel: "Lo que escribe la mayoría",
       builtLabel: "En lo que lo convierte el método",
-      jobLabel: "La tarea",
-      jobPrefix: "Haz esto:",
-      blocks: [
-        {
-          label: "Quién lo lee",
-          text: "Escribes para alguien con prisa, que dispone de 90 segundos y pregunta primero por el dinero.",
-        },
-        {
-          label: "Con qué trabajar",
-          text: "Voy a pegar mis propias cifras y documentos. Usa solo eso. Si falta algo, pregúntamelo: no lo inventes.",
-        },
-        {
-          label: "La forma",
-          text: "Una página. Párrafos cortos, sin adjetivos, nada que no puedas señalar en la fuente.",
-        },
-        {
-          label: "Cómo lo voy a juzgar",
-          text: "Termina con un riesgo y una decisión que esté esperando por mí.",
-        },
-      ],
-      empty: "Empiece a escribir y la petición se arma sola.",
+      empty: "Elija una tarea arriba o escriba la suya.",
       copy: "Copiar la petición",
       copied: "Copiado",
-      note: "Cinco líneas corrientes, escritas una vez, y se ejecutan cada semana. Ese es todo el truco: el curso son seis partes haciéndolo con tareas más difíciles que esta.",
+      note: "Cinco líneas corrientes, escritas una vez y ejecutadas cada semana. Ese es todo el truco: el curso son seis partes de lo mismo con tareas más difíciles que estas.",
+      generic: {
+        problem:
+          "Usted explica la tarea con palabras una sola vez. A partir de ahí solo la ejecuta: cada lunes, para cada cliente.",
+        ask: [
+          "Me ayudas con una tarea de trabajo. Quien va a leer esto está ocupado: 90 segundos, no más.",
+          "La tarea: {job}.",
+          "Voy a pegar mi propio material: cifras, un correo, un documento. Trabaja solo con eso. Lo que falte, pregúntamelo; no lo inventes.",
+          "Una página, párrafos cortos, sin adjetivos, nada que no puedas señalar en la fuente.",
+          "Termina con un riesgo y una decisión que esté esperando por mí.",
+        ],
+        out: [
+          "Lo esencial en tres líneas, cada una señalando su propio documento.",
+          "Un riesgo: qué puede salir mal y en qué página se ve.",
+          "Una decisión que le espera, con la fecha en que vence.",
+          "Nada inventado: lo que no estaba en su material no aparece en la respuesta.",
+        ],
+        win: "Esa es la forma de la respuesta. El contenido será suyo: sale de sus propios archivos.",
+      },
+      cases: [
+        {
+          chip: "el informe semanal para mi directora",
+          problem:
+            "Cada martes dedica una hora a juntar las cifras y elegir las palabras. Su directora lo lee en 90 segundos y lo primero que pregunta es por el dinero.",
+          ask: [
+            "Preparas una nota para mi directora. Lee durante 90 segundos y pregunta primero por el dinero.",
+            "La tarea: el informe semanal — qué cambió esta semana y por qué.",
+            "Voy a pegar la exportación de la semana. Toma las cifras solo de ahí; lo que no esté, escribe «sin datos» en vez de calcularlo tú.",
+            "Una página: tres cifras que se movieron y el motivo de cada una. Sin adjetivos.",
+            "Termina con un riesgo y una decisión que la esté esperando, con su fecha.",
+          ],
+          out: [
+            "Margen: 18% → 22%. Dos operaciones grandes en octubre, p. 4.",
+            "Fuga de clientes: 3% → 7%. Retrasos en el almacén de Kazán, p. 9.",
+            "Pedido medio: $560 → $640, p. 6.",
+            "Riesgo: un cliente supone el 40% de los ingresos. Si se va, cae un tercio del plan, p. 12.",
+            "La espera a ella: renovar o no al proveedor. Vence el día 30.",
+          ],
+          win: "Antes: la tarde del martes. Ahora: pega la exportación y el informe sale en medio minuto.",
+        },
+        {
+          chip: "una respuesta a un cliente que dice que somos caros",
+          problem:
+            "Un cliente ha escrito que usted es caro. Pasa media hora eligiendo palabras que no bajen el precio ni lo hagan perder la venta.",
+          ask: [
+            "Escribes una respuesta a un cliente que dice que somos caros. No vamos a bajar el precio.",
+            "La tarea: contestar a un correo — corto, humano, sin presión.",
+            "Voy a pegar su correo y nuestro presupuesto. Trabaja solo con esos dos.",
+            "De seis a ocho líneas. Primero dale la razón en lo que de verdad le molesta, después enséñale qué está pagando.",
+            "Termina con una pregunta a la que le resulte fácil decir que sí.",
+          ],
+          out: [
+            "«Nos está comparando con un presupuesto un 40% más barato: la diferencia es real y yo también la miraría.»",
+            "«La diferencia está en lo que va dentro: la medición, el montaje y un año de mantenimiento. En el otro eso son facturas aparte.»",
+            "«Con su volumen son unos 1.400 € al año que no aparecen en esa cifra.»",
+            "«¿Le paso los dos presupuestos en una sola tabla, para comparar lo mismo con lo mismo?»",
+          ],
+          win: "Antes: media hora y aun así incómodo. Ahora: un minuto, y la conversación sigue.",
+        },
+        {
+          chip: "un resumen de un contrato de 40 páginas",
+          problem:
+            "Cuarenta páginas, se firma mañana y no hay abogado cerca. No hay tiempo de leerlo entero y firmar a ciegas es peor.",
+          ask: [
+            "Lees el contrato con mis ojos: soy el cliente, no un abogado.",
+            "La tarea: contarme un contrato de 40 páginas para que entienda a qué me estoy comprometiendo.",
+            "Voy a pegar el contrato. Cita solo de ahí y da siempre el número de cláusula.",
+            "Diez líneas, en palabras corrientes. Primero lo que me deben, después lo que debo yo.",
+            "Aparte: todo lo que me puede costar dinero — penalizaciones, renovación automática, cambios unilaterales. Y una cláusula que convenga pedir cambiar.",
+          ],
+          out: [
+            "Le deben: entrega en 30 días, garantía de 12 meses (cl. 3.1, 6.2).",
+            "Usted debe: 50% por adelantado y aceptación en 5 días o se da por aceptado (cl. 4.1, 5.3).",
+            "Cuesta dinero: 0,5% diario de penalización sin tope (cl. 7.2) — un mes de retraso es el 15% del total.",
+            "Se renueva un año solo si no cancela con 60 días (cl. 9.4).",
+            "Conviene pedir: tope del 10% en la penalización y 10 días para la aceptación.",
+          ],
+          win: "Antes: dos horas de lectura y aun así intranquilo. Ahora: cuatro minutos, y sabe sobre qué discutir.",
+        },
+      ],
     },
     cost: {
       eyebrow: "Sin rodeos",
@@ -1260,48 +1366,101 @@ export const content = {
       title: "Что говорят после курса",
       items: [] as { quote: string; name: string; role: string; result: string }[],
     },
-    manifesto: {
-      gloss: "промпти или погибни",
-      text: "Работа никуда не денется. Она перейдёт к тем, кто умеет её правильно попросить.",
-    },
     builder: {
       eyebrow: "Теперь вы",
-      title: "Впишите свою задачу. Посмотрите, во что она превращается.",
-      lede: "Это не демонстрация на выдуманных данных. Напишите то, что вы делаете на самом деле, своими словами — а страница соберёт запрос так, как учит курс: блок за блоком.",
-      placeholder: "недельный отчёт для моего директора",
+      title: "Возьмите задачу, которая у вас реально есть. Посмотрите, во что она превращается.",
+      lede: "Выберите одну из трёх или впишите свою. Вы увидите три вещи: в чём проблема, какой именно текст вы вставите в чат и что придёт в ответ.",
       label: "Что нужно сделать?",
+      placeholder: "краткое содержание договора на 40 страниц",
       samplesLabel: "или возьмите готовое",
-      samples: [
-        "недельный отчёт для моего директора",
-        "ответ клиенту, который говорит, что у нас дорого",
-        "краткое содержание договора на 40 страниц",
-      ],
+      problemLabel: "В чём проблема",
+      askLabel: "Что вы вставляете в чат",
+      outLabel: "Что приходит в ответ",
       naiveLabel: "Как пишет большинство",
       builtLabel: "Во что это превращает метод",
-      jobLabel: "Задача",
-      jobPrefix: "Сделай:",
-      blocks: [
-        {
-          label: "Кто читает",
-          text: "Ты пишешь для занятого человека: у него 90 секунд, и первое, что он спросит, — про деньги.",
-        },
-        {
-          label: "С чем работать",
-          text: "Я вставлю свои цифры и документы. Работай только с ними. Если чего-то не хватает — спроси у меня, не выдумывай.",
-        },
-        {
-          label: "В каком виде",
-          text: "Одна страница. Короткие абзацы, без прилагательных, ничего, на что нельзя показать пальцем в исходнике.",
-        },
-        {
-          label: "По чему я буду судить",
-          text: "В конце — один риск и одно решение, которое ждёт меня.",
-        },
-      ],
-      empty: "Начните печатать — запрос соберётся сам.",
+      empty: "Выберите задачу сверху или впишите свою.",
       copy: "Скопировать запрос",
       copied: "Скопировано",
       note: "Пять обычных строк, написанных один раз, — и вы запускаете их каждую неделю. В этом весь фокус, а курс — это шесть частей того же самого на задачах посложнее.",
+      generic: {
+        problem:
+          "Вы один раз объясняете задачу словами. Дальше просто запускаете: каждый понедельник, для каждого клиента.",
+        ask: [
+          "Ты помогаешь мне с рабочей задачей. Тот, кто будет это читать, занят: у него 90 секунд.",
+          "Задача: {job}.",
+          "Я пришлю свои материалы — цифры, письмо, документ. Работай только с ними. Чего не хватает — спроси у меня, не выдумывай.",
+          "Одна страница, короткие абзацы, без прилагательных, ничего, на что нельзя показать пальцем в исходнике.",
+          "В конце — один риск и одно решение, которое ждёт меня.",
+        ],
+        out: [
+          "Суть в трёх строках, каждая — со ссылкой на ваш же документ.",
+          "Один риск: что может пойти не так и на какой странице это видно.",
+          "Одно решение, которое ждёт вас, и срок, до которого его надо принять.",
+          "Ничего выдуманного: чего не было в ваших материалах, того не будет и в ответе.",
+        ],
+        win: "Это форма ответа. Содержание будет ваше — из ваших же файлов.",
+      },
+      cases: [
+        {
+          chip: "недельный отчёт для моего директора",
+          problem:
+            "Каждый вторник вы час сводите цифры и подбираете слова. Директор всё равно читает 90 секунд и первым делом спрашивает про деньги.",
+          ask: [
+            "Ты готовишь справку моему директору. Она читает 90 секунд и сначала спрашивает про деньги.",
+            "Задача: недельный отчёт — что изменилось за неделю и почему.",
+            "Я пришлю выгрузку за неделю. Цифры бери только оттуда; чего в ней нет — пиши «нет данных», а не считай сам.",
+            "Одна страница: три цифры, которые сдвинулись, и причина каждой. Без прилагательных.",
+            "В конце — один риск и одно решение, которое ждёт её, со сроком.",
+          ],
+          out: [
+            "Маржа: 18% → 22%. Две крупные сделки в октябре, с. 4.",
+            "Отток: 3% → 7%. Задержки на складе в Казани, с. 9.",
+            "Средний чек: $560 → $640, с. 6.",
+            "Риск: один клиент даёт 40% выручки. Уйдёт — минус треть плана, с. 12.",
+            "Ждёт её решения: продлевать ли договор с подрядчиком. До 30-го.",
+          ],
+          win: "Было: вечер вторника. Стало: вставили выгрузку — отчёт через полминуты.",
+        },
+        {
+          chip: "ответ клиенту, который говорит, что у нас дорого",
+          problem:
+            "Клиент написал, что у вас дорого. Вы полчаса подбираете слова, чтобы и цену не сбросить, и его не потерять.",
+          ask: [
+            "Ты пишешь ответ клиенту, который говорит, что у нас дорого. Цену мы не снижаем.",
+            "Задача: ответ на одно письмо — коротко, по-человечески, без давления.",
+            "Я пришлю его письмо и наше коммерческое предложение. Опирайся только на них.",
+            "Шесть-восемь строк. Сначала согласись с тем, что его действительно беспокоит, потом покажи, за что он платит.",
+            "В конце — один вопрос, на который ему легко ответить «да».",
+          ],
+          out: [
+            "«Вы сравниваете нас с предложением на 40% дешевле — разрыв заметный, я бы тоже на него посмотрел.»",
+            "«Разница в том, что входит внутрь: замер, монтаж и год обслуживания. У них это отдельные счета.»",
+            "«На вашем объёме это примерно 120 000 ₽ в год, которых в той цене не видно.»",
+            "«Свести оба предложения в одну таблицу, чтобы сравнивать одно с одним?»",
+          ],
+          win: "Было: полчаса, и всё равно неловко. Стало: минута, и разговор продолжается.",
+        },
+        {
+          chip: "краткое содержание договора на 40 страниц",
+          problem:
+            "Договор на 40 страниц, подписывать завтра, юриста рядом нет. Читать целиком некогда, подписывать вслепую — хуже.",
+          ask: [
+            "Ты читаешь договор моими глазами: я заказчик, а не юрист.",
+            "Задача: пересказать договор на 40 страниц так, чтобы я понял, на что соглашаюсь.",
+            "Я пришлю текст договора. Цитируй только его и всегда указывай номер пункта.",
+            "Десять строк обычными словами. Сначала — что обязаны мне, потом — что должен я.",
+            "Отдельно — всё, что может стоить мне денег: штрафы, автопродление, односторонние изменения. И один пункт, который стоит попросить поменять.",
+          ],
+          out: [
+            "Вам обязаны: поставка за 30 дней, гарантия 12 месяцев (п. 3.1, 6.2).",
+            "Вы должны: 50% предоплаты и приёмка за 5 дней, иначе считается принятым (п. 4.1, 5.3).",
+            "Стоит денег: пеня 0,5% в день без потолка (п. 7.2) — месяц просрочки это 15% суммы.",
+            "Продлевается на год само, если не отказаться за 60 дней (п. 9.4).",
+            "Стоит попросить поменять: потолок пени 10% и приёмку — 10 дней.",
+          ],
+          win: "Было: два часа чтения и всё равно тревожно. Стало: четыре минуты, и понятно, о чём спорить.",
+        },
+      ],
     },
     cost: {
       eyebrow: "Честно",

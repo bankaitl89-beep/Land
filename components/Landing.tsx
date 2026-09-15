@@ -244,24 +244,6 @@ export default function Landing({
           </div>
         </section>
 
-        {/* ---------------- brand statement ---------------- */}
-        {/* One screen with nothing on it but the name, set larger than
-            anything else on the page. It is the turn between the complaints
-            above and the answer below. */}
-        <section className="mnf" aria-labelledby="mnf-h">
-          <div className="mnf-in">
-            <h2 className="mnf-line rv" id="mnf-h">
-              <span>Prompta</span>
-              <span>aut</span>
-              <span>perire</span>
-            </h2>
-            <div className="mnf-say rv">
-              <p className="mnf-gloss">{c.manifesto.gloss}</p>
-              <p className="mnf-text">{c.manifesto.text}</p>
-            </div>
-          </div>
-        </section>
-
         {/* ---------------- what you build, and how it is taught ----------
             These were two sections making the same argument: one said you
             build setups and a teacher checks them, the other said lessons
