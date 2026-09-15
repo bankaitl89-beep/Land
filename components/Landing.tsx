@@ -7,7 +7,7 @@ import AssemblyScene from "./AssemblyScene";
 import Cursor from "./Cursor";
 import ModuleIcon from "./ModuleIcon";
 import PlatformMock from "./PlatformMock";
-import SphereField from "./SphereField";
+import NeuralField from "./NeuralField";
 import { useDepthEffects, useTypewriter } from "./useDepthEffects";
 import LeadForm from "./LeadForm";
 
@@ -47,7 +47,7 @@ export default function Landing({
 
   return (
     <>
-      <SphereField />
+      <NeuralField />
       <Cursor />
       <div id="glow" aria-hidden="true" />
       <div id="progress" aria-hidden="true" />
