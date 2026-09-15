@@ -44,10 +44,9 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     // layers, with the rest of the network still ahead of it
     const Z_START = 3.7;
     const Z_END = 0.45;
-    // The dive has to finish about where the hero does. Stretched over two
-    // and a half screens it was still at full strength while the reader was
-    // trying to read the sections underneath it.
-    const DIVE_SCREENS = 1.45;
+    // The dive finishes with the hero. Anything longer and the network is
+    // still at full strength across the first sections of text.
+    const DIVE_SCREENS = 1.0;
 
     // ---- neurons ------------------------------------------------------
     const nx = new Float32Array(COUNT);
@@ -77,15 +76,18 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     }
 
     {
-      // Only the layer nearest the reader carries words, and only every fifth
-      // neuron in it: the network has to stay a network. Labelling more of
-      // them turned the screen into a wall of text with wires behind it.
+      // The two layers nearest the reader carry words. Only the ones close
+      // enough to the camera are drawn, so the count on screen stays sane
+      // while the dive passes far more of them than a single sparse layer
+      // ever did.
       const n = tasksRef.current.length;
       if (n > 0) {
         let given = 0;
-        for (let i = 0; i < PER_LAYER; i += 5) {
-          label[i] = given % n;
-          given++;
+        for (let l = 0; l < 2; l++) {
+          for (let i = 0; i < PER_LAYER; i += 2) {
+            label[l * PER_LAYER + i] = given % n;
+            given++;
+          }
         }
       }
     }
@@ -227,7 +229,10 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
     let narrow = false;
 
     function build() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // The field is soft dots and thin lines behind the page; it does not
+      // need a retina buffer, and every pixel in it is a pixel the compositor
+      // blends over the scrolling page on every frame.
+      dpr = 1;
       width = canvas!.clientWidth;
       height = canvas!.clientHeight;
       canvas!.width = Math.floor(width * dpr);
@@ -243,9 +248,15 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       const p = Math.min(1, raw);
       const eased = p * p * (3 - 2 * p);
       camZ = Z_START + (Z_END - Z_START) * eased;
-      // once the reader is inside, the network has to get out from under the
-      // words, so it recedes over the screen that follows and stays there
-      presence = raw <= 1 ? 1 : Math.max(0.22, 1 - (raw - 1) * 0.9);
+      // The network is the opening, and only the opening. Below it the page
+      // is text, and a full-viewport canvas over text costs both legibility —
+      // long edges cut straight through paragraphs — and frames, because the
+      // compositor blends it over the scrolling page every time. So it fades
+      // out entirely by a screen past the dive and stops drawing there.
+      // It starts receding before the dive is even over, so that by the time
+      // the first paragraphs are on screen the wires are no longer running
+      // through them.
+      presence = raw <= 0.55 ? 1 : Math.max(0, 1 - (raw - 0.55) * 1.5);
     }
 
     function draw() {
@@ -401,11 +412,46 @@ export default function NeuralField({ tasks }: { tasks: readonly string[] }) {
       ctx!.fill();
     }
 
+    // A quarter of all frames during a scroll ran long, and removing what was
+    // drawn changed nothing — the cost is the full-viewport canvas being
+    // composited over the moving page, not the drawing. So it is drawn at
+    // half rate once the dive is over, where a slow drift of dots is
+    // indistinguishable at thirty frames a second and the page underneath
+    // gets its frames back. The dive itself keeps every frame, because that
+    // one is scrubbed by the scroll and has to track it exactly.
+    let tick = 0;
+    let shown = true;
     function loop() {
-      t += 16;
+      frame = requestAnimationFrame(loop);
+
+      // Gone means gone: hidden, not merely transparent. A transparent
+      // full-viewport layer is still a layer the compositor blends on every
+      // scroll frame, which is the whole cost this is avoiding.
+      if (presence <= 0.004) {
+        if (shown) {
+          shown = false;
+          canvas!.style.visibility = "hidden";
+          ctx!.clearRect(0, 0, width, height);
+        }
+        return;
+      }
+      if (!shown) {
+        shown = true;
+        canvas!.style.visibility = "";
+      }
+
+      // Thirty frames a second, throughout. The measurement is unambiguous:
+      // a full-viewport canvas over a scrolling page is what makes frames run
+      // long — hiding it takes the page from twenty-one per cent long frames
+      // to one — and the only lever left is how often it is repainted. The
+      // camera still reads the scroll on every scroll event, so the dive
+      // tracks the wheel exactly; it is only redrawn half as often, which on
+      // a slow drift of dots and wires nobody can see.
+      tick++;
+      if (tick % 2) return;
+      t += 32;
       step();
       draw();
-      frame = requestAnimationFrame(loop);
     }
 
     const onMove = (e: PointerEvent) => {
