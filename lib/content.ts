@@ -38,6 +38,19 @@ export const content = {
       items: ["IBM", "Amazon", "OpenAI", "Anthropic"],
       note: "The same person reads and corrects your work. Not theory out of a manual — practice from inside the companies building this.",
     },
+    who: {
+      eyebrow: "Who it's for",
+      title: "Everyone's job is different. The routine is the same.",
+      sub: "Find yourself here. Inside the course you do the exercises on your own tasks, not on someone else's.",
+      items: [
+        { role: "Managers and team leads", task: "The weekly report, meeting notes, the summary nobody has time to write." },
+        { role: "Sales and account people", task: "A proposal shaped to one client, an answer to an objection, the follow-up after a call." },
+        { role: "Finance and legal", task: "Checking a contract, reconciling documents, finding one clause in a hundred pages." },
+        { role: "Doctors, teachers, researchers", task: "Materials, plans, going through sources, answering the same questions for the tenth time." },
+        { role: "Business owners", task: "Product descriptions, site copy, pricing, testing an idea before you spend on it." },
+        { role: "Anyone working alone", task: "All of the above. The assistant you cannot afford to hire." },
+      ],
+    },
     pain: {
       eyebrow: "Sound familiar?",
       title: "You know AI could do this. You are still doing it yourself.",
@@ -95,10 +108,10 @@ export const content = {
       close: "That's why graduates are still using theirs six months later.",
     },
     scene: {
-      eyebrow: "What you walk away with",
-      title: "One setup per lesson. Nine by the end.",
-      note: "Keep scrolling and watch them land. Each one is a job you used to do by hand, described once and kept for good.",
-      counter: "setups built",
+      eyebrow: "What you learn",
+      title: "Every lesson ends with something that works.",
+      note: "Keep scrolling and watch it add up. Nine abilities across six parts — from how any of this actually works to agents that run the job without you.",
+      counter: "abilities gained",
     },
     demo: {
       eyebrow: "See it",
@@ -388,6 +401,19 @@ export const content = {
       items: ["IBM", "Amazon", "OpenAI", "Anthropic"],
       note: "Es la misma persona que lee y corrige sus tareas. No es teoría de manual: es práctica de dentro de las empresas que construyen esto.",
     },
+    who: {
+      eyebrow: "Para quién es",
+      title: "El trabajo de cada uno es distinto. La rutina es la misma.",
+      sub: "Búsquese aquí. Dentro del curso hace los ejercicios sobre sus propias tareas, no sobre las de otro.",
+      items: [
+        { role: "Jefes y responsables de equipo", task: "El informe semanal, las actas, el resumen que nadie tiene tiempo de escribir." },
+        { role: "Comercial y atención al cliente", task: "Una propuesta a medida, una respuesta a una objeción, el correo después de la llamada." },
+        { role: "Finanzas y jurídico", task: "Revisar un contrato, cuadrar documentos, encontrar una cláusula en cien páginas." },
+        { role: "Médicos, docentes, investigadores", task: "Materiales, planes, revisar fuentes, responder lo mismo por décima vez." },
+        { role: "Dueños de negocio", task: "Fichas de producto, textos para la web, precios, probar una idea antes de gastar en ella." },
+        { role: "Quien trabaja solo", task: "Todo lo anterior. El ayudante que no se puede permitir contratar." },
+      ],
+    },
     pain: {
       eyebrow: "¿Le suena?",
       title: "Sabe que la IA podría hacerlo. Y lo sigue haciendo usted.",
@@ -445,10 +471,10 @@ export const content = {
       close: "Por eso los graduados siguen usando las suyas seis meses después.",
     },
     scene: {
-      eyebrow: "Lo que se lleva",
-      title: "Una plantilla por lección. Nueve al final.",
-      note: "Siga bajando y mírelas caer. Cada una es un trabajo que antes hacía a mano, descrito una vez y suyo para siempre.",
-      counter: "plantillas construidas",
+      eyebrow: "Lo que aprende",
+      title: "Cada lección termina con algo que funciona.",
+      note: "Siga bajando y mírelo sumarse. Nueve capacidades en seis partes — desde cómo funciona todo esto hasta agentes que hacen el trabajo sin usted.",
+      counter: "capacidades logradas",
     },
     demo: {
       eyebrow: "Véalo",
@@ -738,6 +764,19 @@ export const content = {
       items: ["IBM", "Amazon", "OpenAI", "Anthropic"],
       note: "Она же читает и правит ваши задания. Не теория из учебника, а практика изнутри компаний, которые всё это и делают.",
     },
+    who: {
+      eyebrow: "Для кого",
+      title: "Работа у всех разная. Рутина — одинаковая.",
+      sub: "Найдите здесь себя. Внутри курса вы делаете задания на своих задачах, а не на чужих.",
+      items: [
+        { role: "Руководители", task: "Недельный отчёт, разбор встреч, сводка, которую некому написать." },
+        { role: "Продажи и работа с клиентами", task: "Предложение под конкретного клиента, ответ на возражение, письмо после звонка." },
+        { role: "Финансы и юристы", task: "Проверить договор, сверить документы, найти нужный пункт в сотне страниц." },
+        { role: "Врачи, преподаватели, исследователи", task: "Материалы, планы, разбор источников, ответы на одни и те же вопросы в десятый раз." },
+        { role: "Предприниматели", task: "Описания товаров, тексты для сайта, расчёт цены, проверка идеи до того, как тратить деньги." },
+        { role: "Кто работает один", task: "Всё перечисленное. Помощник, которого вы не можете себе нанять." },
+      ],
+    },
     pain: {
       eyebrow: "Знакомо?",
       title: "Вы знаете, что ИИ мог бы это сделать. И всё равно делаете сами.",
@@ -795,10 +834,10 @@ export const content = {
       close: "Поэтому нашими заготовками пользуются и через полгода после курса.",
     },
     scene: {
-      eyebrow: "Что вы унесёте",
-      title: "Одна заготовка за урок. Девять к концу.",
-      note: "Листайте дальше и смотрите, как они ложатся в стопку. Каждая — работа, которую вы делали руками, описанная один раз и оставшаяся у вас навсегда.",
-      counter: "заготовок собрано",
+      eyebrow: "Чему вы научитесь",
+      title: "Каждый урок заканчивается тем, что работает.",
+      note: "Листайте дальше и смотрите, как это складывается. Девять умений в шести частях — от того, как всё это вообще устроено, до агентов, которые делают работу без вас.",
+      counter: "умений собрано",
     },
     demo: {
       eyebrow: "Посмотрите",

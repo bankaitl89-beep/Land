@@ -184,6 +184,24 @@ export default function Landing({
           </div>
         </section>
 
+        {/* ---------------- who it's for ---------------- */}
+        <section className="section">
+          <div className="shell">
+            <p className="eyebrow rv">{c.who.eyebrow}</p>
+            <h2 className="h2 rv">{c.who.title}</h2>
+            <p className="lede rv">{c.who.sub}</p>
+
+            <div className="whos">
+              {c.who.items.map((it) => (
+                <div className="who rv" key={it.role}>
+                  <h3>{it.role}</h3>
+                  <p>{it.task}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ---------------- pain ---------------- */}
         <section className="section">
           <div className="shell">
