@@ -288,7 +288,24 @@ export default function Landing({
             <h2 className="h2 rv">{c.demo.title}</h2>
             <p className="lede rv">{c.demo.lede}</p>
 
-            <div className="tabs rv" role="tablist" aria-label={c.demo.title}>
+            <div
+              className="tabs rv"
+              role="tablist"
+              aria-label={c.demo.title}
+              onKeyDown={(e) => {
+                const last = c.demo.tabs.length - 1;
+                const to =
+                  e.key === "ArrowRight" ? (tab === last ? 0 : tab + 1)
+                  : e.key === "ArrowLeft" ? (tab === 0 ? last : tab - 1)
+                  : e.key === "Home" ? 0
+                  : e.key === "End" ? last
+                  : null;
+                if (to === null) return;
+                e.preventDefault();
+                setTab(to);
+                document.getElementById(`tab-${c.demo.tabs[to].id}`)?.focus();
+              }}
+            >
               {c.demo.tabs.map((t, i) => (
                 <button
                   key={t.id}
@@ -297,7 +314,10 @@ export default function Landing({
                   type="button"
                   className="tab"
                   aria-selected={i === tab}
-                  aria-controls={`panel-${t.id}`}
+                  // only the selected panel exists in the DOM, so only the
+                  // selected tab may claim to control one
+                  aria-controls={i === tab ? `panel-${t.id}` : undefined}
+                  tabIndex={i === tab ? 0 : -1}
                   onClick={() => setTab(i)}
                 >
                   {t.label}
@@ -525,7 +545,7 @@ export default function Landing({
                 <div className="price">
                   <span>{c.pricing.now}</span>
                   <s>{c.pricing.was}</s>
-                  <span className="price-save">−50%</span>
+                  <span className="price-save">{c.hero.save}</span>
                 </div>
 
                 <ul className="incl">

@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 /**
  * The pinned scene: the page holds still while the reader scrolls, and one
  * setup after another drops onto the stack until all nine are there. It is
- * the argument of the course made physical — four weeks, nine setups.
+ * the argument of the course made physical — nine abilities, six parts.
  *
  * Progress is read straight from the scroll position rather than from a
  * library, so it stays exact when the reader scrubs back and forth.

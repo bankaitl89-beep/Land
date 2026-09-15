@@ -1489,6 +1489,16 @@ body:not(.anim) .setup-lines div {
   letter-spacing: 0.04em;
 }
 
+/* the honeypot is taken out of the layout entirely rather than hidden with
+   display:none, which some bots check for */
+.trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .field input {
   width: 100%;
   border-radius: 11px;
@@ -1499,6 +1509,12 @@ body:not(.anim) .setup-lines div {
   font-family: var(--b);
   font-size: 15px;
   transition: border-color 0.2s, background 0.2s;
+}
+
+.field input:focus-visible {
+  outline: none;
+  border-color: rgba(91, 103, 245, 0.75);
+  box-shadow: 0 0 0 3px rgba(91, 103, 245, 0.26);
 }
 
 .field input::placeholder {

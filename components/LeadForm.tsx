@@ -13,6 +13,8 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 export default function LeadForm({ copy, lang }: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  // the honeypot: hidden from people, irresistible to bots
+  const [company, setCompany] = useState("");
   const [errors, setErrors] = useState<{ name?: string; email?: string; send?: string }>({});
   const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
 
@@ -30,7 +32,12 @@ export default function LeadForm({ copy, lang }: Props) {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), email: email.trim(), lang }),
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          lang,
+          company,
+        }),
       });
       if (!res.ok) throw new Error("request failed");
       setState("sent");
@@ -54,6 +61,19 @@ export default function LeadForm({ copy, lang }: Props) {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
+      <div className="trap" aria-hidden="true">
+        <label htmlFor="lead-company">Company</label>
+        <input
+          id="lead-company"
+          name="company"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+        />
+      </div>
+
       <div className="field">
         <label htmlFor="lead-name">{copy.name}</label>
         <input
@@ -97,7 +117,7 @@ export default function LeadForm({ copy, lang }: Props) {
       <div className="field">
         <button
           type="submit"
-          className="btn btn--primary btn--wide"
+          className="btn btn--acc btn--wide"
           disabled={state === "sending"}
         >
           {state === "sending" ? copy.sending : copy.submit}

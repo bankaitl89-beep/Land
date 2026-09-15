@@ -9,6 +9,7 @@ import {
   renameSync,
   existsSync,
   mkdirSync,
+  cpSync,
   rmSync,
 } from "node:fs";
 import { join } from "node:path";
@@ -66,7 +67,28 @@ for (const lang of PREVIEW_LANGS) {
 
   // The Artifact host serves no root-relative paths, so the self-hosted
   // fonts are addressed relative to the page instead of from the site root.
+  // The files themselves are copied next to the page below and published
+  // alongside it — without them the page falls back to system faces and the
+  // review shows type the real site never uses.
   html = html.replaceAll("url(/fonts/", "url(fonts/");
+
+  // The stylesheet is inlined above, but React's own payload still lists it
+  // and re-requests it at runtime. Point that copy at an empty inline sheet
+  // so the page does not chase a file that is not there.
+  html = html.replace(
+    /\.\/_next\/static\/css\/[a-z0-9]+\.css/g,
+    "data:text/css,",
+  );
+
+  // The favicon is served from the site root, which the Artifact host has no
+  // concept of; the artifact carries its own. React injects it from its own
+  // payload rather than from a <link> in the markup, so the path is replaced
+  // wherever it appears.
+  html = html.replace(/<link[^>]+rel="icon"[^>]*\/?>/g, "");
+  html = html.replace(
+    /\/icon\.svg(\?[a-z0-9]+)?/g,
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E",
+  );
 
   // The host supplies <!doctype>/<html>/<head>/<body>; ship a fragment.
   const head = html.match(/<head[^>]*>([\s\S]*?)<\/head>/)?.[1] ?? "";
@@ -87,3 +109,6 @@ for (const lang of PREVIEW_LANGS) {
   writeFileSync(dest, fragment);
   console.log(`preview: ${fileFor(lang)} (${(fragment.length / 1024).toFixed(0)} KB)`);
 }
+
+cpSync(join(root, "public/fonts"), join(previewDir, "fonts"), { recursive: true });
+console.log("preview: fonts copied next to the page");
