@@ -12,8 +12,8 @@ export const content = {
     },
     hero: {
       pill: "500+ graduates · your access does not expire",
-      title: ["Learn to hand AI", "the work you are still ", "doing by hand", "."],
-      sub: "From knowing nothing to running your own assistants and automations. A lesson, a task on your real work, and a teacher who reads what you built. No programming, at your own pace.",
+      title: ["You are asking AI.", "You need to be ", "assigning", "."],
+      sub: "The difference shows in the very first answer. From knowing nothing to running your own assistants and agents: a lesson, a task on your real work, and a teacher who reads what you built. No coding, at your own pace.",
       cta: "Get access",
       ghost: "What's inside",
       was: "$299",
@@ -53,11 +53,17 @@ export const content = {
         "Follow-up sent",
       ],
     },
+    doubt: {
+      eyebrow: "If you doubt it",
+      title: "Sounds like one more article about AI",
+      text: "I understand why you do not believe it. You have seen a hundred headlines about how AI will change everything, and not one about how it will change your Tuesday.",
+      more: "So there is nothing here about which models just came out. There is one difference you can see with your own eyes: the same question asked two ways, and two answers — one useless, one ready to send. Then decide for yourself.",
+    },
     authority: {
       eyebrow: "Who teaches it",
       line: "The course is taught by an instructor who has worked with IBM, Amazon, OpenAI and Anthropic.",
       items: ["IBM", "Amazon", "OpenAI", "Anthropic"],
-      note: "The same person reads and corrects your work. Not theory out of a manual — practice from inside the companies building this.",
+      note: "Not \"took some AI courses\", but worked inside the companies that build these models. We do not publish the name — that is her condition. The experience is checkable in the one place where checking means anything: the first review of your own work.",
     },
     who: {
       eyebrow: "Who it's for",
@@ -125,7 +131,7 @@ export const content = {
     mechanism: {
       eyebrow: "The difference",
       title: "You build setups. One per lesson.",
-      lede: "Tricks are forgotten. A setup is not. You describe the job once, then you just run it: every Monday, for every client.",
+      lede: "The difference is not the model, not the subscription and not some secret words. The difference is what you typed into the box. When you ask, you give it a topic. When you assign, you give it a job: who will read this, where the facts come from, what shape the answer takes, and how you will know it is good. Four things, in plain words, without a single term. And you write them once.",
       example: {
         label: "Here's what one looks like",
         name: "Weekly report for my director",
@@ -299,7 +305,7 @@ export const content = {
     curriculum: {
       eyebrow: "The course",
       title: "Six parts. From knowing nothing to running agents.",
-      sub: "Four tracks in order, a bonus for people with no time, and a plan for what comes after.",
+      sub: "Four tracks in order, a bonus for people with no time, and a plan for what comes after. At your own pace, no deadlines. Every task is on your real work, a teacher reads and corrects each one, and the next part does not open until the last one is handed in. No coding anywhere.",
       modules: [
         {
           n: "01",
@@ -370,6 +376,15 @@ export const content = {
       eyebrow: "Your turn",
       title: "Take a job you actually have. Watch what it turns into.",
       lede: "Pick one of the three, or type your own. You get three things: the problem in one line, the exact text you would paste into the chat, and what comes back.",
+      check: {
+        lead: "Three questions first. Thirty seconds.",
+        qs: [
+          "Do you have a job you do every week in roughly the same way?",
+          "The last time you asked AI for help — did you write down who would be reading the answer?",
+          "And where it should take its facts from?",
+        ],
+        verdict: "Yes to the first, no to the other two: you have just found where it breaks. It is not in you, and it is not in the model.",
+      },
       label: "What do you need done?",
       placeholder: "a summary of a 40-page contract",
       samplesLabel: "or take one of these",
@@ -514,6 +529,20 @@ export const content = {
         },
       ],
     },
+    notFor: {
+      eyebrow: "Straight, before you buy",
+      title: "Who this is not for",
+      items: [
+        "If you are after a magic button where nothing has to be done. There are tasks here, and a live person checks them and says so when the work is poor.",
+        "If you need a guarantee of results. There is none and there will not be: we do not know your work and cannot promise on its behalf.",
+        "If you want a folder of videos to buy and never open. The next part does not unlock until the last one is done.",
+      ],
+    },
+    honest: {
+      title: "About the discount, straight",
+      text: "There is no limit on places or time, and I am not going to invent one. The discount runs without a deadline — yes, that means it will still be there tomorrow. I am not going to lie to you with a countdown.",
+      keep: "And the part that matters: what stays with you. Nine setups, built around your own work. They are ordinary text, they are yours, they work in any model, and they keep working if you never come back to us. Access does not expire.",
+    },
     pricing: {
       eyebrow: "Price",
       title: "One course. One price.",
@@ -562,8 +591,8 @@ export const content = {
     },
     hero: {
       pill: "500+ graduados · el acceso no caduca",
-      title: ["Delegue a la IA", "el trabajo que todavía ", "hace a mano", "."],
-      sub: "Desde no saber nada hasta manejar sus propios asistentes y automatizaciones. Una lección, una tarea sobre su trabajo real y una profesora que lee lo que usted construyó. Sin programar, a su ritmo.",
+      title: ["Usted le pregunta a la IA.", "Y hay que ", "encargarle", "."],
+      sub: "La diferencia se ve en la primera respuesta. De no saber nada a manejar sus propios asistentes y agentes: una lección, una tarea sobre su trabajo real y una profesora que lee lo que usted construyó. Sin programar, a su ritmo.",
       cta: "Obtener acceso",
       ghost: "Qué incluye",
       was: "$299",
@@ -603,11 +632,17 @@ export const content = {
         "Correo de seguimiento",
       ],
     },
+    doubt: {
+      eyebrow: "Si no se lo cree",
+      title: "Suena a un artículo más sobre la IA",
+      text: "Entiendo por qué no se lo cree. Ha visto cien titulares sobre cómo la IA lo va a cambiar todo, y ninguno sobre cómo va a cambiar su martes.",
+      more: "Por eso aquí no hay novedades sobre qué modelos han salido. Hay una sola diferencia que se ve a simple vista: la misma pregunta hecha de dos maneras, y dos respuestas — una inútil y otra lista para enviar. Luego decide usted.",
+    },
     authority: {
       eyebrow: "Quién enseña",
       line: "El curso lo imparte una profesora que ha trabajado con IBM, Amazon, OpenAI y Anthropic.",
       items: ["IBM", "Amazon", "OpenAI", "Anthropic"],
-      note: "Es la misma persona que lee y corrige sus tareas. No es teoría de manual: es práctica de dentro de las empresas que construyen esto.",
+      note: "No «hizo unos cursos de IA»: trabajó dentro de las empresas que construyen estos modelos. No publicamos el nombre, es su condición. La experiencia se comprueba en el único sitio donde comprobarla significa algo: en la primera corrección de su propio trabajo.",
     },
     who: {
       eyebrow: "Para quién es",
@@ -675,7 +710,7 @@ export const content = {
     mechanism: {
       eyebrow: "La diferencia",
       title: "Usted construye plantillas. Una por lección.",
-      lede: "Los trucos se olvidan. Una plantilla no. Describe el trabajo una vez y luego solo la ejecuta: cada lunes, para cada cliente.",
+      lede: "La diferencia no está en el modelo, ni en la suscripción, ni en unas palabras secretas. Está en lo que usted escribió en la casilla. Cuando pregunta, da un tema. Cuando encarga, da un trabajo: quién lo va a leer, de dónde salen los datos, en qué forma quiere la respuesta y cómo sabrá que sirve. Cuatro cosas, en palabras corrientes, sin un solo tecnicismo. Y se escriben una vez.",
       example: {
         label: "Así es una de ellas",
         name: "Informe semanal para mi directora",
@@ -849,7 +884,7 @@ export const content = {
     curriculum: {
       eyebrow: "Programa",
       title: "Seis partes. De no saber nada a manejar agentes.",
-      sub: "Cuatro niveles en orden, un bonus para quien no tiene tiempo y un plan para lo que viene después.",
+      sub: "Cuatro niveles en orden, un bonus para quien no tiene tiempo y un plan para lo que viene después. A su ritmo, sin fechas límite. Cada tarea es sobre su trabajo real, un profesor lee y corrige todas, y la siguiente parte no se abre hasta entregar la anterior. No hace falta programar en ningún momento.",
       modules: [
         {
           n: "01",
@@ -920,6 +955,15 @@ export const content = {
       eyebrow: "Su turno",
       title: "Tome una tarea que tenga de verdad. Mire en qué se convierte.",
       lede: "Elija una de las tres o escriba la suya. Verá tres cosas: cuál es el problema, el texto exacto que pegará en el chat y lo que llega de vuelta.",
+      check: {
+        lead: "Primero tres preguntas. Treinta segundos.",
+        qs: [
+          "¿Tiene una tarea que hace cada semana más o menos igual?",
+          "La última vez que le pidió ayuda a la IA, ¿escribió quién iba a leer la respuesta?",
+          "¿Y de dónde debía sacar los datos?",
+        ],
+        verdict: "Sí a la primera y no a las otras dos: acaba de encontrar dónde se rompe. No está en usted, y no está en el modelo.",
+      },
       label: "¿Qué necesita que se haga?",
       placeholder: "un resumen de un contrato de 40 páginas",
       samplesLabel: "o tome una de estas",
@@ -1064,6 +1108,20 @@ export const content = {
         },
       ],
     },
+    notFor: {
+      eyebrow: "Claro antes de comprar",
+      title: "Para quién no es esto",
+      items: [
+        "Si busca un botón mágico donde no haya que hacer nada. Aquí hay tareas y las revisa una persona, que se lo dirá si están mal hechas.",
+        "Si necesita una garantía de resultados. No la hay ni la habrá: no conocemos su trabajo y no podemos prometer por él.",
+        "Si quiere una carpeta de vídeos para comprarla y no abrirla. La parte siguiente no se abre hasta entregar la anterior.",
+      ],
+    },
+    honest: {
+      title: "Sobre el descuento, claro",
+      text: "No hay límite de plazas ni de tiempo, y no voy a inventarlo. El descuento va sin fecha límite: sí, eso significa que mañana también estará. No pienso engañarle con una cuenta atrás.",
+      keep: "Y lo que de verdad importa: lo que se queda con usted. Nueve plantillas hechas para su trabajo. Son texto corriente, son suyas, funcionan en cualquier modelo y seguirán funcionando aunque no vuelva nunca. El acceso no caduca.",
+    },
     pricing: {
       eyebrow: "Precio",
       title: "Un curso. Un precio.",
@@ -1112,8 +1170,8 @@ export const content = {
     },
     hero: {
       pill: "500+ выпускников · доступ остаётся навсегда",
-      title: ["Научитесь поручать", "ИИ то, что вы до сих пор ", "делаете руками", "."],
-      sub: "С нуля до собственных ИИ-помощников и автоматизаций. Урок, задание на вашей настоящей работе, проверка живым преподавателем. Без программирования, в вашем темпе.",
+      title: ["Вы спрашиваете у ИИ.", "А надо — ", "поручать", "."],
+      sub: "Разница видна в первом же ответе. С нуля до собственных помощников и агентов: урок, задание на вашей настоящей работе, разбор живым преподавателем. Без программирования, в вашем темпе.",
       cta: "Получить доступ",
       ghost: "Что внутри",
       was: "$299",
@@ -1153,11 +1211,17 @@ export const content = {
         "Письмо после звонка",
       ],
     },
+    doubt: {
+      eyebrow: "Если не верится",
+      title: "Звучит как ещё одна статья про нейросети",
+      text: "Я понимаю, почему вы не верите. Вы видели сто заголовков про то, как ИИ всё изменит, и ни одного про то, как он изменит ваш вторник.",
+      more: "Поэтому здесь не будет рассказов, какие модели вышли. Будет одна разница, которую видно глазами: тот же вопрос, заданный двумя способами, и два ответа — один бесполезный, другой готовый к отправке. Дальше решайте сами.",
+    },
     authority: {
       eyebrow: "Кто учит",
       line: "Курс ведёт преподаватель, работавшая с IBM, Amazon, OpenAI и Anthropic.",
       items: ["IBM", "Amazon", "OpenAI", "Anthropic"],
-      note: "Она же читает и правит ваши задания. Не теория из учебника, а практика изнутри компаний, которые всё это и делают.",
+      note: "Не «проходила курсы по ИИ», а работала внутри компаний, которые эти модели и делают. Имя публично не называем — её условие. Проверить опыт можно там, где это единственно и имеет смысл: в первом же разборе вашей работы.",
     },
     who: {
       eyebrow: "Для кого",
@@ -1225,7 +1289,7 @@ export const content = {
     mechanism: {
       eyebrow: "В чём разница",
       title: "Вы собираете заготовки. По одной за урок.",
-      lede: "Приёмы забываются. Заготовка — нет. Один раз описали задачу, дальше просто запускаете: каждый понедельник, для каждого клиента.",
+      lede: "Разница не в модели, не в подписке и не в секретных словах. Разница в том, что вы написали в поле ввода. Когда вы спрашиваете — вы даёте тему. Когда вы поручаете — вы даёте задание: кто будет это читать, откуда брать факты, в каком виде нужен ответ и по чему вы поймёте, что он годный. Четыре вещи, обычными словами, без единого термина. И пишется это один раз.",
       example: {
         label: "Вот как она выглядит",
         name: "Еженедельный отчёт для директора",
@@ -1399,7 +1463,7 @@ export const content = {
     curriculum: {
       eyebrow: "Программа",
       title: "Шесть частей. От «я ничего не знаю» до собственных агентов.",
-      sub: "Четыре трека по порядку, бонус для тех, у кого нет времени, и план на то, что будет дальше.",
+      sub: "Четыре трека по порядку, бонус для тех, у кого нет времени, и план на то, что будет дальше. Темп свой, дедлайнов нет. Задания — на вашей настоящей работе, каждое читает и правит преподаватель, и следующая часть не открывается, пока не сдана предыдущая. Программировать не нужно нигде.",
       modules: [
         {
           n: "01",
@@ -1470,6 +1534,15 @@ export const content = {
       eyebrow: "Теперь вы",
       title: "Возьмите задачу, которая у вас реально есть. Посмотрите, во что она превращается.",
       lede: "Выберите одну из трёх или впишите свою. Вы увидите три вещи: в чём проблема, какой именно текст вы вставите в чат и что придёт в ответ.",
+      check: {
+        lead: "Сначала три вопроса. Тридцать секунд.",
+        qs: [
+          "Есть ли у вас задача, которую вы делаете каждую неделю примерно одинаково?",
+          "Когда вы в последний раз просили у ИИ помощь — вы написали, кто будет читать ответ?",
+          "И откуда ему брать факты?",
+        ],
+        verdict: "«Да» на первый и «нет» на два других — вы только что нашли своё место поломки. Оно не в вас и не в модели.",
+      },
       label: "Что нужно сделать?",
       placeholder: "краткое содержание договора на 40 страниц",
       samplesLabel: "или возьмите готовое",
@@ -1613,6 +1686,20 @@ export const content = {
           a: "Если вы ищете волшебную кнопку, где ничего не надо делать — мимо: здесь есть задания, и их проверяет живой человек. Если вам нужна гарантия результата — её нет. Если вы хотите папку с видео, чтобы купить и не проходить, — здесь так не выйдет.",
         },
       ],
+    },
+    notFor: {
+      eyebrow: "Честно до покупки",
+      title: "Кому это не подойдёт",
+      items: [
+        "Если вы ищете волшебную кнопку, где ничего не надо делать. Здесь есть задания, и их проверяет живой человек, который скажет, если сделано плохо.",
+        "Если вам нужна гарантия результата. Её нет и не будет: мы не знаем вашей работы и не можем обещать за неё.",
+        "Если вы хотите папку с видео, чтобы купить и не проходить. Следующая часть не откроется, пока не сдана предыдущая.",
+      ],
+    },
+    honest: {
+      title: "Про скидку, честно",
+      text: "Ограничений по местам и времени нет, и я не буду их придумывать. Скидка действует без дедлайна — да, это значит, что завтра она тоже будет. Обманывать вас таймером я не собираюсь.",
+      keep: "И главное — то, что остаётся у вас. Девять заготовок под вашу работу. Это обычный текст, он ваш, работает в любой модели и не перестанет работать, если вы к нам больше не вернётесь. Доступ не заканчивается.",
     },
     pricing: {
       eyebrow: "Цена",

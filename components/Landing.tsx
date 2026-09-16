@@ -201,6 +201,21 @@ export default function Landing({
           </div>
         </section>
 
+        {/* ---------------- the doubt, met head on ----------------
+            Nobody arrives here neutral: they have read a hundred of these.
+            Naming that before making any claim costs one short section and
+            buys the right to be read at all. */}
+        <section className="section sec--tight">
+          <div className="shell">
+            <div className="dbt">
+              <p className="eyebrow rv">{c.doubt.eyebrow}</p>
+              <h2 className="h2 h2--sm rv">{c.doubt.title}</h2>
+              <p className="lede rv">{c.doubt.text}</p>
+              <p className="lede lede--dim rv">{c.doubt.more}</p>
+            </div>
+          </div>
+        </section>
+
         {/* ---------------- who teaches it ---------------- */}
         <section className="cred">
           <div className="shell cred-in">
@@ -450,6 +465,19 @@ export default function Landing({
             <h2 className="h2 rv">{c.builder.title}</h2>
             <p className="lede rv">{c.builder.lede}</p>
 
+            {/* Three questions before the toy. They cost thirty seconds and
+                they put the reader on the diagnosis themselves, which no
+                amount of arguing at them does. */}
+            <div className="chk rv">
+              <p className="chk-lead">{c.builder.check.lead}</p>
+              <ol className="chk-qs">
+                {c.builder.check.qs.map((q) => (
+                  <li key={q}>{q}</li>
+                ))}
+              </ol>
+              <p className="chk-verdict">{c.builder.check.verdict}</p>
+            </div>
+
             <div className="rv">
               <PromptBuilder c={c.builder} />
             </div>
@@ -602,6 +630,25 @@ export default function Landing({
           </div>
         </section>
 
+        {/* ---------------- who this is not for ----------------
+            Out of the converter, and out of the FAQ where it was hiding as
+            the tenth question. Refusing people in public costs nothing and is
+            the only line on the page that cannot be faked by a competitor. */}
+        <section className="section">
+          <div className="shell">
+            <p className="eyebrow rv">{c.notFor.eyebrow}</p>
+            <h2 className="h2 h2--sm rv">{c.notFor.title}</h2>
+
+            <ul className="nots">
+              {c.notFor.items.map((it) => (
+                <li className="rv" key={it}>
+                  {it}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         {/* ---------------- pricing + form ---------------- */}
         <section className="section" id="pricing">
           <div className="shell">
@@ -635,6 +682,15 @@ export default function Landing({
                 </div>
                 <LeadForm copy={c.form} lang={lang} />
               </div>
+            </div>
+
+            {/* No deadline on the discount, and the setups stay yours. Said
+                here, under the price, because that is where a reader is
+                looking for the catch. */}
+            <div className="hon rv">
+              <h3>{c.honest.title}</h3>
+              <p>{c.honest.text}</p>
+              <p>{c.honest.keep}</p>
             </div>
           </div>
         </section>
