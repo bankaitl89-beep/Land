@@ -74,25 +74,53 @@ export const content = {
     },
     pain: {
       eyebrow: "Sound familiar?",
-      title: "You know AI could do this. You are still doing it yourself.",
+      title: "You know AI could do this. And you still do it by hand.",
       items: [
         {
-          q: "You watched the videos, then sat in an empty chat with nothing to type.",
-          a: "Videos show you buttons. Nobody shows you how to take your task all the way to a finished result.",
+          q: "I ask it something and get smooth nothing, which I then rewrite myself.",
+          a: "You gave it a topic. A job looks different: who reads this, where the facts come from, what shape the answer takes. Same question, different answer.",
         },
         {
-          q: "The answer comes back smooth and useless. You rewrite it yourself.",
-          a: "That is not the AI. It is how you asked. It takes a couple of hours to learn.",
+          q: "Tuesday evening, the same figures, the same wording. Every week.",
+          a: "You write it once and after that you just run it. A trick is forgotten. A setup is not.",
         },
         {
-          q: "Every Monday, the same report. The same summary.",
-          a: "You can hand that over once and never do it by hand again.",
+          q: "It worked brilliantly once. I could not repeat it — I do not remember what I typed.",
+          a: "Because that was a trick, not a setup. A setup sits with you and still works six months later, when you have forgotten how you made it.",
         },
         {
-          q: "A colleague does in an hour what takes you a day.",
-          a: "They are not smarter. They have setups saved. You will build your own here.",
+          q: "Someone younger does the same thing in an hour. Asking how feels awkward.",
+          a: "He is not smarter. He has setups built around his own work. You will build yours here, on your own.",
+        },
+        {
+          q: "Opened it, poked at it, closed it. Third time this year.",
+          a: "You did not quit for lack of discipline. Without a method the work grows — that has been measured, and the figure is below.",
         },
       ],
+    },
+    flop: {
+      eyebrow: "Why it did not take",
+      title: "You did sensible things. Each one answers a different question.",
+      lede: "Four routes almost everyone tries. Each looks reasonable, and each breaks in the same place.",
+      items: [
+        {
+          q: "You watched the free videos.",
+          a: "A video shows the result and hides the request. You see the finished answer and never see what was asked for. You cannot repeat a video — it is a demonstration, not a lesson.",
+        },
+        {
+          q: "You downloaded a list of five hundred prompts.",
+          a: "A prompt list is other people's jobs. Yours never makes it in, because the list was written for an average person who does not exist. Five hundred of someone else's wordings do not replace one of your own.",
+        },
+        {
+          q: "You decided to just use it every day.",
+          a: "The most sensible-looking idea and the most treacherous one: a tool without a method does not shrink the work, it adds to it. That has been measured — the figure is under the list.",
+        },
+        {
+          q: "You asked a developer friend to show you.",
+          a: "He showed you in ten minutes, the way it makes sense to him. And skipped the exact spot where you get stuck, because to him it is obvious.",
+        },
+      ],
+      note: "ActivTrak followed 10,584 people for 180 days before and after they started using AI on their own. Time in work applications did not fall — it rose: email by 104%, chat by 145% (ActivTrak Productivity Lab, 2026).",
     },
     mechanism: {
       eyebrow: "The difference",
@@ -437,7 +465,7 @@ export const content = {
     cost: {
       eyebrow: "Straight talk",
       title: "Put it off and nothing bad happens. That is the problem.",
-      text: "The loss never arrives as a bill. It arrives as lost evenings and a colleague who quietly got faster than you. Two hours a week is thirteen working days a year. The course costs less than one of them.",
+      text: "The loss never arrives as a bill. It arrives as another year of the same evenings, a colleague who quietly got faster than you, and the question at an interview — what can you do with AI — that you answer with \"well, I have tried it\" one more time. At some point this stops being an advantage and becomes expected, like email. The course costs less than one working day.",
       cta: "Start this week",
     },
     faq: {
@@ -445,36 +473,44 @@ export const content = {
       title: "What people ask most",
       items: [
         {
-          q: "What if I can't do it?",
-          a: "A person reads your work — if it isn't landing, you're shown exactly where and given another go. And you start at the very bottom: if you have never used AI at all, the first track is written for you.",
+          q: "I already tried and it did not work. Why would it work now?",
+          a: "It did not work because you were asking, when you needed to be assigning. The difference shows in the very first lesson: the same request, rewritten around four points, gives a different answer. After that you just repeat it on your own work.",
         },
         {
-          q: "Who teaches it?",
-          a: "An instructor who has worked with IBM, Amazon, OpenAI and Anthropic. She is also the one who reads and corrects your work.",
+          q: "This is all free somewhere.",
+          a: "The material is free. Two things are not: the order to go through it in, and a person who looks at what you produced. A video cannot be copied anyway — it shows the result and hides the request. You have already tested this, or you would not be reading now.",
         },
         {
-          q: "This is all free on YouTube.",
-          a: "It is — in pieces, in no order, and with nobody to tell you what you got wrong. You are paying for the order, the tasks on your own work, and the review. If you have 200 spare hours, YouTube genuinely works.",
+          q: "I do not have time for a course.",
+          a: "You have no time precisely because the thing you came here for is eating it. The course runs at your pace, there are no deadlines, and for the genuinely busy there is a 49-minute bonus — the whole picture, compressed.",
         },
         {
-          q: "I'm not technical at all.",
-          a: "There is no programming anywhere in this. If you can use a browser, you can do it. The only people who struggle are the ones who skip the tasks.",
+          q: "I am not technical at all.",
+          a: "There is no coding anywhere. The first part explains what actually happens inside, in plain words and without formulas. If you have never used AI at all, it was written for exactly you.",
         },
         {
-          q: "I don't have time.",
-          a: "You go at your own pace and your access stays. If time is genuinely gone, start with the 49-minute bonus: it gives you the whole picture in one evening.",
+          q: "Who reviews the work? Not a bot?",
+          a: "The teacher. The same person who taught the lesson reads what you built and shows you where it will break. The next part does not open until the last one is done — which is why you cannot buy this and not take it.",
         },
         {
-          q: "Do I need a paid subscription?",
-          a: "You can start for free. Where a paid plan helps, we say so in advance, before you spend anything.",
+          q: "I am not allowed to paste work data, so there is no point.",
+          a: "What you may hand over and what you may not is its own subject inside the course. You settle it once and work calmly afterwards instead of guessing every time. You can start with jobs that carry no company data at all.",
         },
         {
-          q: "I already use ChatGPT every day.",
-          a: "Then start at the Intermediate track. People like you usually take the most out of it: they arrive with real work and see how much they are still doing by hand.",
+          q: "Who teaches it? There is no name.",
+          a: "An instructor who has worked with IBM, Amazon, OpenAI and Anthropic. We do not publish the name — that is her condition. The experience is checkable in the one place where checking means anything: the first review of your own work.",
         },
         {
-          q: "What happens after I apply?",
-          a: "A person emails you: when you can start and how to get in. No funnels, no calls.",
+          q: "There is not a single testimonial on this page.",
+          a: "Deliberately. We will not put one up until they are real, with a name and the person's permission. Invented testimonials are a criminal matter, not marketing.",
+        },
+        {
+          q: "If I do not like it, do I get my money back?",
+          a: "We give no guarantees and promise no separate refund. Instead you see before buying exactly what you get: the contents, example setups, and the real answers they produce.",
+        },
+        {
+          q: "Who is this not for?",
+          a: "If you are after a magic button where nothing has to be done — this is not it: there are tasks here and a live person checks them. If you need a guarantee of results, there is none. If you want a folder of videos to buy and never open, that will not work here.",
         },
       ],
     },
@@ -588,25 +624,53 @@ export const content = {
     },
     pain: {
       eyebrow: "¿Le suena?",
-      title: "Sabe que la IA podría hacerlo. Y lo sigue haciendo usted.",
+      title: "Sabe que la IA podría hacerlo. Y lo sigue haciendo a mano.",
       items: [
         {
-          q: "Vio los vídeos y luego se quedó ante un chat vacío sin saber qué escribir.",
-          a: "Los vídeos enseñan botones. Nadie enseña a llevar su tarea hasta un resultado terminado.",
+          q: "Le pregunto y recibo un texto pulido que no dice nada, y acabo reescribiéndolo yo.",
+          a: "Usted le dio un tema. Un encargo es otra cosa: quién lo lee, de dónde salen los datos, en qué forma quiere la respuesta. La misma pregunta, otra respuesta.",
         },
         {
-          q: "La respuesta llega pulida e inútil. La reescribe usted.",
-          a: "No es la IA. Es cómo se lo pidió. Eso se aprende en un par de horas.",
+          q: "Martes por la tarde, las mismas cifras, las mismas palabras. Cada semana.",
+          a: "Esto se escribe una vez y después solo se ejecuta. Un truco se olvida. Una plantilla no.",
         },
         {
-          q: "Cada lunes, el mismo informe. El mismo resumen.",
-          a: "Eso se delega una vez y no se vuelve a hacer a mano.",
+          q: "Una vez salió perfecto. No pude repetirlo: no recuerdo qué escribí.",
+          a: "Porque fue un truco, no una plantilla. La plantilla se queda con usted y sigue funcionando seis meses después, cuando ya olvidó cómo la hizo.",
         },
         {
-          q: "Un compañero hace en una hora lo que a usted le lleva un día.",
-          a: "No es más listo. Tiene plantillas guardadas. Aquí construirá las suyas.",
+          q: "Alguien más joven hace lo mismo en una hora. Preguntarle cómo da apuro.",
+          a: "No es más listo. Tiene plantillas hechas para su trabajo. Las suyas las montará aquí, sobre sus propias tareas.",
+        },
+        {
+          q: "Lo abrí, lo toqueteé, lo cerré. Tercera vez este año.",
+          a: "No lo dejó por falta de disciplina. Sin método el trabajo aumenta, y eso está medido: la cifra está más abajo.",
         },
       ],
+    },
+    flop: {
+      eyebrow: "Por qué no cuajó",
+      title: "Hizo cosas razonables. Cada una responde a otra pregunta.",
+      lede: "Cuatro caminos que prueba casi todo el mundo. Cada uno parece lógico y cada uno se rompe en el mismo sitio.",
+      items: [
+        {
+          q: "Vio los vídeos gratuitos.",
+          a: "Un vídeo enseña el resultado y esconde la petición. Usted ve la respuesta terminada y no ve qué se pidió exactamente. Un vídeo no se puede repetir: es una demostración, no una clase.",
+        },
+        {
+          q: "Se descargó una lista de quinientos prompts.",
+          a: "Una lista de prompts son las tareas de otros. La suya no entra nunca, porque la escribieron para una persona media que no existe. Quinientas fórmulas ajenas no sustituyen a una propia.",
+        },
+        {
+          q: "Decidió simplemente usarlo todos los días.",
+          a: "La idea más sensata en apariencia y la más traicionera: una herramienta sin método no reduce el trabajo, lo aumenta. Está medido — la cifra va bajo la lista.",
+        },
+        {
+          q: "Le pidió a un amigo informático que se lo enseñara.",
+          a: "Se lo enseñó en diez minutos, tal como le resulta obvio a él. Y se saltó justo el punto donde usted se atasca, porque para él es evidente.",
+        },
+      ],
+      note: "ActivTrak siguió a 10 584 personas durante 180 días antes y después de empezar a usar IA por su cuenta. El tiempo en aplicaciones de trabajo no bajó: subió — el correo un 104%, la mensajería un 145% (ActivTrak Productivity Lab, 2026).",
     },
     mechanism: {
       eyebrow: "La diferencia",
@@ -949,9 +1013,9 @@ export const content = {
       ],
     },
     cost: {
-      eyebrow: "Sin rodeos",
-      title: "Déjelo para después y no pasará nada. Ese es justo el problema.",
-      text: "La pérdida nunca llega como una factura. Llega como tardes perdidas y un compañero que, sin ruido, se volvió más rápido que usted. Dos horas por semana son trece días laborables al año. El curso cuesta menos que uno de ellos.",
+      eyebrow: "Hablando claro",
+      title: "Si lo deja para después no pasa nada. Ese es el problema.",
+      text: "La pérdida nunca llega como una factura. Llega como otro año de las mismas tardes, un compañero que en silencio se volvió más rápido que usted, y la pregunta en una entrevista — qué sabe hacer con IA — que volverá a contestar con «bueno, lo he probado». En algún momento esto deja de ser una ventaja y pasa a darse por supuesto, como el correo. El curso cuesta menos que una jornada de trabajo.",
       cta: "Empezar esta semana",
     },
     faq: {
@@ -959,36 +1023,44 @@ export const content = {
       title: "Lo que más preguntan",
       items: [
         {
-          q: "¿Y si no soy capaz?",
-          a: "Una persona lee su trabajo: si no sale, le muestran exactamente dónde y le dan otra oportunidad. Y se empieza desde abajo del todo: si nunca ha usado IA, el primer nivel está escrito para usted.",
+          q: "Ya lo probé y no me salió. ¿Por qué iba a salirme ahora?",
+          a: "No le salió no porque no sea capaz, sino porque preguntaba cuando había que encargar. La diferencia se ve en la primera clase: la misma petición, reescrita sobre cuatro puntos, da otra respuesta. Después solo lo repite sobre su propio trabajo.",
         },
         {
-          q: "¿Quién lo enseña?",
-          a: "Una profesora que ha trabajado con IBM, Amazon, OpenAI y Anthropic. Es la misma que lee y corrige sus tareas.",
+          q: "Esto está gratis en cualquier sitio.",
+          a: "Gratis está el material. No lo están dos cosas: el orden en que recorrerlo y una persona que mire qué le salió a usted. Un vídeo además no se puede copiar: enseña el resultado y esconde la petición. Eso ya lo ha comprobado, o no estaría leyendo esto.",
         },
         {
-          q: "Esto está gratis en YouTube.",
-          a: "Lo está: a trozos, sin orden y sin nadie que le diga en qué se equivocó. Aquí paga el orden, las tareas sobre su propio trabajo y la revisión. Si tiene 200 horas libres, YouTube funciona de verdad.",
+          q: "No tengo tiempo para un curso.",
+          a: "No tiene tiempo precisamente porque se lo come aquello por lo que ha venido. El curso va a su ritmo, no hay plazos, y para los realmente ocupados está el bonus de 49 minutos: el cuadro completo, comprimido.",
         },
         {
-          q: "No soy nada técnico.",
-          a: "Aquí no se programa en ningún momento. Si sabe usar un navegador, puede. Solo les cuesta a quienes no hacen las tareas.",
+          q: "Yo no soy nada técnico.",
+          a: "Aquí no se programa en ningún momento. La primera parte explica qué ocurre por dentro, en palabras corrientes y sin fórmulas. Si nunca ha usado IA, está escrita exactamente para usted.",
         },
         {
-          q: "No tengo tiempo.",
-          a: "Va a su ritmo y el acceso se queda con usted. Si de verdad no hay tiempo, empiece por el bonus de 49 minutos: da el cuadro completo en una tarde.",
+          q: "¿Quién corrige las tareas? ¿No será un bot?",
+          a: "La profesora. La misma persona que dio la clase lee lo que usted montó y le señala por dónde se va a romper. La parte siguiente no se abre hasta entregar la anterior: por eso aquí no se puede comprar y no hacerlo.",
         },
         {
-          q: "¿Hace falta una suscripción de pago?",
-          a: "Se puede empezar gratis. Donde un plan de pago ayuda, se lo decimos antes de que gaste nada.",
+          q: "No puedo pegar datos de la empresa, así que no me sirve.",
+          a: "Qué se puede entregar y qué no es un tema propio dentro del curso. Lo resuelve una vez y después trabaja tranquilo en lugar de adivinar cada vez. Puede empezar por tareas que no llevan ningún dato de la empresa.",
         },
         {
-          q: "Ya uso ChatGPT todos los días.",
-          a: "Entonces empiece por el nivel Intermediate. Los que vienen así suelen sacar más: llegan con trabajo real y ven cuánto siguen haciendo a mano.",
+          q: "¿Quién imparte el curso? No hay nombre.",
+          a: "Una profesora que ha trabajado con IBM, Amazon, OpenAI y Anthropic. No publicamos el nombre: es su condición. La experiencia se comprueba en el único sitio donde comprobarla significa algo: en la primera corrección de su propio trabajo.",
         },
         {
-          q: "¿Qué pasa después de dejar mis datos?",
-          a: "Le escribe una persona: cuándo puede empezar y cómo entrar. Sin embudos ni llamadas.",
+          q: "En la página no hay ni una opinión de alumnos.",
+          a: "A propósito. No pondremos ninguna hasta que sean reales, con nombre y con permiso de la persona. Las opiniones inventadas son un delito, no marketing.",
+        },
+        {
+          q: "Si no me gusta, ¿me devuelven el dinero?",
+          a: "No damos garantías ni prometemos devolución aparte. En su lugar usted ve antes de comprar exactamente qué se lleva: el contenido, ejemplos de plantillas y las respuestas reales que producen.",
+        },
+        {
+          q: "¿Para quién no es esto?",
+          a: "Si busca un botón mágico donde no haya que hacer nada, no es esto: aquí hay tareas y las revisa una persona. Si necesita una garantía de resultados, no la hay. Si quiere una carpeta de vídeos para comprarla y no abrirla, aquí no va a funcionar.",
         },
       ],
     },
@@ -1105,22 +1177,50 @@ export const content = {
       title: "Вы знаете, что ИИ мог бы это сделать. И всё равно делаете сами.",
       items: [
         {
-          q: "Смотрели видео про ИИ, а в пустом чате не знаете, что написать.",
-          a: "Видео показывают кнопки. Никто не показывает, как довести вашу задачу до готового результата.",
+          q: "Спрашиваю у него — получаю гладкую воду, которую всё равно переписывать самому.",
+          a: "Вы задали тему. Задание выглядит иначе: кто читает, откуда брать факты, в каком виде нужен ответ. Тот же вопрос — другой ответ.",
         },
         {
-          q: "Ответ приходит гладкий и не по делу. Переписываете сами.",
-          a: "Дело не в ИИ, а в том, как вы просите. Этому учатся за пару часов.",
+          q: "Вечер вторника — те же цифры, те же слова. И так каждую неделю.",
+          a: "Это пишется один раз и дальше просто запускается. Приём забывается, заготовка — нет.",
         },
         {
-          q: "Каждый понедельник — тот же отчёт, та же сводка.",
-          a: "Это можно отдать один раз и больше никогда не делать руками.",
+          q: "Один раз получилось отлично. Повторить не смог — не помню, что тогда написал.",
+          a: "Потому что это был приём, а не заготовка. Заготовка лежит у вас и работает через полгода, когда вы забыли, как её сделали.",
         },
         {
-          q: "Коллега успевает за час то, на что у вас уходит день.",
-          a: "Он не умнее. У него есть заготовки. Свои вы соберёте здесь.",
+          q: "Парень младше меня делает то же самое за час. Спросить как — неловко.",
+          a: "Он не умнее. У него есть заготовки под его работу. Свои вы соберёте здесь, на своих задачах.",
+        },
+        {
+          q: "Открыл, потыкал, закрыл. И так третий раз за год.",
+          a: "Вы бросали не из-за дисциплины. Без метода работы становится больше — это замеряли, и цифра ниже.",
         },
       ],
+    },
+    flop: {
+      eyebrow: "Почему не вышло",
+      title: "Вы делали разумные вещи. Просто каждая отвечает не на тот вопрос.",
+      lede: "Четыре способа, которыми пробуют почти все. Каждый выглядит логично — и каждый ломается в одном и том же месте.",
+      items: [
+        {
+          q: "Смотрели бесплатные ролики.",
+          a: "Ролик показывает результат и прячет запрос. Вы видите готовый ответ и не видите, что именно попросили. Повторить по ролику нельзя в принципе — это не обучение, это демонстрация.",
+        },
+        {
+          q: "Скачали список из пятисот промптов.",
+          a: "Список промптов — это чужие задачи. Ваша в него не попадает никогда: его писали под среднего человека, которого не существует. Пятьсот чужих формулировок не заменяют одной своей.",
+        },
+        {
+          q: "Решили просто начать пользоваться каждый день.",
+          a: "Самая разумная на вид идея и самая коварная: инструмент без метода не сокращает работу, а добавляет её. Это замеряли — цифра под списком.",
+        },
+        {
+          q: "Попросили знакомого айтишника показать.",
+          a: "Он показал за десять минут — так, как понятно ему. И пропустил ровно то место, где застреваете вы, потому что для него оно очевидное.",
+        },
+      ],
+      note: "ActivTrak проследил 10 584 человека 180 дней до и после того, как те начали пользоваться ИИ самостоятельно. Время в рабочих приложениях у них не упало, а выросло: почта на 104%, мессенджеры на 145% (ActivTrak Productivity Lab, 2026).",
     },
     mechanism: {
       eyebrow: "В чём разница",
@@ -1465,7 +1565,7 @@ export const content = {
     cost: {
       eyebrow: "Честно",
       title: "Отложите — ничего страшного не случится. В этом и проблема.",
-      text: "Потеря не приходит счётом. Она приходит потерянными вечерами и коллегой, который тихо стал быстрее вас. Два часа в неделю — это тринадцать рабочих дней в год. Курс стоит меньше одного такого дня.",
+      text: "Потеря не приходит счётом. Она приходит ещё одним годом тех же вечеров, коллегой, который тихо стал быстрее вас, и вопросом на собеседовании «что вы умеете с ИИ», на который вы снова ответите «ну, пробовал». В какой-то момент это перестанет быть преимуществом и станет обязательным — как почта. Курс стоит меньше одного рабочего дня.",
       cta: "Начать на этой неделе",
     },
     faq: {
@@ -1473,36 +1573,44 @@ export const content = {
       title: "О чём спрашивают чаще всего",
       items: [
         {
-          q: "А если у меня не получится?",
-          a: "Задания проверяет человек — если не выходит, вам покажут, где именно, и дадут переделать. И начинаете вы с самого низа: если вы никогда не пользовались ИИ, первый трек написан как раз для вас.",
+          q: "Я уже пробовал, у меня не получилось. С чего вдруг получится теперь?",
+          a: "Не получилось не потому, что вы не способны, а потому что вы спрашивали, а надо было поручать. Разница видна на первом же уроке: тот же запрос, переписанный по четырём пунктам, даёт другой ответ. Дальше вы просто повторяете это на своей работе.",
         },
         {
-          q: "Кто ведёт курс?",
-          a: "Преподаватель, работавшая с IBM, Amazon, OpenAI и Anthropic. Она же читает и правит ваши задания.",
+          q: "Это же есть бесплатно.",
+          a: "Бесплатно есть материал. Нет двух вещей: порядка, в котором его проходить, и человека, который посмотрит, что получилось у вас. Ролик вообще устроен так, что повторить по нему нельзя — он показывает результат и прячет запрос. Вы это уже проверили, иначе бы сейчас это не читали.",
         },
         {
-          q: "Это же есть бесплатно на YouTube.",
-          a: "Есть — кусками, без порядка, и без человека, который скажет, что вы сделали не так. Вы платите за порядок, задания на своей работе и проверку. Если у вас есть 200 свободных часов — YouTube честно работает.",
+          q: "У меня нет времени на курс.",
+          a: "Времени нет как раз потому, что его съедает то, ради чего вы сюда и пришли: по замеру НАФИ и «Яндекс 360» каждый третий офисный сотрудник тратит на рутину от двух до четырёх часов рабочего дня. Курс идёт в вашем темпе, дедлайнов нет, а для совсем занятых есть бонус на 49 минут — сжатый проход по сути.",
         },
         {
           q: "Я совсем не технарь.",
-          a: "Программирования здесь нет нигде. Умеете пользоваться браузером — справитесь. Тяжело только тем, кто не делает задания.",
+          a: "Программировать не нужно нигде. Первая часть объясняет, что вообще происходит внутри, обычными словами и без формул. Если вы никогда не пользовались ИИ — она написана ровно для вас.",
         },
         {
-          q: "У меня нет времени.",
-          a: "Проходите в своём темпе, доступ остаётся у вас. Если времени совсем нет — начните с бонусных 49 минут: там вся картина за один вечер.",
+          q: "Кто проверяет задания? Не бот?",
+          a: "Преподаватель. Тот же человек, который вёл урок, читает вашу работу и показывает, где она сломается. Следующая часть не открывается, пока не сдана предыдущая — именно поэтому здесь нельзя купить и не пройти.",
         },
         {
-          q: "Нужна платная подписка?",
-          a: "Начать можно бесплатно. Где платная удобнее — скажем заранее, до того как вы что-то потратите.",
+          q: "Мне нельзя вставлять рабочие данные, значит смысла нет.",
+          a: "Что можно отдавать, а что нельзя — отдельная тема внутри курса. Вы разбираетесь один раз и дальше работаете спокойно, а не гадаете каждый раз. Начать можно с задач, где данных компании нет вовсе: своя переписка, планирование, разбор публичных документов.",
         },
         {
-          q: "Я и так пользуюсь ChatGPT каждый день.",
-          a: "Тогда начинайте с трека Intermediate. Такие обычно выносят больше всех: приходят с настоящими задачами и видят, сколько всё ещё делают руками.",
+          q: "Кто ведёт курс? Имени нет.",
+          a: "Преподаватель, работавшая с IBM, Amazon, OpenAI и Anthropic. Имя публично не называем — её условие. Проверить опыт можно там, где это единственно и имеет смысл: в первом же разборе вашей работы.",
         },
         {
-          q: "Что после заявки?",
-          a: "Вам напишет человек: когда можно начать и как попасть на обучение. Без автоворонок и звонков.",
+          q: "На сайте нет ни одного отзыва.",
+          a: "Их нет намеренно. Мы не поставим ни одного, пока нет настоящих — с именем и разрешением человека. Придуманные отзывы — это статья, а не маркетинг.",
+        },
+        {
+          q: "А если не понравится, деньги вернёте?",
+          a: "Гарантий мы не даём и возврат отдельно не обещаем. Вместо этого вы видите до покупки, что именно получаете: состав, примеры заготовок и настоящие ответы, которые они дают.",
+        },
+        {
+          q: "Кому это не подойдёт?",
+          a: "Если вы ищете волшебную кнопку, где ничего не надо делать — мимо: здесь есть задания, и их проверяет живой человек. Если вам нужна гарантия результата — её нет. Если вы хотите папку с видео, чтобы купить и не проходить, — здесь так не выйдет.",
         },
       ],
     },

@@ -255,6 +255,33 @@ export default function Landing({
           </div>
         </section>
 
+        {/* ---------------- why it did not take ----------------
+            Straight out of the research: the four routes this audience
+            actually tried before arriving here. The page had nothing between
+            "here is your problem" and "here is the answer", which is the one
+            place a reader decides whether the answer is for them. */}
+        <section className="section">
+          <div className="shell">
+            <p className="eyebrow rv">{c.flop.eyebrow}</p>
+            <h2 className="h2 rv">{c.flop.title}</h2>
+            <p className="lede rv">{c.flop.lede}</p>
+
+            <div className="pains">
+              {c.flop.items.map((it, i) => (
+                <div className="pain rv" key={it.q}>
+                  <span className="pain-n" aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <q>{it.q}</q>
+                  <p>{it.a}</p>
+                </div>
+              ))}
+            </div>
+
+            <p className="note rv">{c.flop.note}</p>
+          </div>
+        </section>
+
         {/* ---------------- what you build, and how it is taught ----------
             These were two sections making the same argument: one said you
             build setups and a teacher checks them, the other said lessons
