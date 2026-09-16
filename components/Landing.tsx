@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { content, type Lang } from "@/lib/content";
 import { LANGS, LANG_COOKIE, LANG_COOKIE_MAX_AGE, LANG_LABEL } from "@/lib/i18n";
 import AssemblyScene from "./AssemblyScene";
@@ -55,6 +55,17 @@ export default function Landing({
   const lang = preview ? previewLang : initialLang;
   const c = content[lang];
   const example = c.demo.tabs[tab];
+
+  /* On a server the middleware picks the language before the page is even
+     sent. A static build has no middleware, so the one file has to do it
+     itself, once, from the browser's own setting. */
+  useEffect(() => {
+    if (!preview) return;
+    const want = (navigator.languages ?? [navigator.language ?? ""])
+      .map((t) => t.slice(0, 2).toLowerCase())
+      .find((t): t is Lang => LANGS.includes(t as Lang));
+    if (want) setPreviewLang(want);
+  }, [preview]);
 
   useDepthEffects(lang);
   useTypewriter("hero-ask", "hero-out", c.demo.tabs[0].good.prompt);

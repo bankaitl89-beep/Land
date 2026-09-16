@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "preview": "node scripts/build-preview.mjs"
+    "preview": "node scripts/build-preview.mjs",
+    "static": "node scripts/build-static.mjs"
   },
   "dependencies": {
     "next": "15.5.4",

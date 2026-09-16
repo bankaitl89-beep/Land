@@ -10,6 +10,25 @@ type Props = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+/* Where a lead goes.
+ *
+ * Unset — the default — and it goes to this project's own /api/lead, which
+ * needs a server and forwards to Telegram. Set it to a form service's URL and
+ * the page posts straight there instead, which is what lets the whole landing
+ * ship as static files: no server of ours, no secret in the page.
+ *
+ * NEXT_PUBLIC_LEAD_EXTRA is merged into the body, for services that want a
+ * key alongside the fields (Web3Forms calls it access_key). Those keys are
+ * public by design — they only permit delivery to the address that owns them.
+ */
+const ENDPOINT = process.env.NEXT_PUBLIC_LEAD_ENDPOINT || "/api/lead";
+let EXTRA: Record<string, string> = {};
+try {
+  EXTRA = JSON.parse(process.env.NEXT_PUBLIC_LEAD_EXTRA || "{}");
+} catch {
+  /* a malformed value must not take the form down with it */
+}
+
 export default function LeadForm({ copy, lang }: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,13 +48,15 @@ export default function LeadForm({ copy, lang }: Props) {
 
     setState("sending");
     try {
-      const res = await fetch("/api/lead", {
+      const res = await fetch(ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
+          ...EXTRA,
           name: name.trim(),
           email: email.trim(),
           lang,
+          page: typeof location === "undefined" ? "" : location.href,
           company,
         }),
       });
