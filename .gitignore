@@ -29,3 +29,8 @@ next-env.d.ts
 # generated static preview build
 /preview/
 tsconfig.tsbuildinfo
+
+# the receiver's own secrets and its records
+deploy/lead.config.php
+deploy/leads.log
+deploy/leads.log.rate
