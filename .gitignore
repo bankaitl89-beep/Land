@@ -34,3 +34,5 @@ tsconfig.tsbuildinfo
 deploy/lead.config.php
 deploy/leads.log
 deploy/leads.log.rate
+dist/
+prompta-landing.zip

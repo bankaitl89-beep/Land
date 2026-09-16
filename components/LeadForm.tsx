@@ -21,7 +21,22 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
  * key alongside the fields (Web3Forms calls it access_key). Those keys are
  * public by design — they only permit delivery to the address that owns them.
  */
-const ENDPOINT = process.env.NEXT_PUBLIC_LEAD_ENDPOINT || "/api/lead";
+declare global {
+  interface Window {
+    LEAD_ENDPOINT?: string;
+  }
+}
+
+/* Read at submit time, not at load: a built landing is handed to whoever
+   deploys it, and they should not need Node and this repository to change one
+   URL. config.js next to the page sets window.LEAD_ENDPOINT, and editing that
+   one line is the whole job. */
+function endpointNow(): string {
+  if (typeof window !== "undefined" && window.LEAD_ENDPOINT) {
+    return window.LEAD_ENDPOINT;
+  }
+  return process.env.NEXT_PUBLIC_LEAD_ENDPOINT || "/api/lead";
+}
 let EXTRA: Record<string, string> = {};
 try {
   EXTRA = JSON.parse(process.env.NEXT_PUBLIC_LEAD_EXTRA || "{}");
@@ -48,7 +63,7 @@ export default function LeadForm({ copy, lang }: Props) {
 
     setState("sending");
     try {
-      const res = await fetch(ENDPOINT, {
+      const res = await fetch(endpointNow(), {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
