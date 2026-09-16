@@ -65,6 +65,38 @@ if (!me.ok) {
 }
 console.log(`\n  ✓ Token works. Bot: @${me.data.result.username}`);
 
+/* Whoever has written to the bot in the last 24 hours shows up here, with the
+   id that TELEGRAM_CHAT_ID is supposed to be. It is the only way to find that
+   number without guessing, and a wrong one is the usual reason a bot that is
+   otherwise fine delivers nothing. Reading updates does not consume them —
+   they are only cleared by confirming a higher offset, which this never does. */
+async function knownChats() {
+  const res = await fetch(`https://api.telegram.org/bot${token}/getUpdates?limit=100`, {
+    signal: AbortSignal.timeout(10_000),
+  }).catch(() => null);
+  const data = await res?.json().catch(() => null);
+  if (!data?.ok) return null; // a webhook is set (409), or nothing to read
+  const seen = new Map();
+  for (const u of data.result) {
+    const c = (u.message ?? u.channel_post ?? u.my_chat_member)?.chat;
+    if (c) seen.set(String(c.id), c.title ?? [c.first_name, c.last_name].filter(Boolean).join(" ") ?? c.username ?? "");
+  }
+  return seen;
+}
+
+const chats = await knownChats();
+if (chats?.size) {
+  console.log("\n    Chats that have written to this bot recently:");
+  for (const [id, who] of chats) {
+    const mark = id === String(chatId) ? "  ← your TELEGRAM_CHAT_ID" : "";
+    console.log(`      ${id}${who ? `  (${who})` : ""}${mark}`);
+  }
+  if (!chats.has(String(chatId))) {
+    console.log(`\n    TELEGRAM_CHAT_ID is ${chatId}, which is not among them.`);
+    console.log("    If the send below fails, one of the ids above is the right value.");
+  }
+}
+
 const sent = await call("sendMessage", {
   chat_id: chatId,
   text: "<b>Prompta aut perire</b>\nDelivery check — if you are reading this, leads will arrive here.",
