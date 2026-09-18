@@ -13,6 +13,11 @@ const meta: Record<Lang, { title: string; description: string }> = {
     description:
       "Six parts, from knowing nothing to running your own agents. Homework on your own real work, reviewed by a live teacher. No coding, at your own pace.",
   },
+  de: {
+    title: "Prompta aut perire — KI im Job, richtig unterrichtet",
+    description:
+      "Sechs Teile, von null bis zu eigenen Agenten. Aufgaben an Ihrer echten Arbeit, korrigiert von einer echten Dozentin. Ohne Programmieren, in Ihrem Tempo.",
+  },
   es: {
     title: "Prompta aut perire — IA en el trabajo, enseñada de verdad",
     description:

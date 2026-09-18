@@ -12,10 +12,13 @@
 import { chromium } from "playwright";
 import { writeFileSync } from "node:fs";
 
+// The card carries the page's own headline, so a shared link and the page
+// it opens say the same thing. Change the hero and this changes with it.
 const COPY = {
-  en: { line: ["Learn to hand AI", "the work you are still", "doing by hand."], tag: "Six parts · homework on your own work · reviewed by a teacher" },
-  es: { line: ["Aprenda a pasarle a la IA", "el trabajo que sigue", "haciendo a mano."], tag: "Seis partes · tareas sobre su trabajo · corregidas por una profesora" },
-  ru: { line: ["Научитесь поручать ИИ", "то, что вы до сих пор", "делаете руками."], tag: "Шесть частей · задания на вашей работе · разбор преподавателем" },
+  en: { line: ["You are asking AI.", "You need to be", "assigning."], tag: "Six parts · homework on your own work · reviewed by a teacher" },
+  de: { line: ["Sie fragen die KI.", "Sie müssen", "beauftragen."], tag: "Sechs Teile · Aufgaben an Ihrer Arbeit · von einer Dozentin korrigiert" },
+  es: { line: ["Usted le pregunta a la IA.", "Y hay que", "encargarle."], tag: "Seis partes · tareas sobre su trabajo · corregidas por una profesora" },
+  ru: { line: ["Вы спрашиваете у ИИ.", "А надо —", "поручать."], tag: "Шесть частей · задания на вашей работе · разбор преподавателем" },
 };
 
 const page = (c) => `<!doctype html><meta charset=utf8>

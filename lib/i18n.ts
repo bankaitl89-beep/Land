@@ -1,11 +1,12 @@
 import type { Lang } from "./content";
 
-export const LANGS: Lang[] = ["en", "es", "ru"];
+export const LANGS: Lang[] = ["en", "de", "es", "ru"];
 export const DEFAULT_LANG: Lang = "en";
 
 /** Short label shown in the header switch. */
 export const LANG_LABEL: Record<Lang, string> = {
   en: "EN",
+  de: "DE",
   es: "ES",
   ru: "RU",
 };
@@ -19,10 +20,10 @@ export function isLang(value: string | undefined): value is Lang {
 }
 
 /**
- * Picks a language from an Accept-Language header. Spanish and Russian
- * speakers get their own version; everyone else gets English. Quality
- * values are honoured, so "de,es;q=0.8" lands on Spanish rather than
- * English-by-default.
+ * Picks a language from an Accept-Language header. German, Spanish and
+ * Russian speakers get their own version; everyone else gets English.
+ * Quality values are honoured, so "fr,es;q=0.8" lands on Spanish rather
+ * than English-by-default.
  */
 export function langFromAcceptHeader(header: string | null): Lang {
   if (!header) return DEFAULT_LANG;

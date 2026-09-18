@@ -15,7 +15,7 @@ import {
 import { join } from "node:path";
 
 const root = process.cwd();
-const LANGS = ["en", "es", "ru"];
+const LANGS = ["en", "de", "es", "ru"];
 const PREVIEW_LANGS = ["en"];
 
 // Preview file names: English is the entry page, the others sit beside it.

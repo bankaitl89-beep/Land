@@ -92,7 +92,7 @@ writeFileSync(
 
 cpSync(join(root, "public/fonts"), join(front, "fonts"), { recursive: true });
 cpSync(join(root, "app/icon.svg"), join(front, "icon.svg"));
-for (const lang of ["en", "es", "ru"]) {
+for (const lang of ["en", "de", "es", "ru"]) {
   cpSync(join(root, `public/og-${lang}.png`), join(front, `og-${lang}.png`));
 }
 
