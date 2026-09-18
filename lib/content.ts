@@ -588,7 +588,7 @@ export const content = {
     form: {
       title: "Apply now",
       sub: "Name and email. A person replies, usually the same day.",
-      tierLabel: "Chosen option",
+      tierLabel: "Choose your option",
       name: "Name",
       namePh: "Alex Morgan",
       email: "Email",
@@ -1195,7 +1195,7 @@ export const content = {
     form: {
       title: "Anfrage senden",
       sub: "Name und E-Mail. Ein Mensch antwortet, meist noch am selben Tag.",
-      tierLabel: "Gewählte Variante",
+      tierLabel: "Variante wählen",
       name: "Name",
       namePh: "Anna Weber",
       email: "E-Mail",
@@ -1801,7 +1801,7 @@ export const content = {
     form: {
       title: "Dejar mis datos",
       sub: "Nombre y correo. Le responde una persona, normalmente el mismo día.",
-      tierLabel: "Opción elegida",
+      tierLabel: "Elija su opción",
       name: "Nombre",
       namePh: "Ana García",
       email: "Correo",
@@ -2408,7 +2408,7 @@ export const content = {
     form: {
       title: "Оставить заявку",
       sub: "Имя и почта. Вам ответит человек — обычно в тот же день.",
-      tierLabel: "Выбранный вариант",
+      tierLabel: "Выберите вариант",
       name: "Имя",
       namePh: "Мария Иванова",
       email: "Почта",

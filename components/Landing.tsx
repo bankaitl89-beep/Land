@@ -735,13 +735,9 @@ export default function Landing({
               <LeadForm
                 copy={c.form}
                 lang={lang}
+                tiers={c.pricing.tiers}
                 tierId={tierId}
-                tierName={
-                  c.pricing.tiers.find((t) => t.id === tierId)?.name ?? tierId
-                }
-                tierPrice={
-                  c.pricing.tiers.find((t) => t.id === tierId)?.price ?? ""
-                }
+                onTier={setTierId}
               />
             </div>
           </div>

@@ -3,15 +3,22 @@
 import { useState } from "react";
 import type { Copy, Lang } from "@/lib/content";
 
+type Tier = {
+  id: string;
+  name: string;
+  price: string;
+  soldOut?: string;
+};
+
 type Props = {
   copy: Copy["form"];
   lang: Lang;
-  /** Which pricing option the visitor pressed, and its name in their
-      language. Both travel with the lead: an id survives a rename, a name
-      is what a human reads in the alert. */
+  /** The same three options as the cards above, so the choice can be made
+      or changed here without scrolling back up. Pressing a card's button
+      only preselects a row; nothing is decided for the visitor. */
+  tiers: readonly Tier[];
   tierId: string;
-  tierName: string;
-  tierPrice: string;
+  onTier: (id: string) => void;
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -50,7 +57,8 @@ try {
   /* a malformed value must not take the form down with it */
 }
 
-export default function LeadForm({ copy, lang, tierId, tierName, tierPrice }: Props) {
+export default function LeadForm({ copy, lang, tiers, tierId, onTier }: Props) {
+  const chosen = tiers.find((t) => t.id === tierId);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   // the honeypot: hidden from people, irresistible to bots
@@ -78,7 +86,9 @@ export default function LeadForm({ copy, lang, tierId, tierName, tierPrice }: Pr
           email: email.trim(),
           lang,
           tier: tierId,
-          tierName,
+          // Name and price together: the id is for us, this line is what a
+          // human reads in the alert without looking anything up.
+          tierName: chosen ? `${chosen.name} — ${chosen.price}` : tierId,
           page: typeof location === "undefined" ? "" : location.href,
           company,
         }),
@@ -118,12 +128,26 @@ export default function LeadForm({ copy, lang, tierId, tierName, tierPrice }: Pr
         />
       </div>
 
-      <p className="form-tier">
-        <span>{copy.tierLabel}</span>
-        <b>
-          {tierName} — {tierPrice}
-        </b>
-      </p>
+      <fieldset className="pick">
+        <legend>{copy.tierLabel}</legend>
+        {tiers.map((t) => {
+          const out = Boolean(t.soldOut);
+          return (
+            <label key={t.id} className="pick-row" data-out={out || undefined}>
+              <input
+                type="radio"
+                name="tier"
+                value={t.id}
+                checked={tierId === t.id}
+                disabled={out}
+                onChange={() => onTier(t.id)}
+              />
+              <span className="pick-name">{t.name}</span>
+              <span className="pick-price">{out ? t.soldOut : t.price}</span>
+            </label>
+          );
+        })}
+      </fieldset>
 
       <div className="field">
         <label htmlFor="lead-name">{copy.name}</label>

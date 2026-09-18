@@ -3446,31 +3446,111 @@ body:not(.anim) .compare {
   text-align: center;
 }
 
-.form-tier {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 14px;
-  margin: 0 0 18px;
-  padding-bottom: 14px;
+/* ---- choosing the option inside the form --------------------------------
+   The cards' buttons preselect a row here, but the choice stays open: a
+   visitor who scrolled straight to the form must not find it already
+   decided for them with no way to change it. Real radios, so the keyboard
+   and a screen reader get the group for free. */
+.pick {
+  border: 0;
+  margin: 0 0 20px;
+  padding: 0 0 6px;
   border-bottom: 1px solid var(--line);
-  font-size: 14px;
 }
 
-.form-tier span {
+.pick legend {
   font-family: var(--m);
   font-size: 10.5px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--mute2);
+  padding: 0;
+  margin-bottom: 12px;
 }
 
-.form-tier b {
+.pick-row {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  margin-bottom: 8px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  cursor: pointer;
+  transition:
+    border-color 0.16s ease,
+    background 0.16s ease;
+}
+
+.pick-row:hover:not([data-out]) {
+  border-color: rgba(255, 106, 61, 0.4);
+}
+
+.pick-row:has(input:checked) {
+  border-color: rgba(255, 106, 61, 0.55);
+  background: rgba(255, 106, 61, 0.09);
+}
+
+.pick-row input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border: 1px solid var(--line2);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.pick-row input::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--acc);
+  transform: scale(0);
+  transition: transform 0.14s ease;
+}
+
+.pick-row input:checked {
+  border-color: var(--acc);
+}
+
+.pick-row input:checked::after {
+  transform: scale(1);
+}
+
+.pick-name {
+  font-size: 14.6px;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.pick-price {
   font-family: var(--d);
   font-weight: 700;
   font-size: 15px;
   color: var(--ink);
-  text-align: right;
+  white-space: nowrap;
+}
+
+/* The option that cannot be taken stays visible and stays unreachable. */
+.pick-row[data-out] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pick-row[data-out] input {
+  cursor: not-allowed;
+}
+
+.pick-row[data-out] .pick-price {
+  font-family: var(--m);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--acc-soft);
 }
 
 @media (max-width: 980px) {
