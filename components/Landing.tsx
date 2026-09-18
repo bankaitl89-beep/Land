@@ -52,6 +52,9 @@ export default function Landing({
   const [previewLang, setPreviewLang] = useState<Lang>(initialLang);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [tab, setTab] = useState(0);
+  /* Which tier the visitor pressed. It travels with the lead, because a
+     request that does not say which option was wanted is half a request. */
+  const [tierId, setTierId] = useState("base");
   const lang = preview ? previewLang : initialLang;
   const c = content[lang];
   const example = c.demo.tabs[tab];
@@ -583,7 +586,7 @@ export default function Landing({
             <h2 className="h2 h2--lg rv">{c.cost.title}</h2>
             <p className="cost-text rv">{c.cost.text}</p>
             <a className="btn btn--acc rv" href="#pricing">
-              {c.cost.cta} — {c.pricing.now}
+              {c.cost.cta} — {c.pricing.tiers[0].price}
             </a>
           </div>
         </section>
@@ -656,32 +659,90 @@ export default function Landing({
             <h2 className="h2 h2--lg rv">{c.pricing.title}</h2>
             <p className="lede rv">{c.pricing.sub}</p>
 
-            <div className="buy">
-              <div className="panel panel--lit rv">
-                <i className="trace" aria-hidden="true" />
-                <div className="price">
-                  <span>{c.pricing.now}</span>
-                  <s>{c.pricing.was}</s>
-                  <span className="price-save">{c.hero.save}</span>
-                </div>
+            {/* Three cards, and the course inside them is identical: only
+                the line under the price differs. Repeating the same five
+                bullets three times would hide that, so what is common is
+                said once, underneath. */}
+            <ul className="tiers">
+              {c.pricing.tiers.map((t) => {
+                const out = "soldOut" in t && t.soldOut;
+                return (
+                  <li
+                    key={t.id}
+                    className={`tier rv${out ? " tier--out" : ""}${
+                      t.id === "full" ? " tier--lit" : ""
+                    }`}
+                  >
+                    {t.id === "full" && !out && (
+                      <i className="trace" aria-hidden="true" />
+                    )}
+                    <p className="tier-name">{t.name}</p>
+                    <p className="tier-price">
+                      <span>{t.price}</span>
+                      {"was" in t && t.was && <s>{t.was}</s>}
+                    </p>
+                    {"save" in t && t.save && (
+                      <span className="price-save tier-save">{t.save}</span>
+                    )}
+                    <p className="tier-delta">{t.delta}</p>
+                    <p className="tier-note">{t.note}</p>
 
-                <ul className="incl">
-                  {c.pricing.includes.map((i) => (
-                    <li key={i}>
-                      <i aria-hidden="true">✓</i>
-                      <span>{i}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    {out ? (
+                      <>
+                        <p className="tier-note tier-note--out">{t.outNote}</p>
+                        <button
+                          type="button"
+                          className="btn btn--ghost btn--wide tier-cta"
+                          disabled
+                        >
+                          {t.cta}
+                        </button>
+                        {/* A real band across the card, with real text in it:
+                            a screen reader has to learn this is sold out too. */}
+                        <span className="ribbon">{t.soldOut}</span>
+                      </>
+                    ) : (
+                      <a
+                        className={`btn btn--wide tier-cta ${
+                          t.id === "full" ? "btn--acc" : "btn--ghost"
+                        }`}
+                        href="#lead"
+                        onClick={() => setTierId(t.id)}
+                      >
+                        {t.cta}
+                      </a>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
 
-              <div className="panel rv">
-                <div className="form-head">
-                  <h3 className="h3">{c.form.title}</h3>
-                  <p>{c.form.sub}</p>
-                </div>
-                <LeadForm copy={c.form} lang={lang} />
+            <p className="tiers-common-label">{c.pricing.commonLabel}</p>
+            <ul className="incl incl--row">
+              {c.pricing.common.map((i) => (
+                <li key={i}>
+                  <i aria-hidden="true">✓</i>
+                  <span>{i}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="panel buy-form rv" id="lead">
+              <div className="form-head">
+                <h3 className="h3">{c.form.title}</h3>
+                <p>{c.form.sub}</p>
               </div>
+              <LeadForm
+                copy={c.form}
+                lang={lang}
+                tierId={tierId}
+                tierName={
+                  c.pricing.tiers.find((t) => t.id === tierId)?.name ?? tierId
+                }
+                tierPrice={
+                  c.pricing.tiers.find((t) => t.id === tierId)?.price ?? ""
+                }
+              />
             </div>
 
             {/* No deadline on the discount, and the setups stay yours. Said

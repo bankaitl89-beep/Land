@@ -6,6 +6,12 @@ import type { Copy, Lang } from "@/lib/content";
 type Props = {
   copy: Copy["form"];
   lang: Lang;
+  /** Which pricing option the visitor pressed, and its name in their
+      language. Both travel with the lead: an id survives a rename, a name
+      is what a human reads in the alert. */
+  tierId: string;
+  tierName: string;
+  tierPrice: string;
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -44,7 +50,7 @@ try {
   /* a malformed value must not take the form down with it */
 }
 
-export default function LeadForm({ copy, lang }: Props) {
+export default function LeadForm({ copy, lang, tierId, tierName, tierPrice }: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   // the honeypot: hidden from people, irresistible to bots
@@ -71,6 +77,8 @@ export default function LeadForm({ copy, lang }: Props) {
           name: name.trim(),
           email: email.trim(),
           lang,
+          tier: tierId,
+          tierName,
           page: typeof location === "undefined" ? "" : location.href,
           company,
         }),
@@ -109,6 +117,13 @@ export default function LeadForm({ copy, lang }: Props) {
           onChange={(e) => setCompany(e.target.value)}
         />
       </div>
+
+      <p className="form-tier">
+        <span>{copy.tierLabel}</span>
+        <b>
+          {tierName} — {tierPrice}
+        </b>
+      </p>
 
       <div className="field">
         <label htmlFor="lead-name">{copy.name}</label>

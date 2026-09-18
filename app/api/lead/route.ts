@@ -7,6 +7,8 @@ type Lead = {
   email?: unknown;
   lang?: unknown;
   company?: unknown;
+  tier?: unknown;
+  tierName?: unknown;
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -81,6 +83,9 @@ export async function POST(request: Request) {
   const name = clean(body.name, 120);
   const email = clean(body.email, 160);
   const lang = clean(body.lang, 8) || "en";
+  // Which pricing option was chosen. A request that does not say what the
+  // person wanted to buy is half a request.
+  const tier = clean(body.tierName, 80) || clean(body.tier, 40);
 
   if (name.length < 2) {
     return NextResponse.json({ error: "Name is required." }, { status: 400 });
@@ -103,6 +108,7 @@ export async function POST(request: Request) {
     `<b>Name:</b> ${escapeHtml(name)}`,
     `<b>Email:</b> ${escapeHtml(email)}`,
     `<b>Page language:</b> ${escapeHtml(lang)}`,
+    ...(tier ? [`<b>Option:</b> ${escapeHtml(tier)}`] : []),
     `<b>Received:</b> ${new Date().toISOString().replace("T", " ").slice(0, 16)} UTC`,
   ].join("\n");
 

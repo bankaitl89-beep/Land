@@ -72,6 +72,8 @@ $clean = static fn (mixed $v, int $max): string =>
 $name = $clean($body['name'] ?? '', 120);
 $email = $clean($body['email'] ?? '', 160);
 $lang = $clean($body['lang'] ?? '', 8) ?: 'en';
+// Какой вариант выбрали на странице. Заявка без этого — половина заявки.
+$tier = $clean($body['tierName'] ?? '', 80) ?: $clean($body['tier'] ?? '', 40);
 $page = $clean($body['page'] ?? '', 500);
 $trap = $clean($body['company'] ?? '', 200);
 
@@ -121,6 +123,7 @@ $record = [
     'name' => $name,
     'email' => $email,
     'lang' => $lang,
+    'tier' => $tier,
     'page' => $page,
     'ip' => $ip,
     'ua' => mb_substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 200),
@@ -162,7 +165,8 @@ $text = implode("\n", [
     '<b>Name:</b> ' . $esc($name),
     '<b>Email:</b> ' . $esc($email),
     '<b>Page language:</b> ' . $esc($lang),
-    $page !== '' ? '<b>From:</b> ' . $esc($page) : '',
+    ...($tier !== '' ? ['<b>Option:</b> ' . $esc($tier)] : []),
+    ...($page !== '' ? ['<b>From:</b> ' . $esc($page)] : []),
     '<b>Received:</b> ' . gmdate('Y-m-d H:i') . ' UTC',
 ]);
 

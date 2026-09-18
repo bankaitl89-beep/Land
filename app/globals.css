@@ -18,6 +18,11 @@
      9.5-11px, over the warmest, most lit grounds on the page, with the
      network behind them. Measured there, #949aa6 came in at 4.0:1. */
   --mute2: #a8aeb9;
+  /* Body grey for the bands the network runs brightest behind. Against that
+     lit ground --mute measures 4.3-4.5:1; this clears AA with room to spare.
+     Three rules wanted the same value, so it is a token rather than a third
+     hard-coded hex. */
+  --mute-lit: #adb3bd;
 
   /* Two colours, and they mean different things.
      Warm ember is you: what you write, what you press, what the teacher
@@ -184,7 +189,7 @@ section[id] {
 }
 
 .lede {
-  color: var(--mute);
+  color: var(--mute-lit);
   font-size: clamp(15.5px, 1.3vw, 17.5px);
   line-height: 1.68;
   max-width: 58ch;
@@ -677,9 +682,7 @@ section[id] {
 
 .who dd {
   margin: 0;
-  /* One step lighter than --mute: the network runs bright behind this section,
-     and against the lit ground the shared muted grey measures 4.3:1. */
-  color: #adb3bd;
+  color: var(--mute-lit);
   font-size: 14.5px;
   line-height: 1.55;
 }
@@ -2222,9 +2225,7 @@ body.anim #field {
 }
 
 .cred-note {
-  /* Same reason as .who dd: the network runs bright behind this strip, and
-     against the lit ground the shared muted grey lands a hair under AA. */
-  color: #adb3bd;
+  color: var(--mute-lit);
   font-size: 14.5px;
   line-height: 1.55;
   margin: 10px 0 0;
@@ -3315,3 +3316,212 @@ body:not(.anim) .compare {
   }
 }
 
+/* ---- three tiers --------------------------------------------------------
+   The course inside all three is identical, so the cards are identical too
+   except for one line: what the price buys that the others do not. Equal
+   width and equal weight — nothing here is dressed up as the "right" choice
+   beyond the running light, which marks the middle card without claiming
+   anything about how often it is bought. */
+.tiers {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.tier {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 17px;
+  border: 1px solid var(--line);
+  background: var(--glass);
+  padding: 26px 24px;
+  box-shadow: 0 40px 80px -48px rgba(0, 0, 0, 1);
+}
+
+.tier--lit {
+  border-color: rgba(255, 106, 61, 0.34);
+}
+
+.tier-name {
+  font-family: var(--m);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cool-text);
+  margin: 0 0 14px;
+}
+
+.tier-price {
+  font-family: var(--d);
+  font-weight: 800;
+  font-size: clamp(30px, 3.2vw, 40px);
+  letter-spacing: -0.045em;
+  line-height: 1;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 11px;
+  flex-wrap: wrap;
+}
+
+.tier-price s {
+  font-size: 19px;
+  color: var(--mute2);
+  font-weight: 600;
+}
+
+.tier-save {
+  align-self: flex-start;
+  margin-top: 12px;
+}
+
+/* The one line that actually separates the three. */
+.tier-delta {
+  margin: 18px 0 0;
+  font-size: 15.6px;
+  line-height: 1.5;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.tier-note {
+  margin: 8px 0 0;
+  font-size: 14.2px;
+  line-height: 1.55;
+  color: var(--mute-lit);
+}
+
+.tier-note--out {
+  color: var(--acc-soft);
+}
+
+/* Pushes the button to the bottom so three cards of different text length
+   still line their buttons up. */
+.tier-cta {
+  /* auto pushes the button to the bottom so three cards of different text
+     length still line their buttons up; the gap above it is padding, because
+     a margin here would cancel that. */
+  margin-top: auto;
+  padding-top: 22px;
+  justify-content: center;
+}
+
+/* ---- sold out -----------------------------------------------------------
+   A band across the card, not a badge in a corner: the point is that this
+   option is struck through. The text inside it is real text, so it reaches a
+   screen reader as well as an eye, and the disabled button says the same
+   thing again for anyone who tabs to it. */
+.tier--out {
+  border-style: dashed;
+  border-color: var(--line2);
+}
+
+.tier--out .tier-price,
+.tier--out .tier-delta,
+.tier--out .tier-name {
+  opacity: 0.55;
+}
+
+.ribbon {
+  position: absolute;
+  left: -14%;
+  right: -14%;
+  top: 52%;
+  transform: rotate(-10deg);
+  background: var(--acc);
+  color: #1b0c05;
+  font-family: var(--m);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  text-align: center;
+  padding: 10px 0;
+  box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.95);
+  pointer-events: none;
+}
+
+.tier--out .tier-cta {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---- what all three share ----------------------------------------------- */
+.tiers-common-label {
+  font-family: var(--m);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--mute2);
+  margin: 30px 0 0;
+}
+
+.incl--row {
+  margin-top: 16px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px 30px;
+}
+
+.incl--row li {
+  grid-template-columns: 17px auto;
+}
+
+.buy-form {
+  margin-top: 30px;
+  max-width: 560px;
+}
+
+.form-tier {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 0 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.form-tier span {
+  font-family: var(--m);
+  font-size: 10.5px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--mute2);
+}
+
+.form-tier b {
+  font-family: var(--d);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+  text-align: right;
+}
+
+@media (max-width: 980px) {
+  .tiers {
+    grid-template-columns: 1fr;
+  }
+
+  .ribbon {
+    top: 50%;
+  }
+}
+
+@media (max-width: 640px) {
+  .tier {
+    padding: 22px 18px;
+  }
+
+  .incl--row {
+    flex-direction: column;
+    gap: 11px;
+  }
+}
