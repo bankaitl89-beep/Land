@@ -744,15 +744,6 @@ export default function Landing({
                 }
               />
             </div>
-
-            {/* No deadline on the discount, and the setups stay yours. Said
-                here, under the price, because that is where a reader is
-                looking for the catch. */}
-            <div className="hon rv">
-              <h3>{c.honest.title}</h3>
-              <p>{c.honest.text}</p>
-              <p>{c.honest.keep}</p>
-            </div>
           </div>
         </section>
       </main>

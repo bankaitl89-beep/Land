@@ -3204,47 +3204,6 @@ body:not(.anim) .compare {
   line-height: 1.62;
 }
 
-/* ---- the honest note under the price ------------------------------------
-   Two paragraphs the page has to say out loud: the discount has no deadline,
-   and the setups stay yours. Both are claims a countdown-and-upsell page
-   cannot make, so they are given their own frame rather than a footnote. */
-.hon {
-  margin: 30px auto 0;
-  max-width: 78ch;
-  border: 1px solid var(--line);
-  border-radius: 17px;
-  background: rgba(255, 255, 255, 0.015);
-  padding: 24px 26px;
-}
-
-.hon h3 {
-  font-family: var(--d);
-  font-weight: 700;
-  font-size: 17px;
-  letter-spacing: -0.01em;
-  margin: 0 0 12px;
-  color: var(--fg);
-}
-
-.hon p {
-  margin: 0;
-  color: var(--mute);
-  font-size: 15.4px;
-  line-height: 1.66;
-}
-
-.hon p + p {
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
-  color: var(--mute2);
-}
-
-@media (max-width: 640px) {
-  .hon {
-    padding: 20px 18px;
-  }
-}
 
 /* ---- the doubt section ---------------------------------------------------
    Sits between the hero and the teacher strip, so it is deliberately narrow
@@ -3424,7 +3383,8 @@ body:not(.anim) .compare {
 
 .tier--out .tier-price,
 .tier--out .tier-delta,
-.tier--out .tier-name {
+.tier--out .tier-name,
+.tier--out .tier-save {
   opacity: 0.55;
 }
 
@@ -3473,9 +3433,17 @@ body:not(.anim) .compare {
   grid-template-columns: 17px auto;
 }
 
+/* Centred under the three cards: the tiers are the decision, the form is
+   what you do about it, and putting it off to one side made the section
+   look like it had lost a fourth column. */
 .buy-form {
-  margin-top: 30px;
+  margin: 34px auto 0;
   max-width: 560px;
+  width: 100%;
+}
+
+.buy-form .form-head {
+  text-align: center;
 }
 
 .form-tier {
