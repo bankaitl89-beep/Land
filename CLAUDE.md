@@ -4,9 +4,9 @@
 заявка (имя + почта + выбранный тариф), которая уходит в Telegram. Оплаты на странице нет:
 дальше с человеком связывается живой менеджер.
 
-Живой домен по словам владельца — growthbureau.ai (на 2026-10-13 из песочницы не резолвится).
-В коде бренд и дефолтный SITE_URL — `prompta-aut-perire.vercel.app`; для прода задавать
-`NEXT_PUBLIC_SITE_URL`, иначе canonical, hreflang, sitemap и OG будут указывать на vercel.
+Дефолтный SITE_URL — `prompta-aut-perire.vercel.app`; для прода задавать `NEXT_PUBLIC_SITE_URL`,
+иначе canonical, hreflang, sitemap и OG будут указывать на vercel. (growthbureau.ai — другой
+проект владельца, к этому репозиторию отношения не имеет.)
 
 ## Стек
 
