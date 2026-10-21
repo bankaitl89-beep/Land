@@ -32,6 +32,7 @@ export function CampaignsPage() {
   const [filter, setFilter] = useState<Filter>('active');
   const [open, setOpen] = useState<Record<string, boolean>>({});
   const [budgets, setBudgets] = useState<Record<string, string>>({});
+  const [confirm, setConfirm] = useState<{ n: TreeNode; next: number } | null>(null);
   const { data: nodes, error } = useLoad(() => api.campaigns(period), [period]);
   const { data: actions } = useLoad(() => api.actions(), []);
 
@@ -58,7 +59,15 @@ export function CampaignsPage() {
     const next = Number(raw.replace(/\s/g, '').replace(',', '.'));
     setBudgets(({ [n.id]: _drop, ...rest }) => rest);
     if (!Number.isFinite(next) || next <= 0 || next === n.dailyBudget) return;
-    if (n.dailyBudget && Math.abs(next / n.dailyBudget - 1) > 0.5 && !window.confirm(`Изменить бюджет больше чем на 50%: ${money(n.dailyBudget, s)} → ${money(next, s)}?`)) return;
+    if (n.dailyBudget && Math.abs(next / n.dailyBudget - 1) > 0.5) {
+      setConfirm({ n, next });
+      return;
+    }
+    await commitBudget(n, next);
+  };
+
+  const commitBudget = async (n: TreeNode, next: number) => {
+    setConfirm(null);
     try {
       const a = await api.setBudget(n.id, next);
       if (a.status === 'failed') throw new Error(a.result);
@@ -149,6 +158,16 @@ export function CampaignsPage() {
         onChange={setFilter}
         options={[['all', 'Все'], ['active', 'Активные'], ['problems', `С проблемами · ${problems}`]]}
       />
+
+      {confirm && (
+        <div className="banner" role="alertdialog" aria-label="Подтверждение бюджета" style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+          <span style={{ flex: '1 1 260px' }}>
+            Бюджет «{confirm.n.name}» меняется больше чем на 50%: {money(confirm.n.dailyBudget, s)} → {money(confirm.next, s)}. Резкий скачок может вернуть группы в обучение.
+          </span>
+          <button type="button" className="btn p sm" onClick={() => commitBudget(confirm.n, confirm.next)}>Изменить</button>
+          <button type="button" className="btn sm" onClick={() => setConfirm(null)}>Отмена</button>
+        </div>
+      )}
 
       <section className="card" style={{ overflow: 'hidden' }}>
         <div className="table-wrap">

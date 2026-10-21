@@ -176,8 +176,15 @@ export function AgentPage({ chatId }: { chatId: string | null }) {
     go(`agent/${c.id}`);
   };
 
+  const [armed, setArmed] = useState<string | null>(null);
   const removeChat = async (id: string) => {
-    if (!window.confirm('Удалить чат? Действия в журнале останутся.')) return;
+    // Two clicks: the first arms the button, the second deletes.
+    if (armed !== id) {
+      setArmed(id);
+      window.setTimeout(() => setArmed((a) => (a === id ? null : a)), 3000);
+      return;
+    }
+    setArmed(null);
     await api.deleteChat(id);
     reloadList();
     if (id === chatId) go('agent');
@@ -203,8 +210,15 @@ export function AgentPage({ chatId }: { chatId: string | null }) {
             <a className={`thr ${c.id === chatId ? 'on' : ''}`} href={`#/agent/${c.id}`} aria-current={c.id === chatId ? 'page' : undefined}>
               <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.title}</span>
             </a>
-            <button type="button" className="linkbtn" aria-label={`Удалить чат ${c.title}`} onClick={() => removeChat(c.id)} style={{ color: 'var(--muted)', padding: '0 6px', minHeight: 40 }}>
-              <Icon name="trash" size={16} />
+            <button
+              type="button"
+              className="linkbtn"
+              aria-label={armed === c.id ? `Точно удалить чат ${c.title}` : `Удалить чат ${c.title}`}
+              title={armed === c.id ? 'Нажмите ещё раз, чтобы удалить' : 'Удалить чат'}
+              onClick={() => removeChat(c.id)}
+              style={{ color: armed === c.id ? 'var(--bad)' : 'var(--muted)', padding: '0 6px', minHeight: 40, fontSize: 12 }}
+            >
+              {armed === c.id ? 'Удалить?' : <Icon name="trash" size={16} />}
             </button>
           </div>
         ))}
